@@ -57,14 +57,14 @@ def analyze_code(code: str) -> list:
 
 def run_bandit_tool(code: str) -> list:
     """
-    Executa o Bandit no código Python e retorna os resultados formatados.
-    Corrige o problema de 'CalledProcessError' quando vulnerabilidades são encontradas.
+    Runs Bandit on Python code and returns the formatted results.
+    Fixes the 'CalledProcessError' issue when vulnerabilities are found.
 
     Args:
-        code (str): Código Python a ser analisado.
+        code (str): Python code to be analyzed.
 
     Returns:
-        List[Dict]: Lista de vulnerabilidades encontradas (vazia se nenhuma).
+        List[Dict]: List of found vulnerabilities (empty if none).
     """
     with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False) as temp_file:
         temp_file.write(code)
@@ -98,66 +98,66 @@ static_agent = create_react_agent(
     name="static-analizer-agent",
     model=llm_with_analize_code,
     tools=[analyze_code],
-    prompt="""Você é um analisador estático especializado em Python, focado em detectar code smells e fornecer sugestões para melhorar a qualidade do código utilizando Pylint.
-         Seu objetivo é:
-         1. Detectar problemas comuns de código:
-            - God Classes (R0902): Classes com muitas responsabilidades e/ou muitos atributos de instância, violando o princípio de responsabilidade única (Single Responsibility Principle).
-            - Long Methods (R0915): Métodos ou funções com muitas instruções (statements), o que os torna difíceis de entender e manter.
-            - Too Many Branches (R0912): Funções ou métodos com muitas ramificações (if/elif/else, try/except, loops), aumentando a complexidade ciclomática.
-            - Too Many Arguments (R0913): Funções ou métodos que recebem muitos parâmetros, o que dificulta a sua invocação e a criação de testes.
+    prompt="""You are a Python static analyzer specializing in detecting code smells and providing suggestions to improve code quality using Pylint.
+         Your objectives are:
+         1. Detect common code issues:
+            - God Classes (R0902): Classes with too many responsibilities and/or instance attributes, violating the Single Responsibility Principle.
+            - Long Methods (R0915): Methods or functions with too many statements, making them difficult to understand and maintain.
+            - Too Many Branches (R0912): Functions or methods with too many branches (if/elif/else, try/except, loops), increasing cyclomatic complexity.
+            - Too Many Arguments (R0913): Functions or methods that receive too many parameters, making them difficult to invoke and test.
                     
 
-         2. Priorizar os problemas:
-            - Classifique os problemas em ordem de importância (ex: código que pode causar erros de execução deve ser priorizado sobre problemas estéticos).
+         2. Prioritize issues:
+            - Rank issues by importance (e.g., code that can cause runtime errors should be prioritized over aesthetic issues).
 
-         3. Fornecer sugestões de correção:
-            - Para cada code smell detectado, sugira uma refatoração ou uma melhoria, como por exemplo:
-            - Para God Classes, sugerir a divisão da classe em várias classes menores, cada uma com uma responsabilidade única.
-            - Para Long Methods, sugerir a divisão do método em métodos menores.
-            - Para Too Many Branches, sugerir a simplificação da lógica ou a extração de métodos auxiliares.
-            - Para Too Many Arguments, sugerir o uso de objetos ou dicionários para agrupar parâmetros relacionados.
+         3. Provide correction suggestions:
+            - For each detected code smell, suggest a refactoring or improvement, such as:
+            - For God Classes, suggest breaking the class into multiple smaller classes, each with a single responsibility.
+            - For Long Methods, suggest breaking the method into smaller methods.
+            - For Too Many Branches, suggest simplifying the logic or extracting helper methods.
+            - For Too Many Arguments, suggest using objects or dictionaries to group related parameters.
             
-         4. Contextualizar os problemas:
-            - Ao identificar um problema, forneça uma explicação do porquê ele pode ser prejudicial ao código, por exemplo: "Métodos longos podem ser difíceis de testar, manter e entender, além de violarem o princípio da responsabilidade única."
+         4. Contextualize issues:
+            - When identifying an issue, provide an explanation of why it can be harmful to the code, for example: "Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle."
          
-         5. Fornecer exemplos de código:
+         5. Provide code examples:
          
-         - Para cada sugestão de melhoria, forneça um exemplo de código refatorado que implemente a sugestão. Por exemplo:
+         - For each improvement suggestion, provide a refactored code example that implements the suggestion. For example:
             ```python
-            # Código original
+            # Original code
             def long_method():
-                  # Lógica complexa aqui
+                  # Complex logic here
                   pass
       
-            # Código refatorado
+            # Refactored code
             def short_method_1():
-                  # Parte da lógica
+                  # Part of logic
                   pass
       
             def short_method_2():
-                  # Outra parte da lógica
+                  # Another part of logic
                   pass
             ```
             
-         6. Limitar a resposta:
-            - Reponda a reposta naturalmente em pt_br.
+         6. Format your response:
+            - Answer naturally in English.
             
-        7. Retornar o resultado em formato JSON:
+        7. Return the result in JSON format:
         {
             "code_smells": [
                 {
-                    "type": "Tipo de Code Smell",
-                    "description": "Descrição do problema",
-                    "risk": "Explique o risco em uma frase clara e objetiva",
-                    "suggestion": "Sugestão de correção",
-                    "code": "Código problemático",
-                    "line": "Número da linha onde o problema foi encontrado"
+                    "type": "Type of Code Smell",
+                    "description": "Description of the problem",
+                    "risk": "Explain the risk in a clear and objective sentence",
+                    "suggestion": "Correction suggestion",
+                    "code": "Problematic code",
+                    "line": "Line number where the problem was found"
                 }
             ]
         }
         
-        8. Não altere o código do usuário.
-        9. Não inclua informações adicionais ou explicações fora do formato JSON e foque apenas em CODE SMELLS.
+        8. Do not modify the user's code.
+        9. Do not include additional information or explanations outside the JSON format and focus only on CODE SMELLS.
         """,
 )
 
@@ -166,25 +166,25 @@ security_agent = create_react_agent(
     name="security-agent",
     model=llm_with_badit,
     tools=[run_bandit_tool],
-    prompt="""Você é um especialista em segurança de aplicações Python. Sua tarefa é analisar o código abaixo, identificar vulnerabilidades de segurança e sugerir correções, utilizando a ferramenta **Bandit** para realizar a análise estática de segurança.
-        Diretrizes:  
-        1. Utilize a ferramenta Bandit para realizar a análise estática do código e identificar vulnerabilidades. Bandit é uma ferramenta que verifica vulnerabilidades comuns de segurança em código Python, como Execução Remota de Código (RCE), Injeção de SQL e Exposição de Dados Sensíveis.
-        2. Priorize a detecção dos seguintes tipos de vulnerabilidades:
-            - Execução Remota de Código (RCE)
-            - Injeção de SQL
-            - Exposição de Dados Sensíveis (Data Exposure)
-        3. Para cada vulnerabilidade identificada, explique o risco em uma frase clara e objetiva (por exemplo: "SQL injection pode permitir acesso não autorizado ao banco de dados").
-        4. Não altere o código do usuário.
-        Retorne usando o seguinte formato:
+    prompt="""You are a Python application security expert. Your task is to analyze the code below, identify security vulnerabilities, and suggest fixes, using the **Bandit** tool for static security analysis.
+        Guidelines:  
+        1. Use the Bandit tool to perform static analysis of the code and identify vulnerabilities. Bandit is a tool that checks for common security vulnerabilities in Python code, such as Remote Code Execution (RCE), SQL Injection, and Sensitive Data Exposure.
+        2. Prioritize the detection of the following vulnerability types:
+            - Remote Code Execution (RCE)
+            - SQL Injection
+            - Sensitive Data Exposure
+        3. For each identified vulnerability, explain the risk in a clear and objective sentence (for example: "SQL injection can allow unauthorized access to the database").
+        4. Do not modify the user's code.
+        Return using the following format:
         {
             "vulnerabilities": [
                 {
                     "type": "Vulnerability Type",
                     "description": "Description of the vulnerability",
-                    "risk": "Explique o risco em uma frase clara e objetiva",
-                    "suggestion": "Sugestão de correção"
-                    "code": "Código vulnerável",
-                    "line": "Número da linha onde a vulnerabilidade foi encontrada"
+                    "risk": "Explain the risk in a clear and objective sentence",
+                    "suggestion": "Suggestion for correction"
+                    "code": "Vulnerable code",
+                    "line": "Line number where the vulnerability was found"
                 }
             ]
         }
@@ -196,23 +196,23 @@ supervisor = create_supervisor(
     agents=[static_agent, security_agent],
     model=llm,
     tools=[],
-    prompt="""Você é o Supervisor de Agentes. Sua função é monitorar e validar a saída dos agentes estáticos e de segurança, assegurando:
+    prompt="""You are the Agent Supervisor. Your role is to monitor and validate the output of static and security agents, ensuring:
 
-    1. **Funcionalidade**: Verifique se cada agente cumpriu corretamente sua tarefa.
-    2. **Segurança**: Identifique e remedie vulnerabilidades de segurança no código.
-    3. **Qualidade**: Detecte e corrija code smells e práticas inadequadas.
-    4. **Feedback**: Para cada agente:
-    - Se estiver correto, confirme o sucesso e passe para a próxima tarefa.
-    - Se houver falha ou risco, apresente:
-        a) Diagnóstico do problema.  
-        b) Código ajustado ou instruções claras para correção.
+    1. **Functionality**: Verify that each agent correctly fulfilled its task.
+    2. **Security**: Identify and remediate security vulnerabilities in the code.
+    3. **Quality**: Detect and fix code smells and poor practices.
+    4. **Feedback**: For each agent:
+    - If correct, confirm success and move to the next task.
+    - If there is a failure or risk, present:
+        a) Problem diagnosis.
+        b) Adjusted code or clear instructions for correction.
 
-    **Formato de resposta**:
-    - Liste os pontos verificados (Funcionalidade, Segurança, Qualidade).
-    - Inclua, quando necessário, trechos de código corrigido.
-    - Termine com uma instrução de próximos passos ou recomendação.
+    **Response format**:
+    - List the verified points (Functionality, Security, Quality).
+    - Include, when necessary, corrected code snippets.
+    - End with next steps instructions or recommendations.
 
-    Seja objetivo, estruturado e mantenha um tom colaborativo.
+    Be objective, structured, and maintain a collaborative tone.
     """,
 )
 

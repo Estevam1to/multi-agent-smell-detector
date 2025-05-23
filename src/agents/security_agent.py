@@ -19,14 +19,14 @@ llm = ChatGoogleGenerativeAI(
 
 def run_bandit_tool(code: str) -> list:
     """
-    Executa o Bandit no código Python e retorna os resultados formatados.
-    Corrige o problema de 'CalledProcessError' quando vulnerabilidades são encontradas.
+    Runs Bandit on Python code and returns the formatted results.
+    Fixes the 'CalledProcessError' issue when vulnerabilities are found.
 
     Args:
-        code (str): Código Python a ser analisado.
+        code (str): Python code to be analyzed.
 
     Returns:
-        List[Dict]: Lista de vulnerabilidades encontradas (vazia se nenhuma).
+        List[Dict]: List of found vulnerabilities (empty if none).
     """
     with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False) as temp_file:
         temp_file.write(code)
@@ -46,7 +46,7 @@ def run_bandit_tool(code: str) -> list:
         return []
 
     except json.JSONDecodeError:
-        print(f"Erro ao decodificar JSON do Bandit. STDERR: {result.stderr}")
+        print(f"Error decoding JSON from Bandit. STDERR: {result.stderr}")
         return []
     finally:
         Path(temp_file_path).unlink(missing_ok=True)
@@ -54,13 +54,13 @@ def run_bandit_tool(code: str) -> list:
 
 def write_python_file(code: str) -> str:
     """
-    Escreve o código Python em um arquivo temporário e retorna o caminho do arquivo.
+    Writes Python code to a temporary file and returns the file path.
 
     Args:
-        code (str): Código Python a ser escrito.
+        code (str): Python code to be written.
 
     Returns:
-        None: salva o código em um arquivo.
+        None: saves the code to a file.
     """
     with open("temp_code.py", "w") as temp_file:
         temp_file.write(code)
@@ -73,25 +73,25 @@ security_agent = create_react_agent(
     name="security-agent",
     model=llm_with_bandit,
     tools=[run_bandit_tool],
-    prompt="""Você é um especialista em segurança de aplicações Python. Sua tarefa é analisar o código abaixo, identificar vulnerabilidades de segurança e sugerir correções, utilizando a ferramenta **Bandit** para realizar a análise estática de segurança.
-        Diretrizes:  
-        1. Utilize a ferramenta Bandit para realizar a análise estática do código e identificar vulnerabilidades. Bandit é uma ferramenta que verifica vulnerabilidades comuns de segurança em código Python, como Execução Remota de Código (RCE), Injeção de SQL e Exposição de Dados Sensíveis.
-        2. Priorize a detecção dos seguintes tipos de vulnerabilidades:
-            - Execução Remota de Código (RCE)
-            - Injeção de SQL
-            - Exposição de Dados Sensíveis (Data Exposure)
-        3. Para cada vulnerabilidade identificada, explique o risco em uma frase clara e objetiva (por exemplo: "SQL injection pode permitir acesso não autorizado ao banco de dados").
-        4. Não altere o código do usuário.
-        Retorne usando o seguinte formato:
+    prompt="""You are a Python application security expert. Your task is to analyze the code below, identify security vulnerabilities, and suggest fixes, using the **Bandit** tool for static security analysis.
+        Guidelines:  
+        1. Use the Bandit tool to perform static analysis of the code and identify vulnerabilities. Bandit is a tool that checks for common security vulnerabilities in Python code, such as Remote Code Execution (RCE), SQL Injection, and Sensitive Data Exposure.
+        2. Prioritize the detection of the following vulnerability types:
+            - Remote Code Execution (RCE)
+            - SQL Injection
+            - Sensitive Data Exposure
+        3. For each identified vulnerability, explain the risk in a clear and objective sentence (for example: "SQL injection can allow unauthorized access to the database").
+        4. Do not modify the user's code.
+        Return using the following format:
         {
             "vulnerabilities": [
                 {
                     "type": "Vulnerability Type",
                     "description": "Description of the vulnerability",
-                    "risk": "Explique o risco em uma frase clara e objetiva",
-                    "suggestion": "Sugestão de correção"
-                    "code": "Código vulnerável",
-                    "line": "Número da linha onde a vulnerabilidade foi encontrada"
+                    "risk": "Explain the risk in a clear and objective sentence",
+                    "suggestion": "Suggestion for correction"
+                    "code": "Vulnerable code",
+                    "line": "Line number where the vulnerability was found"
                 }
             ]
         }
