@@ -1,67 +1,24 @@
-import json
-import os
-import subprocess
-import tempfile
-from pathlib import Path
-
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.prebuilt import create_react_agent
 
-API_KEY = os.getenv("GOOGLE_API_KEY")
-
+# Change to absolute imports
+from src.config.settings import Settings
+from src.tools.analyzer_code_tool import run_pylint_tool
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
     temperature=0,
-    google_api_key=API_KEY,
+    google_api_key=Settings().API_KEY,
 )
 
 
-def analyze_code(code: str) -> list:
-    """Analyzes the provided Python code for specific code smells using Pylint.
-    Returns a structured AnalysisResult object.
-    Focuses only on:
-    - God Classes (R0902)
-    - Long Methods (C0301)
-    - Dead Code (W0612)
-    """
-    with tempfile.NamedTemporaryFile(suffix=".py", delete=False) as tmp:
-        tmp.write(code.encode("utf-8"))
-        tmp_path = tmp.name
-
-    try:
-        enable_codes = "R0902,R0915,R0912,R0913"
-
-        pylint_cmd = (
-            f"pylint --exit-zero --output-format=json "
-            f"--enable={enable_codes} "
-            f"--disable=all "
-            f"{tmp_path}"
-        )
-
-        result = subprocess.run(pylint_cmd, shell=True, capture_output=True, text=True)
-
-        if result.stderr:
-            print(f"Error running Pylint: {result.stderr}")
-            return []
-
-        pylint_output = json.loads(result.stdout) if result.stdout else []
-        return pylint_output
-
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        return []
-    finally:
-        Path(tmp_path).unlink(missing_ok=True)
-
-
-llm_with_bandit = llm.bind_tools([analyze_code])
+llm_with_bandit = llm.bind_tools([run_pylint_tool])
 
 
 static_agent = create_react_agent(
     name="static-analizer-agent",
     model=llm_with_bandit,
-    tools=[analyze_code],
+    tools=[run_pylint_tool],
     prompt="""You are a Python static analyzer specializing in detecting code smells and providing suggestions to improve code quality using Pylint.
          Your objectives are:
          1. Detect common code issues:
@@ -124,18 +81,3 @@ static_agent = create_react_agent(
         9. Do not include additional information or explanations outside the JSON format and focus only on CODE SMELLS.
         """,
 )
-
-response = static_agent.invoke(
-    {
-        "messages": [
-            {
-                "role": "user",
-                "content": """
-
-                """,
-            }
-        ]
-    }
-)
-
-print(response["messages"][-1].content)
