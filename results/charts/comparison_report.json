@@ -1,0 +1,66 @@
+{
+  "summary": {
+    "pylint_total": 22,
+    "bandit_total": 61,
+    "agent_static_total": 40,
+    "agent_security_total": 56
+  },
+  "static_analysis": {
+    "pylint_by_type": {
+      "Too Many Arguments": 9,
+      "Too Many Branches": 6,
+      "God Class": 5,
+      "Long Method": 2
+    },
+    "agent_by_type": {
+      "Long Method": 18,
+      "God Class": 10,
+      "Too Many Arguments": 7,
+      "SQL Injection Vulnerability": 3,
+      "Too Many Branches": 1,
+      "Too Many Instance Attributes": 1
+    }
+  },
+  "security_analysis": {
+    "bandit_by_severity": {
+      "MEDIUM": 25,
+      "LOW": 20,
+      "HIGH": 16
+    },
+    "bandit_by_type": {
+      "blacklist": 23,
+      "hardcoded_sql_expressions": 14,
+      "hashlib": 11,
+      "hardcoded_tmp_directory": 4,
+      "subprocess_popen_with_shell_equals_true": 4,
+      "hardcoded_password_string": 2,
+      "set_bad_file_permissions": 2,
+      "yaml_load": 1
+    },
+    "agent_by_type": {
+      "SQL Injection": 15,
+      "Path Traversal": 4,
+      "Use of MD5 hash algorithm": 4,
+      "Command Injection": 3,
+      "Hardcoded credentials": 3,
+      "Sensitive Data Exposure": 3,
+      "Weak hashing algorithm": 2,
+      "XSS vulnerability": 2,
+      "Weak Password Hashing": 2,
+      "Hardcoded Password": 2,
+      "Hardcoded Credentials": 2,
+      "Weak password hashing function": 2,
+      "Hardcoded Secret": 2,
+      "Timing attack": 1,
+      "Use of potentially insecure random module": 1,
+      "Insecure encryption mode": 1,
+      "Weak key derivation function": 1,
+      "Insecure padding method": 1,
+      "Unsafe YAML Load": 1,
+      "Remote Code Execution": 1,
+      "Subprocess with Shell True": 1,
+      "Insecure File Permission": 1,
+      "Use of insecure deserialization": 1
+    }
+  }
+}

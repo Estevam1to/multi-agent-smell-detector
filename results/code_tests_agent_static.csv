@@ -1,0 +1,619 @@
+file,agent,type,description,risk,suggestion,code,line
+code-tests/teste_8.py,static_analyzer,God Class,"The class CryptoUtils has too many responsibilities. It handles random string generation, password hashing, data encryption/decryption, token generation/verification, file encryption/decryption, and downloading/verifying data. This violates the Single Responsibility Principle.","God Classes are difficult to test, maintain, and understand. Changes to one part of the class can have unintended consequences in other parts.","Break the class into multiple smaller classes, each with a single responsibility. For example, create separate classes for password hashing, data encryption, and token management.","class CryptoUtils:
+    def __init__(self):
+        # Hardcoded encryption key (security smell)
+        self.encryption_key = b'ThisIsA16ByteKey'  # insecure fixed key
+        self.iv = b'ThisIsA16ByteIV.'  # insecure fixed IV
+        self.salt = b'SaltySalt12345'  # insecure fixed salt
+        self.iterations = 1000  # too few iterations
+        self.hash_algorithm = 'md5'  # weak hash algorithm (security smell)
+        self.key_cache = {}
+        self.backend = default_backend()",14
+code-tests/teste_8.py,static_analyzer,Long Method,"The method encrypt_data has too many statements. It performs key derivation, cipher creation, data padding, encryption, and base64 encoding. This makes the method difficult to understand and maintain.","Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break the method into smaller methods, each with a single responsibility. For example, create separate methods for key derivation, cipher creation, data padding, and encryption.","    def encrypt_data(self, plaintext, password=None):
+        # Insecure encryption implementation
+        if not plaintext:
+            return None
+            
+        key = self.encryption_key
+        if password:
+            key = self.derive_key(password)
+        
+        # Create cipher with fixed IV (insecure)
+        cipher = Cipher(algorithms.AES(key), modes.CBC(self.iv), backend=self.backend)
+        encryptor = cipher.encryptor()
+        
+        # Pad plaintext to block size (insecure padding)
+        padded_data = self._pad_data(plaintext.encode())
+        
+        # Encrypt
+        ciphertext = encryptor.update(padded_data) + encryptor.finalize()
+        
+        # Return base64 encoded string
+        return base64.b64encode(ciphertext).decode()",65
+code-tests/teste_8.py,static_analyzer,Long Method,"The method decrypt_data has too many statements. It performs key derivation, cipher creation, base64 decoding, decryption, data unpadding and error handling. This makes the method difficult to understand and maintain.","Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break the method into smaller methods, each with a single responsibility. For example, create separate methods for key derivation, cipher creation, base64 decoding, data unpadding, and error handling.","    def decrypt_data(self, ciphertext, password=None):
+        # Insecure decryption implementation
+        if not ciphertext:
+            return None
+            
+        key = self.encryption_key
+        if password:
+            key = self.derive_key(password)
+        
+        # Create cipher with fixed IV (insecure)
+        cipher = Cipher(algorithms.AES(key), modes.CBC(self.iv), backend=self.backend)
+        decryptor = cipher.decryptor()
+        
+        # Decode base64 and decrypt
+        try:
+            encrypted_data = base64.b64decode(ciphertext)
+            decrypted_padded = decryptor.update(encrypted_data) + decryptor.finalize()
+            
+            # Remove padding
+            return self._unpad_data(decrypted_padded).decode()
+        except Exception as e:
+            print(f""Error decrypting data: {str(e)}"")
+            return None",87
+code-tests/teste_8.py,static_analyzer,Long Method,"The method encrypt_file has too many statements. It performs file reading, key derivation, cipher creation, data padding, encryption, and file writing. This makes the method difficult to understand and maintain.","Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break the method into smaller methods, each with a single responsibility. For example, create separate methods for file reading, key derivation, cipher creation, data padding, encryption, and file writing.","    def encrypt_file(self, input_file, output_file, password=None):
+        # File encryption with weak security
+        try:
+            with open(input_file, 'rb') as f:
+                data = f.read()
+            
+            # Encrypt data
+            key = self.encryption_key
+            if password:
+                key = self.derive_key(password)
+            
+            # Create cipher with fixed IV (insecure)
+            cipher = Cipher(algorithms.AES(key), modes.CBC(self.iv), backend=self.backend)
+            encryptor = cipher.encryptor()
+            
+            # Pad data
+            padded_data = self._pad_data(data)
+            
+            # Encrypt
+            ciphertext = encryptor.update(padded_data) + encryptor.finalize()
+            
+            # Write to output file
+            with open(output_file, 'wb') as f:
+                f.write(ciphertext)
+                
+            return True
+        except Exception as e:
+            print(f""Error encrypting file: {str(e)}"")
+            return False",141
+code-tests/teste_8.py,static_analyzer,Long Method,"The method decrypt_file has too many statements. It performs file reading, key derivation, cipher creation, decryption, data unpadding, and file writing. This makes the method difficult to understand and maintain.","Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break the method into smaller methods, each with a single responsibility. For example, create separate methods for file reading, key derivation, cipher creation, decryption, data unpadding, and file writing.","    def decrypt_file(self, input_file, output_file, password=None):
+        # File decryption with weak security
+        try:
+            with open(input_file, 'rb') as f:
+                data = f.read()
+            
+            # Decrypt data
+            key = self.encryption_key
+            if password:
+                key = self.derive_key(password)
+            
+            # Create cipher with fixed IV (insecure)
+            cipher = Cipher(algorithms.AES(key), modes.CBC(self.iv), backend=self.backend)
+            decryptor = cipher.decryptor()
+            
+            # Decrypt
+            decrypted_padded = decryptor.update(data) + decryptor.finalize()
+            
+            # Unpad
+            decrypted_data = self._unpad_data(decrypted_padded)
+            
+            # Write to output file
+            with open(output_file, 'wb') as f:
+                f.write(decrypted_data)
+                
+            return True
+        except Exception as e:
+            print(f""Error decrypting file: {str(e)}"")
+            return False",171
+code-tests/teste_3.py,static_analyzer,God Class,"The class `FileProcessor` has too many responsibilities. It handles file reading, writing, processing (YAML, JSON), format conversion, and cleanup. This violates the Single Responsibility Principle.","God Classes are difficult to maintain, test, and understand. Changes in one responsibility can affect others, leading to unexpected bugs.","Break the `FileProcessor` class into smaller, more focused classes. For example, create separate classes for: File Access (reading/writing), File Processing (YAML, JSON), File Conversion, and File Cleanup.","class FileProcessor:
+    def __init__(self, base_dir=""/tmp/uploads"", temp_dir=""/tmp/processing""):
+        self.base_dir = base_dir
+        self.temp_dir = temp_dir
+        self.processed_files = []
+        self.error_log = []
+        self.config = {""allowed_extensions"": ["".txt"", "".csv"", "".json"", "".yml""]}
+        
+        # Create directories if they don't exist
+        os.makedirs(self.base_dir, exist_ok=True)
+        os.makedirs(self.temp_dir, exist_ok=True)",9
+code-tests/teste_3.py,static_analyzer,Long Method,"The method `cleanup_old_files` is too long and has too many responsibilities. It iterates through files in two directories, checks their age, and attempts to remove them. It also handles errors and counts removed files and errors.","Long methods are difficult to test, maintain, and understand. They violate the Single Responsibility Principle.","Break the `cleanup_old_files` method into smaller methods, each responsible for a single task. For example, create separate methods for: - Walking the directory and identifying old files. - Removing a single file and handling errors. - Counting removed files and errors.","def cleanup_old_files(self, max_age_days=7):
+        # Long method with too many responsibilities (code smell)
+        current_time = os.time.time()
+        count_removed = 0
+        count_errors = 0
+        
+        for root, dirs, files in os.walk(self.base_dir):
+            for file in files:
+                filepath = os.path.join(root, file)
+                file_age = current_time - os.path.getmtime(filepath)
+                age_in_days = file_age / (60 * 60 * 24)
+                
+                if age_in_days > max_age_days:
+                    try:
+                        os.remove(filepath)
+                        count_removed += 1
+                    except Exception as e:
+                        self.error_log.append(f""Error removing old file {filepath}: {str(e)}"")
+                        count_errors += 1
+        
+        # Also clean up temp directory
+        for root, dirs, files in os.walk(self.temp_dir):
+            for file in files:
+                filepath = os.path.join(root, file)
+                file_age = current_time - os.path.getmtime(filepath)
+                age_in_days = file_age / (60 * 60 * 24)
+                
+                if age_in_days > 1:  # More aggressive cleanup for temp files
+                    try:
+                        os.remove(filepath)
+                        count_removed += 1
+                    except Exception as e:
+                        self.error_log.append(f""Error removing temp file {filepath}: {str(e)}"")
+                        count_errors += 1
+        
+        return {""removed"": count_removed, ""errors"": count_errors}",70
+code-tests/teste_1.py,static_analyzer,God Class,"The class UserManager has too many instance attributes, indicating it might be taking on too many responsibilities. This violates the Single Responsibility Principle.","God Classes are hard to maintain, test, and understand. Changes in one part of the class can affect other unrelated parts, leading to unexpected bugs.","Break the UserManager class into smaller, more focused classes. For example, separate user management, email sending, and database interaction into distinct classes.","class UserManager:
+    def __init__(self, db_path, smtp_server, smtp_port, email_user, email_pass, log_file, cache_enabled):
+        self.db_path = db_path
+        self.smtp_server = smtp_server
+        self.smtp_port = smtp_port
+        self.email_user = email_user
+        self.email_pass = email_pass
+        self.log_file = log_file
+        self.cache_enabled = cache_enabled
+        self.cache = {}",3
+code-tests/teste_1.py,static_analyzer,Long Method,"The method process_request has too many lines of code and too many branches, making it hard to understand and maintain.","Long methods are difficult to test, maintain, and understand. They violate the Single Responsibility Principle, as they often perform multiple unrelated tasks.","Break the process_request method into smaller, more focused methods. For example, extract the database query, the update logic, and the delete logic into separate methods.","def process_request(self, action, user_id, user_name=None, email=None, age=None, country=None):
+        # Long Method + Too Many Branches
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        query = f""SELECT * FROM users WHERE id = {user_id}""
+        cursor.execute(query)
+        user = cursor.fetchone()
+
+        if not user:
+            with open(self.log_file, 'a') as log:
+                log.write(f""User {user_id} not found\n"")
+            return False
+
+        if action == 'update':
+            success = self.update_user(user_id, user_name, email, age, country, True, 'system')
+            if success:
+                self.send_email(email, ""Profile updated"", f""Hello {user_name}, your profile was updated."")
+                return True
+            else:
+                return False
+
+        elif action == 'delete':
+            cursor.execute(f""DELETE FROM users WHERE id = {user_id}"")
+            conn.commit()
+            self.send_email(user[2], ""Account deleted"", f""Goodbye {user[1]}"")
+            return True
+
+        else:
+            return False",12
+code-tests/teste_1.py,static_analyzer,Too Many Branches,"The method process_request has too many branches (if/elif/else), increasing its cyclomatic complexity.","High cyclomatic complexity makes the code harder to test and understand. Each branch represents a different execution path, increasing the number of test cases required to ensure full coverage.",Simplify the logic by extracting parts of the conditional logic into separate methods or using a dispatch table (dictionary) to map actions to methods.,"def process_request(self, action, user_id, user_name=None, email=None, age=None, country=None):
+        # Long Method + Too Many Branches
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        query = f""SELECT * FROM users WHERE id = {user_id}""
+        cursor.execute(query)
+        user = cursor.fetchone()
+
+        if not user:
+            with open(self.log_file, 'a') as log:
+                log.write(f""User {user_id} not found\n"")
+            return False
+
+        if action == 'update':
+            success = self.update_user(user_id, user_name, email, age, country, True, 'system')
+            if success:
+                self.send_email(email, ""Profile updated"", f""Hello {user_name}, your profile was updated."")
+                return True
+            else:
+                return False
+
+        elif action == 'delete':
+            cursor.execute(f""DELETE FROM users WHERE id = {user_id}"")
+            conn.commit()
+            self.send_email(user[2], ""Account deleted"", f""Goodbye {user[1]}"")
+            return True
+
+        else:
+            return False",12
+code-tests/teste_1.py,static_analyzer,Too Many Arguments,"The method update_user has too many arguments, making it difficult to invoke and test.","Methods with many arguments are harder to understand and use. It's easy to make mistakes when passing arguments, especially if they are of the same type. It also reduces code readability.",Use an object or a dictionary to group related parameters. This reduces the number of arguments and makes the method easier to use.,"def update_user(self, uid, name, email, age, country, notify, actor):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        sql = ""UPDATE users SET name = '%s', email = '%s', age = %s, country = '%s' WHERE id = %s"" % (
+            name, email, age, country, uid
+        )
+        try:
+            cursor.execute(sql)
+            conn.commit()
+        except Exception as e:
+            with open(self.log_file, 'a') as log:
+                log.write(f""Error updating user {uid}: {e}\n"")
+            return False
+
+        if notify:
+            self.send_email(email, ""Update notice"", f""Your profile was updated by {actor}"")
+        return True",37
+code-tests/teste_5.py,static_analyzer,God Class,"The class `APIClient` has too many instance attributes, which indicates it might be taking on too many responsibilities. This violates the Single Responsibility Principle.","God Classes are difficult to test, maintain, and understand. They often lead to tight coupling and reduced code reusability.","Break the `APIClient` class into smaller, more focused classes. For example, separate authentication, data fetching, and data processing into distinct classes.","class APIClient:
+    def __init__(self):...",16
+code-tests/teste_5.py,static_analyzer,Long Method,The method `get_data` has too many statements. Long methods are hard to understand and maintain.,"Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break down the `get_data` method into smaller, more focused methods. For example, extract the cache handling, the request execution, and the response parsing into separate methods.","def get_data(self, endpoint, params=None):
+
+        if params is None:
+            params = {}
+        
+
+        url = f""{self.base_url}/{endpoint}""
+        if params:
+            query_string = urlencode(params)
+            url = f""{url}?{query_string}""
+        
+        cache_key = url
+        if cache_key in self.cache:
+            if self.debug:
+                print(f""Cache hit for: {url}"")
+            return self.cache[cache_key]
+        
+        tries = 0
+        while tries < self.retry_attempts:
+            try:
+                response = self.session.get(url, headers=self.headers, timeout=self.timeout)
+                self.last_response = response
+                
+                if response.status_code == 200:
+                    if self.debug:
+                        print(f""Response: {response.text}"") 
+                
+                    content_type = response.headers.get(""Content-Type"", """")
+                    if ""application/json"" in content_type:
+                        data = response.json()
+                    elif ""application/xml"" in content_type:
+                        data = ET.fromstring(response.text)
+                    else:
+                        data = response.text
+                    
+                    self.cache[cache_key] = data
+                    return data
+                elif response.status_code == 401:
+                    self.authenticate()
+                    tries += 1
+                else:
+                    print(f""API error: {response.status_code} - {response.text}"")
+                    return None
+            except requests.RequestException as e:
+                print(f""Request failed: {str(e)}"")
+                tries += 1
+                if tries >= self.retry_attempts:
+                    return None",40
+code-tests/teste_6.py,static_analyzer,God Class,"The class `ConfigManager` has too many responsibilities and instance attributes. It manages configuration loading, saving, validation, logging, and system configuration, violating the Single Responsibility Principle.","God Classes are difficult to test, maintain, and understand. Changes in one area of responsibility can affect other unrelated areas, increasing the risk of introducing bugs.","Break the `ConfigManager` class into multiple smaller classes, each with a single responsibility. For example, create separate classes for: Configuration Loading and Saving, Configuration Validation, Logging, and System Configuration.","class ConfigManager:
+    def __init__(self, config_file=""config.json""):
+        # God class with too many responsibilities (code smell)
+        self.config_file = config_file
+        self.config = {}
+        self.default_config = {
+            ""debug"": True,
+            ""log_level"": ""INFO"",
+            ""db_host"": ""localhost"",
+            ""db_port"": 5432,
+            ""db_user"": ""postgres"",
+            ""db_pass"": ""postgres"",  # Hardcoded password (security smell)
+            ""secret_key"": ""default_insecure_key"",  # Hardcoded secret (security smell)
+            ""allowed_hosts"": [""localhost"", ""127.0.0.1""],
+            ""max_upload_size"": 5242880,
+            ""temp_dir"": ""/tmp"",
+            ""log_file"": ""app.log"",
+            ""enable_admin"": True,
+            ""admin_user"": ""admin"",
+            ""admin_pass"": ""admin123"",  # Hardcoded admin password (security smell)
+            ""api_keys"": {
+                ""service1"": ""key1"",
+                ""service2"": ""key2""
+            }
+        }
+        self.sensitive_keys = [""db_pass"", ""secret_key"", ""admin_pass"", ""api_keys""]
+        self.logger = None
+        self.setup_logging()
+        self.load_config()",14
+code-tests/teste_6.py,static_analyzer,Long Method,"The method `setup_logging` has too many statements. It configures the logger, creates handlers, sets log levels and formatters, and adds handlers to the logger.","Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break the `setup_logging` method into smaller methods, each responsible for a specific part of the logging setup. For example, create separate methods for: configuring the logger, creating handlers, setting formatters, and adding handlers to the logger.","def setup_logging(self):
+        # Long method for setting up logging
+        log_level = getattr(logging, self.default_config.get(""log_level"", ""INFO""))
+        log_file = self.default_config.get(""log_file"", ""app.log"")
+        
+        # Configure logging
+        self.logger = logging.getLogger(""config_manager"")
+        self.logger.setLevel(log_level)
+        
+        # Create handlers
+        file_handler = logging.FileHandler(log_file)
+        console_handler = logging.StreamHandler()
+        
+        # Set log levels for handlers
+        file_handler.setLevel(log_level)
+        console_handler.setLevel(log_level)
+        
+        # Create formatters
+        file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        console_formatter = logging.Formatter('%(levelname)s: %(message)s')
+        
+        # Add formatters to handlers
+        file_handler.setFormatter(file_formatter)
+        console_handler.setFormatter(console_formatter)
+        
+        # Add handlers to the logger
+        self.logger.addHandler(file_handler)
+        self.logger.addHandler(console_handler)
+        
+        self.logger.info(""Logging setup complete"")",36
+code-tests/teste_7.py,static_analyzer,God Class,"The class WebApp has too many responsibilities. It handles database operations, user authentication, session management, input sanitization, and more. This violates the Single Responsibility Principle.","God Classes are difficult to maintain, test, and understand. Changes in one responsibility can affect others, leading to unexpected bugs.","Break the WebApp class into smaller, more focused classes. For example, create separate classes for database management, user authentication, session management, and input sanitization.","class WebApp:
+    def __init__(self, db_path=""app.db""):
+        # God class with too many responsibilities
+        self.db_path = db_path
+        self.conn = sqlite3.connect(db_path)
+        self.cursor = self.conn.cursor()
+        self.session_store = {}
+        self.csrf_tokens = {}
+        self.xss_patterns = [""<script>"", ""javascript:"", ""onerror="", ""onload=""]
+        self.blocked_ips = []
+        self.setup_database()",12
+code-tests/teste_4.py,static_analyzer,God Class,"The class `DatabaseManager` has too many instance attributes (10). This violates the Single Responsibility Principle, as the class is responsible for too many things.","God Classes are difficult to test, maintain, and understand. They centralize too much control and can lead to tight coupling throughout the application.","Break the class into multiple smaller classes, each with a single responsibility. For example, separate connection management, query execution, and user management into distinct classes.","class DatabaseManager:
+    def __init__(self, db_path=""app.db""):
+        self.db_path = db_path
+        self.conn = None
+        self.cursor = None
+        self.connected = False
+        self.last_query_time = None
+        self.query_count = 0
+        self.transaction_active = False
+        self.cached_results = {}
+        self.init_connection()",9
+code-tests/teste_4.py,static_analyzer,SQL Injection Vulnerability,"The methods `insert_user`, `authenticate_user` and `search_products` use string formatting to build SQL queries. This is vulnerable to SQL injection attacks.","SQL injection can allow attackers to read sensitive data from the database, modify database data, execute administrative operations on the database, recover the content of a given file present on the DBMS file system and in some cases issue commands to the operating system.",Use parameterized queries with placeholders and pass the values as a tuple or dictionary to the execute method.,"sql = f""INSERT INTO users (username, password, email, created_at) VALUES ('{username}', '{password}', '{email}', '{created_at}')""",64
+code-tests/teste_4.py,static_analyzer,SQL Injection Vulnerability,"The methods `insert_user`, `authenticate_user` and `search_products` use string formatting to build SQL queries. This is vulnerable to SQL injection attacks.","SQL injection can allow attackers to read sensitive data from the database, modify database data, execute administrative operations on the database, recover the content of a given file present on the DBMS file system and in some cases issue commands to the operating system.",Use parameterized queries with placeholders and pass the values as a tuple or dictionary to the execute method.,"sql = f""SELECT id, username FROM users WHERE username = '{username}' AND password = '{password}'""",76
+code-tests/teste_4.py,static_analyzer,SQL Injection Vulnerability,"The methods `insert_user`, `authenticate_user` and `search_products` use string formatting to build SQL queries. This is vulnerable to SQL injection attacks.","SQL injection can allow attackers to read sensitive data from the database, modify database data, execute administrative operations on the database, recover the content of a given file present on the DBMS file system and in some cases issue commands to the operating system.",Use parameterized queries with placeholders and pass the values as a tuple or dictionary to the execute method.,"sql = f""SELECT * FROM products WHERE name LIKE '%{keyword}%' OR description LIKE '%{keyword}%'""",86
+code-tests/teste_9.py,static_analyzer,God Class,The class `DataProcessor` has too many responsibilities and instance attributes. It violates the Single Responsibility Principle.,"God Classes are difficult to test, maintain, and understand. They centralize too much logic, making the code rigid and resistant to change.","Break the class into multiple smaller classes, each with a single responsibility. For example, create separate classes for data loading, data transformation, data validation, data exporting, configuration management, and logging.","class DataProcessor:
+    """"""
+    A God class that handles multiple responsibilities:
+    - Data loading from multiple sources
+    - Data transformation and processing
+    - Data validation
+    - Data export to multiple formats
+    - Caching mechanism
+    - Logging and metrics
+    """"""",9
+code-tests/teste_9.py,static_analyzer,Too Many Instance Attributes,The class `DataProcessor` has too many instance attributes.,Classes with many attributes are harder to understand and maintain. They often indicate that the class has too many responsibilities.,Reduce the number of instance attributes by delegating responsibilities to other classes or using data structures to group related attributes.,"self.input_directory = input_directory
+        self.output_directory = output_directory
+        self.config_file = config_file
+        self.config = {}
+        self.data_cache = {}
+        self.statistics = {
+            ""processed_files"": 0,
+            ""successful_files"": 0,
+            ""failed_files"": 0,
+            ""processing_time"": 0,
+            ""total_records"": 0,
+            ""valid_records"": 0,
+            ""invalid_records"": 0,
+            ""last_run"": None
+        }
+        self.formats = [""csv"", ""json"", ""xml"", ""txt""]
+        self.transformers = {}
+        self.validators = {}
+        self.exporters = {}
+        self.allowed_fields = []
+        self.required_fields = []
+        self.field_types = {}
+        self.max_cache_size = 1000
+        self.cache_expiry = 3600
+        self.enable_logging = True
+        self.log_file = ""data_processor.log""
+        self.log_level = log_level
+        self.last_error = None
+        self.performance_metrics = {}",21
+code-tests/teste_9.py,static_analyzer,Long Method,The method `process_data` is too long.,"Long methods are difficult to test, maintain, and understand. They violate the Single Responsibility Principle.","Break the method into smaller, more focused methods. Each method should have a single, well-defined purpose.","def process_data(self, input_files=None, output_format=""json""):
+        # Long method that does too much
+        start_time = time.time()
+        self.statistics['processed_files'] = 0
+        self.statistics['successful_files'] = 0
+        self.statistics['failed_files'] = 0
+        self.statistics['total_records'] = 0
+        self.statistics['valid_records'] = 0
+        self.statistics['invalid_records'] = 0
+        
+        if input_files is None:
+            # Get all files from input directory
+            input_files = [f for f in os.listdir(self.input_directory) 
+                          if os.path.isfile(os.path.join(self.input_directory, f))]
+        
+        if not input_files:
+            self.logger.warning(""No input files to process"")
+            return False
+            
+        all_data = []
+        
+        for input_file in input_files:
+            file_path = os.path.join(self.input_directory, input_file)
+            self.statistics['processed_files'] += 1
+            
+            try:
+                # Load data
+                data = self._load_data(file_path)
+                if not data:
+                    self.statistics['failed_files'] += 1
+                    continue
+                    
+                # Process data
+                processed_data = self._transform_data(data)
+                
+                # Validate data
+                valid_data, invalid_count = self._validate_data(processed_data)
+                
+                self.statistics['total_records'] += len(processed_data)
+                self.statistics['valid_records'] += len(valid_data)
+                self.statistics['invalid_records'] += invalid_count
+                
+                # Add to all data
+                all_data.extend(valid_data)
+                
+                self.statistics['successful_files'] += 1
+            except Exception as e:
+                self.logger.error(f""Error processing file {input_file}: {str(e)}"")
+                self.statistics['failed_files'] += 1
+        
+        # Export data
+        if all_data:
+            output_file = f""processed_data_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.{output_format}""
+            output_path = os.path.join(self.output_directory, output_file)
+            
+            if output_format in self.exporters:
+                try:
+                    self.exporters[output_format](all_data, output_path)
+                    self.logger.info(f""Data exported to {output_path}"")
+                except Exception as e:
+                    self.logger.error(f""Error exporting data: {str(e)}"")
+                    self.last_error = f""Export error: {str(e)}""
+                    return False
+            else:
+                self.logger.error(f""Unsupported output format: {output_format}"")
+                return False
+        
+        # Update statistics
+        self.statistics['processing_time'] = time.time() - start_time
+        self.statistics['last_run'] = datetime.datetime.now().isoformat()
+        
+        return True",140
+code-tests/teste_9.py,static_analyzer,Long Method,The method `generate_sample_data` is too long.,"Long methods are difficult to test, maintain, and understand. They violate the Single Responsibility Principle.","Break the method into smaller, more focused methods. Each method should have a single, well-defined purpose.","def generate_sample_data(self, num_records=100, output_file=None):
+        # Generate sample data for testing
+        # This method is too long and does too much
+        
+        if not output_file:
+            output_file = os.path.join(self.input_directory, f""sample_data_{int(time.time())}.json"")
+            
+        # Define data generation parameters
+        domains = [""example.com"", ""test.com"", ""sample.org"", ""demo.net""]
+        name_parts = [""John"", ""Jane"", ""Bob"", ""Alice"", ""Charlie"", ""David"", ""Emma"", ""Frank"", ""Grace"", ""Helen""]
+        
+        data = []
+        
+        for i in range(num_records):
+            # Generate a random person
+            first_name = random.choice(name_parts)
+            last_name = random.choice(name_parts)
+            name = f""{first_name} {last_name}""
+            
+            # Generate email
+            email = f""{first_name.lower()}.{last_name.lower()}@{random.choice(domains)}""
+            
+            # Generate age
+            age = random.randint(18, 80)
+            
+            # Generate date
+            year = random.randint(2000, 2023)
+            month = random.randint(1, 12)
+            day = random.randint(1, 28)  # Simplify to avoid month/day validation
+            date = f""{year:04d}-{month:02d}-{day:02d}""
+            
+            # Generate record
+            record = {
+                ""id"": f""ID-{i+1:06d}"",
+                ""name"": name,
+                ""email"": email,
+                ""age"": age,
+                ""date"": date,
+                ""active"": random.choice([True, False]),
+                ""notes"": ''.join(random.choices(string.ascii_letters + ' ' * 10, k=random.randint(10, 50)))
+            }
+            
+            data.append(record)
+        
+        # Write data to file
+        try:
+            with open(output_file, 'w') as f:
+                json.dump(data, f, indent=2)
+                
+            self.logger.info(f""Generated sample data: {output_file}"")
+            return output_file
+        except Exception as e:
+            self.logger.error(f""Error generating sample data: {str(e)}"")
+            return None",489
+code-tests/teste_10.py,static_analyzer,God Class,"The class ReportGenerator has too many responsibilities, violating the Single Responsibility Principle. It handles report generation, data filtering, data aggregation, and file writing.","God Classes are difficult to maintain, test, and understand. Changes in one area can affect other unrelated areas, leading to unexpected bugs and increased maintenance costs.","Break the class into multiple smaller classes, each with a single responsibility. For example, create separate classes for: Data filtering, Report formatting (CSV, TXT), Statistics calculation, File writing.","class ReportGenerator:
+    """"""
+    Class responsible for generating various types of reports with sales data.
+    This class has lots of duplicate code and methods with too many parameters.
+    """"""",6
+code-tests/teste_10.py,static_analyzer,Too Many Arguments,"The method __init__ receives too many parameters, making it difficult to invoke and test.",Methods with many arguments are hard to call correctly and increase the likelihood of errors. They also make the code less readable and maintainable.,Use a dictionary or a data class to group related parameters into a single object. This reduces the number of arguments and improves code readability.,"def __init__(self, company_name, report_directory, logo_path, company_address,
+                 company_phone, company_email, tax_id, report_footer, include_header=True,
+                 include_footer=True, include_timestamps=True, report_prefix=""Report"",
+                 default_currency=""USD"", decimal_places=2, date_format=""%Y-%m-%d""):",12
+code-tests/teste_10.py,static_analyzer,Too Many Arguments,"The method generate_daily_sales_report receives too many parameters, making it difficult to invoke and test.",Methods with many arguments are hard to call correctly and increase the likelihood of errors. They also make the code less readable and maintainable.,Use a dictionary or a data class to group related parameters into a single object. This reduces the number of arguments and improves code readability.,"def generate_daily_sales_report(self, sales_data, report_date, store_id=None,
+                                   department=None, include_tax=True, include_discounts=True,
+                                   include_returns=True, format_type=""csv""):",40
+code-tests/teste_10.py,static_analyzer,Long Method,"The method generate_daily_sales_report has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Filtering data, Calculating totals, Writing report.","def generate_daily_sales_report(self, sales_data, report_date, store_id=None,
+                                   department=None, include_tax=True, include_discounts=True,
+                                   include_returns=True, format_type=""csv""):",40
+code-tests/teste_10.py,static_analyzer,Too Many Arguments,"The method generate_monthly_sales_report receives too many parameters, making it difficult to invoke and test.",Methods with many arguments are hard to call correctly and increase the likelihood of errors. They also make the code less readable and maintainable.,Use a dictionary or a data class to group related parameters into a single object. This reduces the number of arguments and improves code readability.,"def generate_monthly_sales_report(self, sales_data, year, month, store_id=None,
+                                     department=None, include_tax=True, include_discounts=True,
+                                     include_returns=True, format_type=""csv""):",110
+code-tests/teste_10.py,static_analyzer,Long Method,"The method generate_monthly_sales_report has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Filtering data, Calculating totals, Writing report.","def generate_monthly_sales_report(self, sales_data, year, month, store_id=None,
+                                     department=None, include_tax=True, include_discounts=True,
+                                     include_returns=True, format_type=""csv""):",110
+code-tests/teste_10.py,static_analyzer,Too Many Arguments,"The method generate_product_sales_report receives too many parameters, making it difficult to invoke and test.",Methods with many arguments are hard to call correctly and increase the likelihood of errors. They also make the code less readable and maintainable.,Use a dictionary or a data class to group related parameters into a single object. This reduces the number of arguments and improves code readability.,"def generate_product_sales_report(self, sales_data, start_date, end_date,
+                                     product_id=None, store_id=None, department=None,
+                                     include_tax=True, min_quantity=0, format_type=""csv""):",187
+code-tests/teste_10.py,static_analyzer,Long Method,"The method generate_product_sales_report has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Filtering data, Calculating totals, Writing report.","def generate_product_sales_report(self, sales_data, start_date, end_date,
+                                     product_id=None, store_id=None, department=None,
+                                     include_tax=True, min_quantity=0, format_type=""csv""):",187
+code-tests/teste_10.py,static_analyzer,Too Many Arguments,"The method generate_employee_performance_report receives too many parameters, making it difficult to invoke and test.",Methods with many arguments are hard to call correctly and increase the likelihood of errors. They also make the code less readable and maintainable.,Use a dictionary or a data class to group related parameters into a single object. This reduces the number of arguments and improves code readability.,"def generate_employee_performance_report(self, sales_data, employee_data, start_date, end_date,
+                                           employee_id=None, department=None, store_id=None,
+                                           include_commission=True, include_returns=True, format_type=""csv""):",264
+code-tests/teste_10.py,static_analyzer,Long Method,"The method generate_employee_performance_report has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Filtering data, Calculating totals, Writing report.","def generate_employee_performance_report(self, sales_data, employee_data, start_date, end_date,
+                                           employee_id=None, department=None, store_id=None,
+                                           include_commission=True, include_returns=True, format_type=""csv""):",264
+code-tests/teste_10.py,static_analyzer,Long Method,"The method _write_txt_report has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Writing header, Writing summary, Writing data.","def _write_txt_report(self, report_path, data, summary):",439
+code-tests/teste_10.py,static_analyzer,Long Method,"The method _write_csv_report has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Writing header, Writing summary, Writing data.","def _write_csv_report(self, report_path, data, summary):",355
+code-tests/teste_10.py,static_analyzer,Long Method,"The method calculate_statistics has too many statements, making it difficult to understand and maintain.","Long methods are hard to read, understand, and test. They often violate the Single Responsibility Principle, making them prone to errors and difficult to refactor.","Break the method into smaller, more focused methods, each responsible for a specific task. For example, create separate methods for: Calculating totals, Calculating median, Calculating standard deviation.","def calculate_statistics(self, data):",539
+code-tests/teste_2.py,static_analyzer,God Class,The class AuthenticationManager has too many responsibilities and instance attributes.,"God Classes violate the Single Responsibility Principle, making them difficult to maintain and understand. They centralize too much control, leading to tight coupling and reduced reusability.","Break the class into multiple smaller classes, each with a single responsibility. For example, separate user management, authentication, and session management into distinct classes.","class AuthenticationManager:
+    def __init__(self):
+        self.users = {}
+        self.failed_attempts = {}
+        self.session_tokens = {}
+        self.password_history = {}
+        self.is_locked = False
+        self.secret_key = ""hardcoded_secret_key_12345""",7
+code-tests/teste_2.py,static_analyzer,Too Many Arguments,The method register_user receives too many parameters.,"Functions with many arguments are hard to use, test, and understand. It becomes difficult to remember the order and purpose of each argument, increasing the likelihood of errors.",Use objects or dictionaries to group related parameters.  Consider using a data transfer object (DTO) or a builder pattern to encapsulate the parameters.,"def register_user(self, username, password, email, full_name, address, phone, birth_date):",16
+code-tests/teste_2.py,static_analyzer,Long Method,The method change_password has too many statements.,"Long methods can be difficult to test, maintain, and understand, and they violate the Single Responsibility Principle.","Break the method into smaller methods, each responsible for a specific task, such as password validation, history management, and token generation.","def change_password(self, username, old_password, new_password):
+        if username not in self.users:
+            return {""status"": ""error"", ""message"": ""User not found""}
+            
+        old_hashed = hashlib.md5(old_password.encode()).hexdigest()
+        if old_hashed != self.users[username][""password""]:
+            return {""status"": ""error"", ""message"": ""Incorrect password""}
+            
+        new_hashed = hashlib.md5(new_password.encode()).hexdigest()
+        if new_hashed in self.password_history.get(username, []):
+            return {""status"": ""error"", ""message"": ""Password previously used""}
+            
+        self.users[username][""password""] = new_hashed
+        
+        if username not in self.password_history:
+            self.password_history[username] = []
+        self.password_history[username].append(new_hashed)
+        
+        if len(self.password_history[username]) > 5:
+            self.password_history[username] = self.password_history[username][-5:]
+            
+        if username in self.failed_attempts:
+            del self.failed_attempts[username]
+            
+        token = base64.b64encode(f""{username}:{self.secret_key}"".encode()).decode()
+        self.session_tokens[username] = token
+        
+        return {""status"": ""success"", ""message"": ""Password changed"", ""new_token"": token}",43

@@ -1,125 +1,156 @@
-# Static Analysis and Security for Python Code with AI Agents
+# Detecção e Revisão Automatizada de Code Smells e Security Smells com LLMs Multiagentes
 
-This project implements specialized agents for static analysis and security of Python code using large language models (LLMs) and static analysis tools. These agents can detect code smells, security vulnerabilities, and provide improvement suggestions for Python code.
+Este projeto implementa agentes especializados para detecção e revisão automatizada de code smells e security smells em código Python utilizando Large Language Models (LLMs) multiagentes e ferramentas de análise estática. Os agentes podem detectar problemas de qualidade de código, vulnerabilidades de segurança e fornecer sugestões de melhoria.
 
-## Overview
+## Visão Geral
 
-The project consists of two main agents:
+O projeto consiste em dois agentes principais:
 
-1. **Static Analyzer Agent**: Detects code smells such as God Classes, long methods, dead code, and cyclomatic complexity using Pylint.
+1. **Agente Analisador Estático**: Detecta code smells como God Classes, métodos longos, código morto e complexidade ciclomática.
 
-2. **Security Agent**: Identifies security vulnerabilities such as Remote Code Execution (RCE), SQL injection, and sensitive data exposure using Bandit.
+2. **Agente de Segurança**: Identifica vulnerabilidades de segurança como Remote Code Execution (RCE), SQL injection e exposição de dados sensíveis.
 
-Additionally, there is a workflow agent that coordinates the two previous agents and generates combined reports.
+Adicionalmente, existe um agente de workflow que coordena os dois agentes anteriores e gera relatórios combinados.
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
-/tcc
+/multi-agent-smell-detector
 ├── README.md
+├── pyproject.toml
+├── docs/                 # 📚 Complete project documentation
+│   ├── README.md         # Documentation index
+│   ├── RESULTADOS_TCC.md # Main TCC results document
+│   ├── DETALHAMENTO_TECNICO.md # Technical implementation details  
+│   ├── ANALISE_ESTATISTICA.md # Statistical analysis
+│   └── EXEMPLO_COMPLETO.md # Complete usage examples
 ├── src/
 │   ├── agents/
 │   │   ├── static_analizer_agent.py
 │   │   ├── security_agent.py
-│   │   ├── workflow_agent.py
+│   │   └── workflow_agent.py
+│   ├── scripts/
+│   │   ├── run_bandit_script.py
+│   │   ├── run_pylint_script.py
+│   │   ├── test_agents.py
+│   │   ├── compare_agents_tools.py
+│   │   ├── generate_charts.py
+│   │   └── final_comparison.py
+│   ├── tools/
+│   │   ├── analyzer_code_tool.py
+│   │   └── bandit_tool.py
+│   └── config/
+│       └── settings.py
+├── code-tests/           # Test files with intentional code smells
+├── results/              # Analysis results and comparisons
+│   ├── *.csv             # Generated CSV files
+│   └── charts/           # Generated visualizations and reports
+└── env sample            # Environment variables template
 ```
 
-## Requirements
+## Requisitos
 
-- Python 3.8+
-- Pylint
+- Python 3.10+
+- Pylint 3.0+
 - Bandit
-- LangGraph
-- PydanticAI
+- LangChain e dependências do Google Generative AI
 
-## Installation
+## Instalação
 
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd tcc
-```
+# Instalar dependências
+uv sync
 
-2. Install dependencies:
-```bash
+# Ou usando pip
 pip install -r requirements.txt
 ```
 
-3. Install static analysis tools:
+## Uso
+
+### Início Rápido - Processo Completo
 ```bash
-pip install pylint bandit
+# 1. Análise com Bandit (vulnerabilidades)
+python src/scripts/run_bandit_script.py code-tests/ -o results/bandit_results.csv
+
+# 2. Análise com Pylint (code smells)
+python src/scripts/run_pylint_script.py code-tests/ -o results/pylint_results.csv
+
+# 3. Análise com Agentes IA
+python src/scripts/test_agents.py code-tests/ --static-csv results/agent_static.csv --security-csv results/agent_security.csv
+
+# 4. Comparação e gráficos
+python src/scripts/compare_agents_tools.py
+python src/scripts/generate_charts.py
 ```
 
-## Usage
-
-### Using the Python Modules
-
-You can use the agents directly in your Python code:
+### Uso dos Agentes Python
+Você pode usar os agentes diretamente no seu código Python:
 
 ```python
-# Example of using the Static Analyzer Agent
+# Exemplo de uso do Agente Analisador Estático
 from src.agents.static_analizer_agent import static_agent
 
-response = static_agent.invoke(
-    {
-        "messages": [
-            {"role": "user", "content": "your_python_code_here"}
-        ]
-    }
-)
+response = static_agent.invoke({
+    "messages": [
+        {"role": "user", "content": "seu_codigo_python_aqui"}
+    ]
+})
 print(response["messages"][-1].content)
 ```
 
 ```python
-# Example of using the Security Agent
+# Exemplo de uso do Agente de Segurança
 from src.agents.security_agent import security_agent
 
-response = security_agent.invoke(
-    {
-        "messages": [
-            {"role": "user", "content": "your_python_code_here"}
-        ]
-    }
-)
+response = security_agent.invoke({
+    "messages": [
+        {"role": "user", "content": "seu_codigo_python_aqui"}
+    ]
+})
 print(response["messages"][-1].content)
 ```
 
 ```python
-# Example of using the Workflow Agent
+# Exemplo de uso do Agente de Workflow
 from src.agents.workflow_agent import app
 
-response = app.invoke(
-    {
-        "messages": [
-            {"role": "user", "content": "your_python_code_here"}
-        ]
-    }
-)
+response = app.invoke({
+    "messages": [
+        {"role": "user", "content": "seu_codigo_python_aqui"}
+    ]
+})
 print(response)
 ```
 
-## Technologies Used
+## Tecnologias Utilizadas
 
-- **LangGraph**: Framework for LLM agent orchestration
-- **PydanticAI**: Framework for defining agents and their interfaces
-- **Pylint**: Static analysis tool for Python
-- **Bandit**: Security analysis tool for Python
-- **Gemini** and **Claude**: LLM models used by the agents
+- **LangGraph**: Framework para orquestração de agentes LLM
+- **PydanticAI**: Framework para definição de agentes e suas interfaces
+- **Pylint**: Ferramenta de análise estática para Python
+- **Bandit**: Ferramenta de análise de segurança para Python
+- **Gemini** e **Claude**: Modelos LLM utilizados pelos agentes
 
-## Output Examples
+## Organização dos Resultados
 
-### Static Analyzer Agent
+Todos os resultados de análise são automaticamente salvos na pasta `results/`:
+- Arquivos `*.csv`: Resultados das análises (Pylint, Bandit, Agentes)
+- Pasta `charts/`: Visualizações e relatórios comparativos
+- `comparison_report.json`: Relatório detalhado de comparação
 
-The static analysis agent returns a JSON with detected code smells:
+## Exemplos de Saída
+
+### Agente Analisador Estático
+
+O agente de análise estática retorna um JSON com code smells detectados:
 
 ```json
 {
     "code_smells": [
         {
             "type": "God Class",
-            "description": "Class with too many attributes and responsibilities",
-            "risk": "Makes maintenance difficult and violates the single responsibility principle",
-            "suggestion": "Divide into multiple classes with specific responsibilities",
+            "description": "Classe com muitos atributos e responsabilidades",
+            "risk": "Dificulta a manutenção e viola o princípio da responsabilidade única",
+            "suggestion": "Dividir em múltiplas classes com responsabilidades específicas",
             "code": "class UserManager:",
             "line": 4
         }
@@ -127,18 +158,18 @@ The static analysis agent returns a JSON with detected code smells:
 }
 ```
 
-### Security Agent
+### Agente de Segurança
 
-The security agent returns a JSON with detected vulnerabilities:
+O agente de segurança retorna um JSON com vulnerabilidades detectadas:
 
 ```json
 {
     "vulnerabilities": [
         {
-            "type": "Command Execution with Shell=True",
-            "description": "Unsafe use of subprocess with shell=True",
-            "risk": "May allow system command injection if input is not sanitized",
-            "suggestion": "Replace with shell=False and pass arguments as a list",
+            "type": "Execução de Comando com Shell=True",
+            "description": "Uso inseguro de subprocess com shell=True",
+            "risk": "Pode permitir injeção de comandos do sistema se a entrada não for sanitizada",
+            "suggestion": "Substituir por shell=False e passar argumentos como lista",
             "code": "result = subprocess.run(pylint_cmd, shell=True, capture_output=True, text=True)",
             "line": 35
         }
@@ -146,10 +177,27 @@ The security agent returns a JSON with detected vulnerabilities:
 }
 ```
 
-## Contributions
+## Contribuições
 
-Contributions are welcome! Please feel free to open issues or submit pull requests.
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
-## License
+## Licença
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
+
+## 📚 Documentação
+
+Este projeto inclui documentação abrangente para uso acadêmico e prático sobre "Detecção e Revisão Automatizada de Code Smells e Security Smells Utilizando LLMs Multiagentes":
+
+- **[📋 Índice Completo da Documentação](docs/README.md)** - Comece aqui para navegação
+- **[🎓 Resultados do TCC (RESULTADOS_TCC.md)](docs/RESULTADOS_TCC.md)** - Documento acadêmico principal com metodologia, resultados e conclusões
+- **[⚙️ Detalhes Técnicos (DETALHAMENTO_TECNICO.md)](docs/DETALHAMENTO_TECNICO.md)** - Arquitetura de implementação e detalhes de código
+- **[📊 Análise Estatística (ANALISE_ESTATISTICA.md)](docs/ANALISE_ESTATISTICA.md)** - Validação estatística e rigor científico
+- **[📖 Exemplos Completos (EXEMPLO_COMPLETO.md)](docs/EXEMPLO_COMPLETO.md)** - Guia passo a passo de uso
+
+### Resumo dos Principais Resultados
+- **Pylint**: 22 code smells detectados
+- **Bandit**: 61 vulnerabilidades detectadas  
+- **Agente Estático IA**: 40 problemas detectados (82% mais que Pylint)
+- **Agente Segurança IA**: 56 vulnerabilidades detectadas
+- **Descoberta Principal**: Agentes de IA e ferramentas tradicionais são **complementares**, não substitutos

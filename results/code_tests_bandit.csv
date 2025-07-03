@@ -1,0 +1,205 @@
+file,test_id,test_name,issue_severity,issue_confidence,issue_text,line_number,line_range,code,severity_description,confidence_description,more_info
+code-tests/teste_8.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,26,26-26,"25         chars = string.ascii_letters + string.digits
+26         return ''.join(random.choice(chars) for _ in range(length))
+27",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_8.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,31,31-31,"30         if self.hash_algorithm == 'md5':
+31             return hashlib.md5(password.encode()).hexdigest()
+32         elif self.hash_algorithm == 'sha1':",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_8.py,B324,hashlib,HIGH,HIGH,Use of weak SHA1 hash for security. Consider usedforsecurity=False,33,33-33,"32         elif self.hash_algorithm == 'sha1':
+33             return hashlib.sha1(password.encode()).hexdigest()
+34         elif self.hash_algorithm == 'sha256':",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_8.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,39,39-39,"38             # Default to MD5 (weak)
+39             return hashlib.md5(password.encode()).hexdigest()
+40",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_8.py,B310,blacklist,MEDIUM,HIGH,Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.,223,223-223,"222             # Download file
+223             response = urllib.request.urlopen(url)
+224             data = response.read()",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b310-urllib-urlopen
+code-tests/teste_8.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,229,229-229,"228                 # Using weak hash algorithm
+229                 computed_hash = hashlib.md5(data).hexdigest()
+230                 if computed_hash != expected_hash:",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_3.py,B404,blacklist,LOW,HIGH,Consider possible security implications associated with the subprocess module.,3,3-3,"2 import shutil
+3 import subprocess
+4 import tempfile",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_imports.html#b404-import-subprocess
+code-tests/teste_3.py,B108,hardcoded_tmp_directory,MEDIUM,MEDIUM,Probable insecure usage of temp file/directory.,9,9-9,"8 class FileProcessor:
+9     def __init__(self, base_dir=""/tmp/uploads"", temp_dir=""/tmp/processing""):
+10         self.base_dir = base_dir",Medium risk security vulnerability that should be addressed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b108_hardcoded_tmp_directory.html
+code-tests/teste_3.py,B108,hardcoded_tmp_directory,MEDIUM,MEDIUM,Probable insecure usage of temp file/directory.,9,9-9,"8 class FileProcessor:
+9     def __init__(self, base_dir=""/tmp/uploads"", temp_dir=""/tmp/processing""):
+10         self.base_dir = base_dir",Medium risk security vulnerability that should be addressed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b108_hardcoded_tmp_directory.html
+code-tests/teste_3.py,B506,yaml_load,MEDIUM,HIGH,Use of unsafe yaml load. Allows instantiation of arbitrary objects. Consider yaml.safe_load().,51,51-51,"50                 # Unsafe YAML loading can lead to arbitrary code execution
+51                 data = yaml.load(content, Loader=yaml.Loader)
+52                 return data",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b506_yaml_load.html
+code-tests/teste_3.py,B602,subprocess_popen_with_shell_equals_true,HIGH,HIGH,"subprocess call with shell=True identified, security issue.",81,81-81,"80             # Unsafe subprocess call with shell=True
+81             subprocess.run(cmd, shell=True, check=True)
+82             self.processed_files.append(output_filename)",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b602_subprocess_popen_with_shell_equals_true.html
+code-tests/teste_1.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,19,19-19,"18 
+19         query = f""SELECT * FROM users WHERE id = {user_id}""
+20         cursor.execute(query)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_1.py,B608,hardcoded_sql_expressions,MEDIUM,MEDIUM,Possible SQL injection vector through string-based query construction.,37,37-37,"36         elif action == 'delete':
+37             cursor.execute(f""DELETE FROM users WHERE id = {user_id}"")
+38             conn.commit()",Medium risk security vulnerability that should be addressed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_1.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,48,48-50,"47         cursor = conn.cursor()
+48         sql = ""UPDATE users SET name = '%s', email = '%s', age = %s, country = '%s' WHERE id = %s"" % (
+49             name, email, age, country, uid
+50         )
+51         try:",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_5.py,B404,blacklist,LOW,HIGH,Consider possible security implications associated with the subprocess module.,5,5-5,"4 import base64
+5 import subprocess
+6 import xml.etree.ElementTree as ET",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_imports.html#b404-import-subprocess
+code-tests/teste_5.py,B405,blacklist,LOW,HIGH,"Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.",6,6-6,"5 import subprocess
+6 import xml.etree.ElementTree as ET
+7 from urllib.parse import urlencode",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_imports.html#b405-import-xml-etree
+code-tests/teste_5.py,B105,hardcoded_password_string,LOW,MEDIUM,Possible hardcoded password: 'admin123',14,14-14,"13         self.username = ""admin""
+14         self.password = ""admin123""  
+15         self.token = None",Low risk security issue that should be reviewed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b105_hardcoded_password_string.html
+code-tests/teste_5.py,B314,blacklist,MEDIUM,HIGH,Using xml.etree.ElementTree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.fromstring with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called,77,77-77,"76                     elif ""application/xml"" in content_type:
+77                         data = ET.fromstring(response.text)
+78                     else:",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+code-tests/teste_5.py,B314,blacklist,MEDIUM,HIGH,Using xml.etree.ElementTree.XMLParser to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.XMLParser with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called,137,137-137,"136         try:
+137             parser = ET.XMLParser()
+138             root = ET.fromstring(xml_string, parser=parser)",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+code-tests/teste_5.py,B314,blacklist,MEDIUM,HIGH,Using xml.etree.ElementTree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.fromstring with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called,138,138-138,"137             parser = ET.XMLParser()
+138             root = ET.fromstring(xml_string, parser=parser)  
+139",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+code-tests/teste_5.py,B602,subprocess_popen_with_shell_equals_true,HIGH,HIGH,"subprocess call with shell=True identified, security issue.",161,161-161,"160         try:
+161             result = subprocess.check_output(command_str, shell=True)
+162             return {""output"": result.decode(""utf-8"")}",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b602_subprocess_popen_with_shell_equals_true.html
+code-tests/teste_6.py,B404,blacklist,LOW,HIGH,Consider possible security implications associated with the subprocess module.,11,11-11,"10 import sys
+11 import subprocess
+12",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_imports.html#b404-import-subprocess
+code-tests/teste_6.py,B108,hardcoded_tmp_directory,MEDIUM,MEDIUM,Probable insecure usage of temp file/directory.,28,18-37,"27             ""max_upload_size"": 5242880,
+28             ""temp_dir"": ""/tmp"",
+29             ""log_file"": ""app.log"",
+30             ""enable_admin"": True,
+31             ""admin_user"": ""admin"",
+32             ""admin_pass"": ""admin123"",  # Hardcoded admin password (security smell)
+33             ""api_keys"": {
+34                 ""service1"": ""key1"",
+35                 ""service2"": ""key2""
+36             }
+37         }
+38         self.sensitive_keys = [""db_pass"", ""secret_key"", ""admin_pass"", ""api_keys""]
+39         self.logger = None
+40         self.setup_logging()
+41         self.load_config()
+42     
+43     def setup_logging(self):
+44         # Long method for setting up logging
+45         log_level = getattr(logging, self.default_config.get(""log_level"", ""INFO""))
+46         log_file = self.default_config.get(""log_file"", ""app.log"")
+47         
+48         # Configure logging",Medium risk security vulnerability that should be addressed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b108_hardcoded_tmp_directory.html
+code-tests/teste_6.py,B103,set_bad_file_permissions,HIGH,HIGH,Chmod setting a permissive mask 0o666 on file (config_file).,99,99-99,"98             # Insecure file permissions - readable by anyone
+99             os.chmod(self.config_file, 0o666)
+100             self.logger.info(f""Configuration saved to {self.config_file}"")",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b103_set_bad_file_permissions.html
+code-tests/teste_6.py,B108,hardcoded_tmp_directory,MEDIUM,MEDIUM,Probable insecure usage of temp file/directory.,149,149-149,"148         # Check upload directory
+149         temp_dir = self.config.get(""temp_dir"", ""/tmp"")
+150         if not os.path.exists(temp_dir):",Medium risk security vulnerability that should be addressed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b108_hardcoded_tmp_directory.html
+code-tests/teste_6.py,B103,set_bad_file_permissions,MEDIUM,HIGH,Chmod setting a permissive mask 0o755 on file (script_path).,179,179-179,"178             # Make script executable
+179             os.chmod(script_path, 0o755)
+180",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b103_set_bad_file_permissions.html
+code-tests/teste_6.py,B602,subprocess_popen_with_shell_equals_true,HIGH,HIGH,"subprocess call with shell=True identified, security issue.",183,183-183,"182             cmd = f""bash {script_path}""
+183             output = subprocess.check_output(cmd, shell=True)
+184",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b602_subprocess_popen_with_shell_equals_true.html
+code-tests/teste_6.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,215,215-215,"214         chars = string.ascii_letters + string.digits + ""!@#$%^&*()_+-=[]{}|;:,.<>?""
+215         key = ''.join(random.choice(chars) for _ in range(length))
+216         self.config[""secret_key""] = key",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_7.py,B404,blacklist,LOW,HIGH,Consider possible security implications associated with the subprocess module.,8,8-8,"7 import sqlite3
+8 import subprocess
+9",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_imports.html#b404-import-subprocess
+code-tests/teste_7.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,61,61-61,"60         # Weak password hashing (security smell)
+61         hashed_password = hashlib.md5(password.encode()).hexdigest()
+62",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,65,65-65,"64             # SQL Injection vulnerability
+65             query = f""INSERT INTO users (username, password, email, role) VALUES ('{username}', '{hashed_password}', '{email}', '{role}')""
+66             self.cursor.execute(query)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_7.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,75,75-75,"74         # Weak authentication (security smell)
+75         hashed_password = hashlib.md5(password.encode()).hexdigest()
+76",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,78,78-78,"77         # SQL Injection vulnerability
+78         query = f""SELECT id, username, role FROM users WHERE username = '{username}' AND password = '{hashed_password}'""
+79",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,112,112-112,"111             # SQL Injection vulnerability
+112             query = f""INSERT INTO posts (user_id, title, content, created_at) VALUES ({user_id}, '{title}', '{content}', datetime('now'))""
+113             self.cursor.execute(query)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,122,122-122,"121         # SQL Injection vulnerability
+122         query = f""SELECT p.id, p.title, p.content, p.created_at, u.username FROM posts p JOIN users u ON p.user_id = u.id WHERE p.id = {post_id}""
+123",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,158,158-158,"157             # SQL Injection vulnerability
+158             query = f""INSERT INTO comments (post_id, user_id, content, created_at) VALUES ({post_id}, {user_id}, '{content}', datetime('now'))""
+159             self.cursor.execute(query)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,168,168-168,"167         # SQL Injection vulnerability
+168         query = f""SELECT id, title, substr(content, 1, 100) || '...' FROM posts WHERE title LIKE '%{keyword}%' OR content LIKE '%{keyword}%'""
+169",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_7.py,B602,subprocess_popen_with_shell_equals_true,HIGH,HIGH,"subprocess call with shell=True identified, security issue.",201,201-201,"200                 # Command injection vulnerability
+201                 output = subprocess.check_output(command, shell=True)
+202                 return {""output"": output.decode()}",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b602_subprocess_popen_with_shell_equals_true.html
+code-tests/teste_7.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,225,225-225,"224             # Weak password hashing
+225             hashed_password = hashlib.md5(new_password.encode()).hexdigest()
+226             updates.append(f""password = '{hashed_password}'"")",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_7.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,233,233-233,"232             # SQL Injection vulnerability
+233             query = f""UPDATE users SET {', '.join(updates)} WHERE id = {user_id}""
+234             self.cursor.execute(query)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_4.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,99,99-99,"98         
+99         sql = f""INSERT INTO users (username, password, email, created_at) VALUES ('{username}', '{password}', '{email}', '{created_at}')""
+100",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_4.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,112,112-112,"111     def authenticate_user(self, username, password):
+112         sql = f""SELECT id, username FROM users WHERE username = '{username}' AND password = '{password}'""
+113",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_4.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,118,118-118,"117             now = time.strftime('%Y-%m-%d %H:%M:%S')
+118             update_sql = f""UPDATE users SET last_login = '{now}' WHERE id = {user_id}""
+119             self.cursor.execute(update_sql)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_4.py,B608,hardcoded_sql_expressions,MEDIUM,LOW,Possible SQL injection vector through string-based query construction.,125,125-125,"124     def search_products(self, keyword):
+125         sql = f""SELECT * FROM products WHERE name LIKE '%{keyword}%' OR description LIKE '%{keyword}%'""
+126         return self.query(sql)",Medium risk security vulnerability that should be addressed,Low confidence - may be false positive,https://bandit.readthedocs.io/en/1.8.3/plugins/b608_hardcoded_sql_expressions.html
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,454,454-454,"453             # Generate a random person
+454             first_name = random.choice(name_parts)
+455             last_name = random.choice(name_parts)",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,455,455-455,"454             first_name = random.choice(name_parts)
+455             last_name = random.choice(name_parts)
+456             name = f""{first_name} {last_name}""",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,459,459-459,"458             # Generate email
+459             email = f""{first_name.lower()}.{last_name.lower()}@{random.choice(domains)}""
+460",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,462,462-462,"461             # Generate age
+462             age = random.randint(18, 80)
+463",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,465,465-465,"464             # Generate date
+465             year = random.randint(2000, 2023)
+466             month = random.randint(1, 12)",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,466,466-466,"465             year = random.randint(2000, 2023)
+466             month = random.randint(1, 12)
+467             day = random.randint(1, 28)  # Simplify to avoid month/day validation",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,467,467-467,"466             month = random.randint(1, 12)
+467             day = random.randint(1, 28)  # Simplify to avoid month/day validation
+468             date = f""{year:04d}-{month:02d}-{day:02d}""",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,477,477-477,"476                 ""date"": date,
+477                 ""active"": random.choice([True, False]),
+478                 ""notes"": ''.join(random.choices(string.ascii_letters + ' ' * 10, k=random.randint(10, 50)))",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,478,478-478,"477                 ""active"": random.choice([True, False]),
+478                 ""notes"": ''.join(random.choices(string.ascii_letters + ' ' * 10, k=random.randint(10, 50)))
+479             }",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_9.py,B311,blacklist,LOW,HIGH,Standard pseudo-random generators are not suitable for security/cryptographic purposes.,478,478-478,"477                 ""active"": random.choice([True, False]),
+478                 ""notes"": ''.join(random.choices(string.ascii_letters + ' ' * 10, k=random.randint(10, 50)))
+479             }",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b311-random
+code-tests/teste_2.py,B403,blacklist,LOW,HIGH,Consider possible security implications associated with pickle module.,3,3-3,"2 import os
+3 import pickle
+4 import base64",Low risk security issue that should be reviewed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_imports.html#b403-import-pickle
+code-tests/teste_2.py,B105,hardcoded_password_string,LOW,MEDIUM,Possible hardcoded password: 'hardcoded_secret_key_12345',13,13-13,"12         self.is_locked = False
+13         self.secret_key = ""hardcoded_secret_key_12345""
+14",Low risk security issue that should be reviewed,Medium confidence - likely a real issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b105_hardcoded_password_string.html
+code-tests/teste_2.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,19,19-19,"18         
+19         hashed_password = hashlib.md5(password.encode()).hexdigest()
+20",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_2.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,38,38-38,"37         
+38         hashed_password = hashlib.md5(password.encode()).hexdigest()
+39         if hashed_password == self.users[username][""password""]:",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_2.py,B301,blacklist,MEDIUM,HIGH,"Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",51,51-51,"50     def deserialize_user_data(self, serialized_data):
+51         return pickle.loads(base64.b64decode(serialized_data))
+52",Medium risk security vulnerability that should be addressed,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b301-pickle
+code-tests/teste_2.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,57,57-57,"56             
+57         old_hashed = hashlib.md5(old_password.encode()).hexdigest()
+58         if old_hashed != self.users[username][""password""]:",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html
+code-tests/teste_2.py,B324,hashlib,HIGH,HIGH,Use of weak MD5 hash for security. Consider usedforsecurity=False,61,61-61,"60             
+61         new_hashed = hashlib.md5(new_password.encode()).hexdigest()
+62         if new_hashed in self.password_history.get(username, []):",High risk security vulnerability that requires immediate attention,High confidence - very likely a real security issue,https://bandit.readthedocs.io/en/1.8.3/plugins/b324_hashlib.html

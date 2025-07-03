@@ -1,0 +1,29 @@
+RELATÓRIO DE COMPARAÇÃO - ANÁLISE DE CÓDIGO
+==================================================
+
+RESUMO GERAL:
+Pylint (Code Smells): 22 issues
+Bandit (Vulnerabilidades): 61 issues
+Agente Estático: 40 issues
+Agente Segurança: 56 issues
+
+ANÁLISE ESTÁTICA:
+Pylint por tipo:
+  Too Many Arguments: 9
+  Too Many Branches: 6
+  God Class: 5
+  Long Method: 2
+
+Agente Estático por tipo:
+  Long Method: 18
+  God Class: 10
+  Too Many Arguments: 7
+  SQL Injection Vulnerability: 3
+  Too Many Branches: 1
+  Too Many Instance Attributes: 1
+
+ANÁLISE DE SEGURANÇA:
+Bandit por severidade:
+  MEDIUM: 25
+  LOW: 20
+  HIGH: 16
