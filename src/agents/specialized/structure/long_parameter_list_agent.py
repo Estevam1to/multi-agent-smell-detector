@@ -23,7 +23,7 @@ def create_long_parameter_list_agent(model: BaseChatModel) -> CompiledStateGraph
     que analisa código e identifica listas de parâmetros muito longas.
 
     O agente é criado com:
-    - Um modelo LLM (Claude) para processar o código
+    - Um modelo LLM para processar o código
     - Uma lista vazia de tools (não precisamos de ferramentas externas)
     - Um prompt acadêmico baseado em Fowler (1999) como state_modifier
 
@@ -32,17 +32,6 @@ def create_long_parameter_list_agent(model: BaseChatModel) -> CompiledStateGraph
 
     Returns:
         Agent configurado pronto para analisar código
-
-    Example:
-        >>> from langchain_anthropic import ChatAnthropic
-        >>> model = ChatAnthropic(model="claude-3-5-sonnet-20241022")
-        >>> agent = create_long_parameter_list_agent(model)
-        >>>
-        >>> # Invocar o agente com código para análise
-        >>> response = agent.invoke({
-        ...     "messages": [("user", "Analise: def foo(a, b, c, d, e, f): pass")]
-        ... })
-        >>> print(response["messages"][-1].content)
     """
     agent = create_react_agent(
         model=model,

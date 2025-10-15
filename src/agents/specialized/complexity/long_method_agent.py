@@ -28,21 +28,10 @@ def create_long_method_agent(model: BaseChatModel) -> CompiledStateGraph:
     - Um prompt acadêmico baseado em Fowler (1999) como state_modifier
 
     Args:
-        model: Instância do modelo ChatAnthropic configurado
+        model: Instância do modelo BaseChatModel configurado
 
     Returns:
         Agent configurado pronto para analisar código
-
-    Example:
-        >>> from langchain_anthropic import ChatAnthropic
-        >>> model = ChatAnthropic(model="claude-3-5-sonnet-20241022")
-        >>> agent = create_long_method_agent(model)
-        >>>
-        >>> # Invocar o agente com código para análise
-        >>> response = agent.invoke({
-        ...     "messages": [("user", "Analise este código: def calcular(): pass")]
-        ... })
-        >>> print(response["messages"][-1].content)
     """
     agent = create_react_agent(
         model=model, tools=[], prompt=LONG_METHOD_AGENT_PROMPT, name="long_method_agent"
