@@ -51,3 +51,12 @@ src/agents/
 - [ ] Adicionar agentes de statements
 - [ ] Implementar sistema de caching
 - [ ] Adicionar métricas e monitoramento
+sign_and_send_pubkey: signing failed for ED25519 "/home/luis-chaves/.ssh/id_ed25519" from agent: agent refused operation
+To github.com:Estevam1to/multi-agent-smell-detector.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:Estevam1to/multi-agent-smell-detector.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+luis-chaves@asaas-NOTE-2Z4Z194:~/Área de trabalho/multi-agent-smell-detector
