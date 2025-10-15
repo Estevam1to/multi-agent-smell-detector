@@ -1,144 +1,210 @@
 import traceback
-from typing import Any
+import json
 
-from agents.workflow import create_supervisor
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse
 from langchain_anthropic import ChatAnthropic
 
-from agents.complexity_agent import create_complexity_agent
-from agents.structure_agent import create_structure_agent
+from agents import long_method_agent_analyze, long_parameter_list_agent_analyze
 from config.logs import logger
 from config.settings import settings
-from schemas.requests import AnalyzeCodeRequest
-from tools.analyze_class_structure import analyze_class_structure
-from tools.analyze_cyclomatic_complexity import analyze_cyclomatic_complexity
-from tools.detect_feature_envy import detect_feature_envy
+from schemas.long_method_schemas import AnalyzeCodeRequest, AnalyzeCodeResponse, AgentResult, CodeSmellDetail
 
 router = APIRouter(prefix="/api/v1", tags=["analysis"])
 
 
-def create_workflow() -> Any:
+def parse_agent_response(analysis_text: str) -> list[CodeSmellDetail]:
     """
-    Cria o workflow completo com todos os agentes e ferramentas.
-
+    Extrai code smells do texto de análise do agente.
+    
+    Args:
+        analysis_text: Texto de resposta do agente
+        
     Returns:
-        Any: Workflow compilado pronto para execução
+        Lista de CodeSmellDetail extraídos
     """
+    code_smells = []
+    
     try:
-        llm = ChatAnthropic(
-            model_name=settings.ANTHROPIC_MODEL,
-            api_key=settings.ANTHROPIC_API_KEY,
-            temperature=0,
-        )
-        logger.info("LLM criado com sucesso")
-
-        complexity_tools = [analyze_cyclomatic_complexity]
-        structure_tools = [analyze_class_structure, detect_feature_envy]
-        logger.info(
-            f"Ferramentas carregadas: {len(complexity_tools)} complexidade, {len(structure_tools)} estrutura"
-        )
-
-        complexity_agent = create_complexity_agent(llm, complexity_tools)
-        logger.info("Agente de complexidade criado")
-
-        structure_agent = create_structure_agent(llm, structure_tools)
-        logger.info("Agente de estrutura criado")
-
-        workflow = create_supervisor(llm, complexity_agent, structure_agent)
-        logger.info("Workflow supervisor criado com sucesso")
-
-        return workflow
+        # Tenta encontrar blocos JSON no texto
+        import re
+        json_pattern = r'```json\s*(\{.*?\})\s*```'
+        matches = re.findall(json_pattern, analysis_text, re.DOTALL)
+        
+        for match in matches:
+            try:
+                smell_data = json.loads(match)
+                code_smell = CodeSmellDetail(**smell_data)
+                code_smells.append(code_smell)
+            except (json.JSONDecodeError, ValueError) as e:
+                logger.warning(f"Erro ao fazer parse de JSON: {e}")
+                continue
+                
     except Exception as e:
-        logger.error("=" * 80)
-        logger.error(f"Mensagem: {str(e)}")
-        logger.error("Traceback completo:")
-        logger.error(traceback.format_exc())
-        raise
+        logger.error(f"Erro ao extrair code smells: {e}")
+    
+    return code_smells
 
 
-@router.post("/analyze")
+@router.post("/analyze", response_model=AnalyzeCodeResponse)
 async def analyze_code(request: AnalyzeCodeRequest):
     """
-    Analisa código Python em busca de code smells usando streaming.
-
+    Analisa código Python em busca de code smells usando agentes especializados.
+    
     Args:
-        request (AnalyzeCodeRequest): Requisição contendo o código a ser analisado
-
+        request: Requisição contendo o código a ser analisado
+        
     Returns:
-        StreamingResponse: Stream de eventos do workflow
-
-    Raises:
-        HTTPException: Se ocorrer um erro durante a análise
+        Resposta com os code smells detectados
     """
     try:
-        file_info = f" - Arquivo: {request.file_name}" if request.file_name else ""
-        logger.info(f"Iniciando análise de código{file_info}")
-
-        workflow = create_workflow()
-
-        initial_state = {
-            "messages": [],
-            "python_code": request.code,
-            "file": request.file_name,
-            "code_smells": [],
-            "next": "",
-            "finished_agents": [],
+        logger.info(f"Iniciando análise de código. Arquivo: {request.file_name}")
+        
+        results = []
+        
+        # Executa o Long Method Agent
+        try:
+            long_method_result = long_method_agent_analyze(
+                code=request.code,
+                file_name=request.file_name
+            )
+            
+            if long_method_result["status"] == "sucesso":
+                code_smells = parse_agent_response(long_method_result["analysis"])
+                agent_result = AgentResult(
+                    agent_name="LongMethodAgent",
+                    status="sucesso",
+                    code_smells=code_smells,
+                    analysis_text=long_method_result["analysis"]
+                )
+            else:
+                agent_result = AgentResult(
+                    agent_name="LongMethodAgent",
+                    status="erro",
+                    code_smells=[],
+                    error_message=long_method_result.get("mensagem", "Erro desconhecido")
+                )
+                
+            results.append(agent_result)
+            
+        except Exception as e:
+            logger.error(f"Erro no Long Method Agent: {e}")
+            agent_result = AgentResult(
+                agent_name="LongMethodAgent",
+                status="erro",
+                code_smells=[],
+                error_message=str(e)
+            )
+            results.append(agent_result)
+        
+        # Executa o Long Parameter List Agent
+        try:
+            long_param_result = long_parameter_list_agent_analyze(
+                code=request.code,
+                file_name=request.file_name
+            )
+            
+            if long_param_result["status"] == "sucesso":
+                code_smells = parse_agent_response(long_param_result["analysis"])
+                agent_result = AgentResult(
+                    agent_name="LongParameterListAgent",
+                    status="sucesso",
+                    code_smells=code_smells,
+                    analysis_text=long_param_result["analysis"]
+                )
+            else:
+                agent_result = AgentResult(
+                    agent_name="LongParameterListAgent",
+                    status="erro",
+                    code_smells=[],
+                    error_message=long_param_result.get("mensagem", "Erro desconhecido")
+                )
+                
+            results.append(agent_result)
+            
+        except Exception as e:
+            logger.error(f"Erro no Long Parameter List Agent: {e}")
+            agent_result = AgentResult(
+                agent_name="LongParameterListAgent",
+                status="erro",
+                code_smells=[],
+                error_message=str(e)
+            )
+            results.append(agent_result)
+        
+        # Calcula resumo consolidado
+        total_smells = sum(len(result.code_smells) for result in results)
+        agents_executados = len(results)
+        agents_com_sucesso = len([r for r in results if r.status == "sucesso"])
+        
+        summary = {
+            "total_code_smells": total_smells,
+            "agents_executados": agents_executados,
+            "agents_com_sucesso": agents_com_sucesso,
+            "file_name": request.file_name,
+            "severidades": {}
         }
-
-        async def event_stream():
-            """
-            Gera eventos do workflow em tempo real.
-
-            Yields:
-                str: Texto com os eventos do workflow
-            """
-            try:
-                yield "=== Iniciando análise de code smells ===\n\n"
-
-                async for event in workflow.astream(initial_state):
-                    if event:
-                        node_name = list(event.keys())[0]
-                        yield f"[{node_name}] Processando...\n"
-
-                        node_data = event.get(node_name, {})
-                        messages = node_data.get("messages", [])
-
-                        if messages:
-                            last_message = (
-                                messages[-1] if isinstance(messages, list) else messages
-                            )
-                            if hasattr(last_message, "content"):
-                                yield f"{last_message.content}\n\n"
-
-                yield "\n=== Análise concluída com sucesso ===\n"
-
-            except Exception as e:
-                error_msg = f"Mensagem: {str(e)}\n\n{traceback.format_exc()}"
-                logger.error(error_msg)
-                yield error_msg
-
-        return StreamingResponse(
-            event_stream(),
-            media_type="text/plain",
+        
+        # Conta severidades
+        for result in results:
+            for smell in result.code_smells:
+                severidade = smell.severity
+                summary["severidades"][severidade] = summary["severidades"].get(severidade, 0) + 1
+        
+        response = AnalyzeCodeResponse(
+            success=agents_com_sucesso > 0,
+            message=f"Análise concluída. {total_smells} code smell(s) detectado(s) por {agents_com_sucesso}/{agents_executados} agente(s).",
+            results=results,
+            summary=summary
         )
-
+        
+        logger.info(f"Análise concluída com sucesso. Total de code smells: {total_smells}")
+        return response
+        
     except Exception as e:
-        error_details = (
-            f"Erro ao processar requisição\n"
-            f"Mensagem: {str(e)}\n"
-            f"Traceback:\n{traceback.format_exc()}"
+        logger.error(f"Erro durante análise: {e}")
+        logger.error(traceback.format_exc())
+        
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erro interno durante análise: {str(e)}"
         )
-        logger.error(error_details)
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/health")
 async def health_check():
     """
-    Verifica o status da API.
-
+    Verifica o status de saúde da API.
+    
     Returns:
-        dict: Status da API
+        Status de saúde dos componentes
     """
-    return {"status": "Ok", "message": "API is running"}
+    try:
+        # Testa conexão com Anthropic
+        test_model = ChatAnthropic(
+            model=settings.ANTHROPIC_MODEL,
+            api_key=settings.ANTHROPIC_API_KEY
+        )
+        
+        # Teste simples
+        test_response = test_model.invoke("Teste de conectividade")
+        
+        return {
+            "status": "healthy",
+            "components": {
+                "api": "ok",
+                "anthropic": "ok" if test_response else "error",
+                "agents": {
+                    "long_method_agent": "ok",
+                    "long_parameter_list_agent": "ok"
+                }
+            },
+            "timestamp": "2025-10-13"
+        }
+        
+    except Exception as e:
+        logger.error(f"Erro no health check: {e}")
+        return {
+            "status": "unhealthy",
+            "error": str(e),
+            "timestamp": "2025-10-13"
+        }
