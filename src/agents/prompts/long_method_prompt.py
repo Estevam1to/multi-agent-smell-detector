@@ -1,6 +1,8 @@
-from langchain_core.language_models.chat_models import BaseChatModel
-from langgraph.graph.state import CompiledStateGraph
-from langgraph.prebuilt import create_react_agent
+"""
+Prompt para o Long Method Agent.
+
+Baseado em Martin Fowler - "Refactoring: Improving the Design of Existing Code" (1999).
+"""
 
 LONG_METHOD_AGENT_PROMPT = """Você é um agente especializado em detectar o code smell "LONG METHOD" em código Python.
 
@@ -69,20 +71,3 @@ Nem todo método longo é problemático. Considere:
 Se não encontrar nenhum Long Method, responda: "Nenhum Long Method detectado. Todos os métodos estão dentro dos thresholds aceitáveis."
 
 Analise SEMPRE todo o código fornecido antes de dar sua resposta final."""
-
-
-def create_long_method_agent(
-    model: BaseChatModel = None,
-) -> CompiledStateGraph:
-    """
-    Cria e retorna um agente React especializado em detectar Long Methods.
-
-    Returns:
-        Agente React configurado para detecção de Long Methods
-    """
-
-    agent = create_react_agent(
-        model=model, tools=[], prompt=LONG_METHOD_AGENT_PROMPT, name="long_method_agent"
-    )
-
-    return agent

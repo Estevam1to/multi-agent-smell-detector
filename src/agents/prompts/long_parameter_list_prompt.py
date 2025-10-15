@@ -1,7 +1,8 @@
-from langgraph.prebuilt import create_react_agent
-from langgraph.graph.state import CompiledStateGraph
-from langchain_core.language_models.chat_models import BaseChatModel
+"""
+Prompt para o Long Parameter List Agent.
 
+Baseado em Martin Fowler - "Refactoring: Improving the Design of Existing Code" (1999).
+"""
 
 LONG_PARAMETER_LIST_AGENT_PROMPT = """Você é um agente especializado em detectar o code smell "LONG PARAMETER LIST" em código Python.
 
@@ -73,35 +74,6 @@ Fowler explica: "No passado, os programadores eram ensinados a passar como parâ
 
 Para cada método problemático, reporte EXATAMENTE neste formato JSON:
 
-```json
-{
-    "type": "LONG_PARAMETER_LIST",
-    "severity": "ALTA|MEDIA|BAIXA",
-    "method_name": "nome_do_metodo",
-    "parameter_count": 7,
-    "line_start": 10,
-    "line_end": 25,
-    "parameters": [
-        {"name": "param1", "type": "str", "has_default": false},
-        {"name": "param2", "type": "int", "has_default": true}
-    ],
-    "problematic_patterns": [
-        "Multiple parameters of same type",
-        "Boolean flags controlling behavior"
-    ],
-    "description": "Descrição detalhada do problema",
-    "impact": "Explicação do impacto na manutenção do código",
-    "refactoring_suggestions": [
-        {
-            "technique": "Introduce Parameter Object",
-            "description": "Criar classe UserInfo para agrupar name, email, age",
-            "priority": "ALTA",
-            "example": "class UserInfo: def __init__(self, name: str, email: str, age: int): ..."
-        }
-    ]
-}
-```
-
 ## INSTRUÇÕES DE ANÁLISE
 
 1. **EXAMINE TODO O CÓDIGO**: Analise cada função e método no código fornecido
@@ -114,20 +86,3 @@ Para cada método problemático, reporte EXATAMENTE neste formato JSON:
 Se não encontrar nenhum Long Parameter List, responda: "Nenhum Long Parameter List detectado. Todos os métodos têm um número aceitável de parâmetros."
 
 Analise SEMPRE todo o código fornecido antes de dar sua resposta final."""
-
-
-def create_long_parameter_list_agent(model: BaseChatModel = None) -> CompiledStateGraph:
-    """
-    Cria e retorna um agente React especializado em detectar Long Parameter Lists.
-
-    Returns:
-        Agente React configurado para detecção de Long Parameter Lists
-    """
-
-    agent = create_react_agent(
-        model=model,
-        tools=[],
-        prompt=LONG_PARAMETER_LIST_AGENT_PROMPT,
-    )
-
-    return agent
