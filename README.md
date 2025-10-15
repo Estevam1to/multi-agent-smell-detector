@@ -8,10 +8,6 @@ A estrutura de agentes foi organizada de forma modular e escalável:
 src/agents/
 │
 ├── __init__.py                              # Exports públicos
-├── base/                                    # Classes base
-│   ├── __init__.py
-│   ├── agent_base.py                        # Classe abstrata base
-│   └── agent_factory.py                     # Factory para criar agentes (TODO)
 │
 ├── prompts/                                 # Prompts separados (manutenção)
 │   ├── __init__.py
@@ -36,11 +32,6 @@ src/agents/
 │
 ├── supervisor/                              # Supervisor (TODO)
 │   └── __init__.py
-│
-└── utils/                                   # Utilidades
-    ├── __init__.py
-    ├── agent_config.py                      # Configurações
-    └── agent_registry.py                    # Registro de agentes
 ```
 
 ## Próximos Passos
