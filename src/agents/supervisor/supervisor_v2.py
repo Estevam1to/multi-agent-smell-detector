@@ -1,16 +1,15 @@
-"""
-Supervisor Agent V2 para coordenar os agentes com structured output.
-
-Implementação que usa response format do Claude para saídas estruturadas.
-"""
+"""Supervisor Agent V2 com structured output."""
 
 import asyncio
+import json
+from pathlib import Path
 from typing import Dict, List, Any, Union
 
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import SystemMessage, HumanMessage
 
 from config.settings import settings
+from utils.code_parser import CodeParser
 from schemas.agent_response import (
     ComplexMethodDetection,
     LongMethodDetection,
@@ -38,21 +37,14 @@ from prompts.long_message_chain_prompt import LONG_MESSAGE_CHAIN_AGENT_PROMPT
 
 
 class CodeSmellSupervisorV2:
-    """
-    Supervisor que coordena a execução de todos os agentes com structured output.
-
-    Usa response format do Claude para garantir saídas JSON estruturadas.
-    """
 
     def __init__(self):
-        """Inicializa o supervisor e configura os agentes com structured output."""
         self.base_model = ChatAnthropic(
             model=settings.ANTHROPIC_MODEL,
             api_key=settings.ANTHROPIC_API_KEY,
             temperature=0,
         )
 
-        # Configura cada agente com seu prompt e schema específico
         self.agents = {
             "complex_method": {
                 "prompt": COMPLEX_METHOD_AGENT_PROMPT,
@@ -101,27 +93,15 @@ class CodeSmellSupervisorV2:
         }
 
     async def _execute_agent(
-        self, agent_name: str, agent_config: Dict, python_code: str
-    ) -> Dict[str, Any]:
-        """
-        Executa um agente específico com structured output.
+        self, agent_name: str, agent_config: Dict, python_code: str, file_path: str, project_name: str
+    ) -> List[Dict[str, Any]]:
 
-        Args:
-            agent_name: Nome do agente
-            agent_config: Configuração do agente (prompt e schema)
-            python_code: Código Python a ser analisado
-
-        Returns:
-            Dicionário com resultados estruturados do agente
-        """
         try:
-            # Cria modelo com structured output para este agente
             structured_model = self.base_model.with_structured_output(
                 agent_config["schema"],
                 method="json_mode"
             )
 
-            # Monta mensagens
             messages = [
                 SystemMessage(content=agent_config["prompt"]),
                 HumanMessage(
@@ -129,93 +109,69 @@ class CodeSmellSupervisorV2:
                 ),
             ]
 
-            # Invoca o modelo
             result = await structured_model.ainvoke(messages)
 
-            # Normaliza resultado (pode ser um item ou lista)
-            if isinstance(result, list):
-                detections = result
-            else:
-                detections = [result] if result.detected else []
+            detections = result if isinstance(result, list) else [result]
 
-            return {
-                "agent": agent_name,
-                "status": "success",
-                "detections": detections,
-                "has_smells": len(detections) > 0 and any(d.detected for d in detections),
-            }
+            parser = CodeParser(python_code, file_path)
+
+            valid_detections = []
+            for detection in detections:
+                if detection.detected:
+                    detection.Project = project_name
+                    detection.Package = parser.get_package_name()
+                    detection.Module = parser.get_module_name()
+                    detection.File = file_path
+                    valid_detections.append(detection)
+
+            return valid_detections
 
         except Exception as e:
-            return {
-                "agent": agent_name,
-                "status": "error",
-                "error": str(e),
-                "detections": [],
-                "has_smells": False,
-            }
+            return []
 
-    async def analyze_code(self, python_code: str) -> Dict[str, Any]:
-        """
-        Analisa código Python usando todos os agentes em paralelo.
+    async def analyze_code(
+        self, python_code: str, file_path: str = "unknown.py", project_name: str = "Code"
+    ) -> Dict[str, Any]:
 
-        Args:
-            python_code: Código Python a ser analisado
-
-        Returns:
-            Dicionário com resultados estruturados consolidados
-        """
-        # Executa todos os agentes em paralelo
         tasks = [
-            self._execute_agent(name, config, python_code)
+            self._execute_agent(name, config, python_code, file_path, project_name)
             for name, config in self.agents.items()
         ]
 
         results = await asyncio.gather(*tasks)
 
-        # Consolida todas as detecções estruturadas
         all_detections = []
-        for result in results:
-            if result["status"] == "success" and result["has_smells"]:
-                all_detections.extend(result["detections"])
+        for detections in results:
+            all_detections.extend(detections)
 
-        # Converte detecções Pydantic para dicts
-        detections_as_dicts = [
-            detection.model_dump() for detection in all_detections
-        ]
+        detections_as_dicts = [d.model_dump(by_alias=True) for d in all_detections]
 
         return {
             "total_smells_detected": len(detections_as_dicts),
             "code_smells": detections_as_dicts,
             "agents_executed": len(self.agents),
-            "detailed_results": results,
         }
+
+    @staticmethod
+    def save_to_json(detections: List[Dict[str, Any]], output_file: str):
+        Path(output_file).write_text(
+            json.dumps(detections, indent=2, ensure_ascii=False),
+            encoding="utf-8"
+        )
 
 
 _supervisor_v2_instance = None
 
 
 def get_supervisor_v2() -> CodeSmellSupervisorV2:
-    """
-    Retorna a instância singleton do supervisor V2.
-
-    Returns:
-        Instância do CodeSmellSupervisorV2
-    """
     global _supervisor_v2_instance
     if _supervisor_v2_instance is None:
         _supervisor_v2_instance = CodeSmellSupervisorV2()
     return _supervisor_v2_instance
 
 
-async def analyze_code_with_supervisor_v2(python_code: str) -> Dict[str, Any]:
-    """
-    Função auxiliar para analisar código usando o supervisor V2.
-
-    Args:
-        python_code: Código Python a ser analisado
-
-    Returns:
-        Dicionário com resultados estruturados da análise
-    """
+async def analyze_code_with_supervisor_v2(
+    python_code: str, file_path: str = "unknown.py", project_name: str = "Code"
+) -> Dict[str, Any]:
     supervisor = get_supervisor_v2()
-    return await supervisor.analyze_code(python_code)
+    return await supervisor.analyze_code(python_code, file_path, project_name)
