@@ -2,6 +2,7 @@
 
 import ast
 import logging
+from pathlib import Path
 from typing import Dict, List, Any, Optional
 
 logger = logging.getLogger(__name__)
@@ -85,15 +86,15 @@ class CodeParser:
     def get_module_name(self) -> str:
         if self.file_path == "unknown.py":
             return "unknown"
-        return self.file_path.split("/")[-1].replace(".py", "")
+        return Path(self.file_path).stem
 
     def get_package_name(self) -> str:
         if self.file_path == "unknown.py":
             return "unknown"
 
-        parts = self.file_path.split("/")
-        if len(parts) > 1:
-            return parts[-2]
+        path = Path(self.file_path)
+        if path.parent.name:
+            return path.parent.name
         return "unknown"
 
     def find_function_by_name(self, name: str) -> Optional[Dict[str, Any]]:

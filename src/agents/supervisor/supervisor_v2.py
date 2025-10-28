@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import logging
 from pathlib import Path
 from typing import Dict, List, Any, Union
 
@@ -10,6 +11,8 @@ from langchain_core.messages import SystemMessage, HumanMessage
 
 from config.settings import settings
 from utils.code_parser import CodeParser
+
+logger = logging.getLogger(__name__)
 from schemas.agent_response import (
     ComplexMethodDetection,
     LongMethodDetection,
@@ -126,7 +129,8 @@ class CodeSmellSupervisorV2:
 
             return valid_detections
 
-        except Exception:
+        except Exception as e:
+            logger.error(f"Error executing agent {agent_name} for {file_path}: {e}", exc_info=True)
             return []
 
     async def analyze_code(

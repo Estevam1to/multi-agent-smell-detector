@@ -60,15 +60,12 @@ Você DEVE retornar uma lista de detecções em formato JSON. Para cada método 
 ```json
 {
   "detected": true,
-  "smell_type": "complex_method",
-  "method_name": "nome_do_metodo",
-  "line_start": 10,
-  "line_end": 25,
+  "Smell": "Complex method",
+  "Method": "nome_do_metodo",
+  "Line no": "10 - 25",
+  "Description": "Method 'nome_do_metodo' has a cyclomatic complexity of 8 (threshold: 7). Sugestão específica de refatoração.",
   "cyclomatic_complexity": 8,
-  "decision_points": 7,
-  "threshold": 7,
-  "severity": "high",
-  "suggestion": "Sugestão específica de refatoração"
+  "threshold": 7
 }
 ```
 
@@ -76,7 +73,7 @@ Se não encontrar nenhum Complex Method, retorne:
 ```json
 {
   "detected": false,
-  "smell_type": "complex_method"
+  "Smell": "Complex method"
 }
 ```
 
