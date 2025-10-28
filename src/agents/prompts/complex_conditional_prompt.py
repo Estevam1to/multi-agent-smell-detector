@@ -25,13 +25,13 @@ Complex Conditional: Uma instrução condicional com número excessivo de operad
 
 ## EXEMPLO
 
-❌ **Incorreto (Complex Conditional)**:
+**Incorreto (Complex Conditional)**:
 ```python
 if user.age > 18 and user.country == "BR" and user.verified and user.balance > 100:
     process()
 ```
 
-✅ **Correto (Decompose Conditional)**:
+**Correto (Decompose Conditional)**:
 ```python
 is_adult = user.age > 18
 is_brazilian = user.country == "BR"
