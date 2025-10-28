@@ -23,17 +23,17 @@ from schemas.agent_response import (
     LongLambdaFunctionDetection,
     LongMessageChainDetection,
 )
-from prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
-from prompts.long_method_prompt import LONG_METHOD_AGENT_PROMPT
-from prompts.complex_conditional_prompt import COMPLEX_CONDITIONAL_AGENT_PROMPT
-from prompts.long_parameter_list_prompt import LONG_PARAMETER_LIST_AGENT_PROMPT
-from prompts.long_statement_prompt import LONG_STATEMENT_AGENT_PROMPT
-from prompts.long_identifier_prompt import LONG_IDENTIFIER_AGENT_PROMPT
-from prompts.magic_number_prompt import MAGIC_NUMBER_AGENT_PROMPT
-from prompts.empty_catch_block_prompt import EMPTY_CATCH_BLOCK_AGENT_PROMPT
-from prompts.missing_default_prompt import MISSING_DEFAULT_AGENT_PROMPT
-from prompts.long_lambda_function_prompt import LONG_LAMBDA_FUNCTION_AGENT_PROMPT
-from prompts.long_message_chain_prompt import LONG_MESSAGE_CHAIN_AGENT_PROMPT
+from agents.prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
+from agents.prompts.long_method_prompt import LONG_METHOD_AGENT_PROMPT
+from agents.prompts.complex_conditional_prompt import COMPLEX_CONDITIONAL_AGENT_PROMPT
+from agents.prompts.long_parameter_list_prompt import LONG_PARAMETER_LIST_AGENT_PROMPT
+from agents.prompts.long_statement_prompt import LONG_STATEMENT_AGENT_PROMPT
+from agents.prompts.long_identifier_prompt import LONG_IDENTIFIER_AGENT_PROMPT
+from agents.prompts.magic_number_prompt import MAGIC_NUMBER_AGENT_PROMPT
+from agents.prompts.empty_catch_block_prompt import EMPTY_CATCH_BLOCK_AGENT_PROMPT
+from agents.prompts.missing_default_prompt import MISSING_DEFAULT_AGENT_PROMPT
+from agents.prompts.long_lambda_function_prompt import LONG_LAMBDA_FUNCTION_AGENT_PROMPT
+from agents.prompts.long_message_chain_prompt import LONG_MESSAGE_CHAIN_AGENT_PROMPT
 
 
 class CodeSmellSupervisorV2:
@@ -48,47 +48,47 @@ class CodeSmellSupervisorV2:
         self.agents = {
             "complex_method": {
                 "prompt": COMPLEX_METHOD_AGENT_PROMPT,
-                "schema": Union[ComplexMethodDetection, List[ComplexMethodDetection]],
+                "schema": ComplexMethodDetection,
             },
             "long_method": {
                 "prompt": LONG_METHOD_AGENT_PROMPT,
-                "schema": Union[LongMethodDetection, List[LongMethodDetection]],
+                "schema": LongMethodDetection,
             },
             "complex_conditional": {
                 "prompt": COMPLEX_CONDITIONAL_AGENT_PROMPT,
-                "schema": Union[ComplexConditionalDetection, List[ComplexConditionalDetection]],
+                "schema": ComplexConditionalDetection,
             },
             "long_parameter_list": {
                 "prompt": LONG_PARAMETER_LIST_AGENT_PROMPT,
-                "schema": Union[LongParameterListDetection, List[LongParameterListDetection]],
+                "schema": LongParameterListDetection,
             },
             "long_statement": {
                 "prompt": LONG_STATEMENT_AGENT_PROMPT,
-                "schema": Union[LongStatementDetection, List[LongStatementDetection]],
+                "schema": LongStatementDetection,
             },
             "long_identifier": {
                 "prompt": LONG_IDENTIFIER_AGENT_PROMPT,
-                "schema": Union[LongIdentifierDetection, List[LongIdentifierDetection]],
+                "schema": LongIdentifierDetection,
             },
             "magic_number": {
                 "prompt": MAGIC_NUMBER_AGENT_PROMPT,
-                "schema": Union[MagicNumberDetection, List[MagicNumberDetection]],
+                "schema": MagicNumberDetection,
             },
             "empty_catch_block": {
                 "prompt": EMPTY_CATCH_BLOCK_AGENT_PROMPT,
-                "schema": Union[EmptyCatchBlockDetection, List[EmptyCatchBlockDetection]],
+                "schema": EmptyCatchBlockDetection,
             },
             "missing_default": {
                 "prompt": MISSING_DEFAULT_AGENT_PROMPT,
-                "schema": Union[MissingDefaultDetection, List[MissingDefaultDetection]],
+                "schema": MissingDefaultDetection,
             },
             "long_lambda_function": {
                 "prompt": LONG_LAMBDA_FUNCTION_AGENT_PROMPT,
-                "schema": Union[LongLambdaFunctionDetection, List[LongLambdaFunctionDetection]],
+                "schema": LongLambdaFunctionDetection,
             },
             "long_message_chain": {
                 "prompt": LONG_MESSAGE_CHAIN_AGENT_PROMPT,
-                "schema": Union[LongMessageChainDetection, List[LongMessageChainDetection]],
+                "schema": LongMessageChainDetection,
             },
         }
 
@@ -98,7 +98,7 @@ class CodeSmellSupervisorV2:
 
         try:
             structured_model = self.base_model.with_structured_output(
-                agent_config["schema"],
+                Union[agent_config["schema"], List[agent_config["schema"]]],
                 method="json_mode"
             )
 
@@ -126,7 +126,7 @@ class CodeSmellSupervisorV2:
 
             return valid_detections
 
-        except Exception as e:
+        except Exception:
             return []
 
     async def analyze_code(

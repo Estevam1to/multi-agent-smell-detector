@@ -1,7 +1,10 @@
 """Módulo para parsear código Python e extrair metadados estruturados."""
 
 import ast
+import logging
 from typing import Dict, List, Any, Optional
+
+logger = logging.getLogger(__name__)
 
 
 class CodeParser:
@@ -12,12 +15,14 @@ class CodeParser:
         self.tree = None
         self.functions = []
         self.classes = []
+        self.parse_error = None
 
         try:
             self.tree = ast.parse(code)
             self._extract_metadata()
-        except SyntaxError:
-            pass
+        except SyntaxError as e:
+            self.parse_error = e
+            logger.warning(f"SyntaxError parsing {self.file_path}: {e}")
 
     def _extract_metadata(self):
         if not self.tree:

@@ -18,6 +18,20 @@ def load_json(file_path: str) -> List[Dict]:
 
 
 def compare_results(system_file: str, other_file: str):
+    """
+    Compara dois arquivos JSON com resultados de detecção de code smells.
+
+    Args:
+        system_file: Caminho para o JSON com resultados do sistema
+        other_file: Caminho para o JSON com resultados de outra ferramenta
+
+    Formato esperado dos arquivos JSON:
+        Lista de objetos com campos: File, Smell (ou smell_type), Method (ou method_name)
+
+    Saída:
+        Imprime métricas (precision, recall, F1-score) e detalhamento por tipo.
+        Salva discrepâncias em 'discrepancies.json' se houver.
+    """
 
     system_smells = load_json(system_file)
     other_smells = load_json(other_file)

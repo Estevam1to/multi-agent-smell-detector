@@ -1,5 +1,6 @@
 """Router para endpoints de análise de código."""
 
+from typing import Optional
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
@@ -9,7 +10,7 @@ from agents.supervisor import analyze_code_with_supervisor, analyze_code_with_su
 
 class AnalyzeRequest(BaseModel):
     python_code: str
-    file_path: str | None = None
+    file_path: Optional[str] = None
     output_format: str = "default"
     project_name: str = "Code"
     use_structured_output: bool = False
