@@ -42,7 +42,7 @@ async def analyze_folder(folder_path: str, output_file: str, project_name: str =
             smells = result["code_smells"]
             all_smells.extend(smells)
             print(f"✓ ({len(smells)} smells)")
-        except (UnicodeDecodeError, SyntaxError, IOError) as e:
+        except (UnicodeDecodeError, SyntaxError, OSError) as e:
             print(f"✗ {type(e).__name__}: {e}")
             logging.debug(traceback.format_exc())
         except Exception as e:
