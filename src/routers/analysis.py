@@ -1,24 +1,21 @@
-"""
-Router para endpoints de análise de código.
-"""
+"""Router para endpoints de análise de código."""
 
+from typing import Optional
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from config.logs import logger
-from agents.supervisor import analyze_code_with_supervisor
+from agents.supervisor import analyze_code_with_supervisor, analyze_code_with_supervisor_v2
 
 
 class AnalyzeRequest(BaseModel):
-    """Schema para requisição de análise de código."""
-
     python_code: str
-    file_path: str | None = None
+    file_path: Optional[str] = None
+    project_name: str = "Code"
+    use_structured_output: bool = False
 
 
 class AnalyzeResponse(BaseModel):
-    """Schema para resposta de análise de código."""
-
     total_smells_detected: int
     code_smells: list[dict]
     agents_executed: int
@@ -29,18 +26,7 @@ router = APIRouter(prefix="/api", tags=["analysis"])
 
 @router.post("/analyze", response_model=AnalyzeResponse)
 async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
-    """
-    Analisa código Python para detectar code smells usando múltiplos agentes especializados.
 
-    Args:
-        request: Requisição contendo o código Python a ser analisado
-
-    Returns:
-        AnalyzeResponse com os code smells detectados
-
-    Raises:
-        HTTPException: Se houver erro na análise
-    """
     try:
         logger.info("Iniciando análise de código")
 
@@ -49,7 +35,14 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
                 status_code=400, detail="O código Python não pode estar vazio"
             )
 
-        result = await analyze_code_with_supervisor(request.python_code)
+        if request.use_structured_output:
+            result = await analyze_code_with_supervisor_v2(
+                request.python_code,
+                request.file_path or "unknown.py",
+                request.project_name
+            )
+        else:
+            result = await analyze_code_with_supervisor(request.python_code)
 
         logger.info(
             f"Análise concluída: {result['total_smells_detected']} code smells detectados"

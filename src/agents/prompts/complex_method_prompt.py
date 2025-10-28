@@ -53,14 +53,31 @@ def is_type_a_active(data):
     return data.type == "A" and data.status == "active" and has_valid_items(data)
 ```
 
+## FORMATO DE RESPOSTA
+
+Você DEVE retornar uma lista de detecções em formato JSON. Para cada método com CC > 7 encontrado, inclua:
+
+```json
+{
+  "detected": true,
+  "Smell": "Complex method",
+  "Method": "nome_do_metodo",
+  "Line no": "10 - 25",
+  "Description": "Method 'nome_do_metodo' has a cyclomatic complexity of 8 (threshold: 7). Sugestão específica de refatoração.",
+  "cyclomatic_complexity": 8,
+  "threshold": 7
+}
+```
+
+Se não encontrar nenhum Complex Method, retorne:
+```json
+{
+  "detected": false,
+  "Smell": "Complex method"
+}
+```
+
 ## SUA TAREFA
 
-Analise o código fornecido e calcule a Complexidade Ciclomática de cada função.
-Para cada função com CC > 7, reporte:
-- Nome da função
-- Complexidade Ciclomática calculada
-- Número de pontos de decisão
-- Sugestão de refatoração
-
-Se não encontrar nenhum Complex Method, responda: "Nenhum Complex Method detectado."
+Analise o código fornecido, calcule a Complexidade Ciclomática de cada função e retorne a lista de detecções em JSON.
 """
