@@ -25,7 +25,7 @@ Long Identifier: Um identificador (nome de função, classe, variável) excessiv
 
 ## EXEMPLO
 
-❌ **Incorreto (Long Identifier)**:
+**Incorreto (Long Identifier)**:
 ```python
 def calculate_total_price_with_discount_and_taxes_for_customer(price):
     pass
@@ -33,7 +33,7 @@ def calculate_total_price_with_discount_and_taxes_for_customer(price):
 very_long_variable_name_that_describes_everything = 42
 ```
 
-✅ **Correto**:
+**Correto**:
 ```python
 def calculate_final_price(price):
     pass

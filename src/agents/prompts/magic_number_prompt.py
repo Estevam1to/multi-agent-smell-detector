@@ -31,13 +31,13 @@ Magic Number: Literal numérico no código sem contexto claro de seu significado
 
 ## EXEMPLO
 
-❌ **Incorreto (Magic Number)**:
+**Incorreto (Magic Number)**:
 ```python
 def potential_energy(mass, height):
     return mass * 9.81 * height  # O que é 9.81???
 ```
 
-✅ **Correto (Constante nomeada)**:
+**Correto (Constante nomeada)**:
 ```python
 STANDARD_GRAVITY = 9.81  # m/s² - Aceleração gravitacional da Terra
 

@@ -26,12 +26,12 @@ Long Message Chain: Uma longa série de chamadas de métodos encadeadas. Também
 
 ## EXEMPLO
 
-❌ **Incorreto (Long Message Chain)**:
+**Incorreto (Long Message Chain)**:
 ```python
 customer.get_address().get_city().get_zip_code().validate()
 ```
 
-✅ **Correto (Hide Delegate)**:
+**Correto (Hide Delegate)**:
 ```python
 customer.validate_zip_code()
 ```

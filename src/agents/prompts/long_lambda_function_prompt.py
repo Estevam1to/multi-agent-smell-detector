@@ -26,12 +26,12 @@ Long Lambda Function: Uma função lambda excessivamente longa. Lambdas foram pr
 
 ## EXEMPLO
 
-❌ **Incorreto (Long Lambda Function)**:
+**Incorreto (Long Lambda Function)**:
 ```python
 result = map(lambda x: x * 2 if x > 0 else x * -1 if x < 0 else 0, numbers)
 ```
 
-✅ **Correto (Função nomeada)**:
+**Correto (Função nomeada)**:
 ```python
 def transform_number(x):
     if x > 0:

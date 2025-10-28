@@ -27,7 +27,7 @@ Empty Catch Block: Um bloco try-except com bloco except vazio que silencia exce�
 
 ## EXEMPLO
 
-❌ **Incorreto (Empty Catch Block)**:
+**Incorreto (Empty Catch Block)**:
 ```python
 try:
     risky_operation()
@@ -35,7 +35,7 @@ except Exception:
     pass  # Silencia todos os erros!
 ```
 
-✅ **Correto**:
+**Correto**:
 ```python
 try:
     risky_operation()

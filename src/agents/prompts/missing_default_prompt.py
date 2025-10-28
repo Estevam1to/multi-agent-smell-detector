@@ -25,7 +25,7 @@ Missing Default: Uma instrução match-case sem caso default/padrão, levando a 
 
 ## EXEMPLO
 
-❌ **Incorreto (Missing Default)**:
+**Incorreto (Missing Default)**:
 ```python
 match status:
     case "active":
@@ -35,7 +35,7 @@ match status:
     # Falta: case _: handle_unknown()
 ```
 
-✅ **Correto**:
+**Correto**:
 ```python
 match status:
     case "active":

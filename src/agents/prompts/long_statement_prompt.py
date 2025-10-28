@@ -25,12 +25,12 @@ Long Statement: Uma instrução excessivamente longa em uma única linha de cód
 
 ## EXEMPLO
 
-❌ **Incorreto (Long Statement)**:
+**Incorreto (Long Statement)**:
 ```python
 result = some_function(param1, param2, param3) if condition1 and condition2 else other_function(param4, param5)
 ```
 
-✅ **Correto**:
+**Correto**:
 ```python
 result = (
     some_function(param1, param2, param3)
