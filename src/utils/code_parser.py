@@ -142,5 +142,14 @@ class CodeParser:
                 cc += 1
             elif isinstance(child, ast.BoolOp):
                 cc += len(child.values) - 1
+            # Add for comprehensions (list/set/dict/generator)
+            elif isinstance(child, ast.comprehension):
+                cc += 1
+            # Add for ternary expressions (if-expr)
+            elif isinstance(child, ast.IfExp):
+                cc += 1
+            # Add for match-case (Python 3.10+)
+            elif hasattr(ast, "Match") and isinstance(child, ast.Match):
+                cc += 1
 
         return cc
