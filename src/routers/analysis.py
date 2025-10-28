@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 from config.logs import logger
 from agents.supervisor import analyze_code_with_supervisor
-from utils.dpy_formatter import DPyFormatter
+from utils.structured_formatter import StructuredFormatter
 
 
 class AnalyzeRequest(BaseModel):
@@ -15,8 +15,8 @@ class AnalyzeRequest(BaseModel):
 
     python_code: str
     file_path: str | None = None
-    output_format: str = "default"  # "default" ou "dpy"
-    project_name: str = "Code"  # Nome do projeto para formato DPy
+    output_format: str = "default"  # "default" ou "structured"
+    project_name: str = "Code"  # Nome do projeto para formato estruturado
 
 
 class AnalyzeResponse(BaseModel):
@@ -57,9 +57,9 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
 
         code_smells = result["code_smells"]
 
-        # Se formato DPy for solicitado, converte os resultados
-        if request.output_format.lower() == "dpy":
-            formatter = DPyFormatter(
+        # Se formato estruturado for solicitado, converte os resultados
+        if request.output_format.lower() == "structured":
+            formatter = StructuredFormatter(
                 code=request.python_code,
                 file_path=request.file_path or "unknown.py"
             )

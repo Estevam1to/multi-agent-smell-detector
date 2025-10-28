@@ -1,7 +1,7 @@
 """
-Módulo para formatar resultados no formato compatível com DPy.
+Módulo para formatar resultados em formato estruturado.
 
-Converte os resultados do sistema para o formato JSON usado pela ferramenta DPy.
+Converte os resultados do sistema para formato JSON estruturado com metadados detalhados.
 """
 
 import re
@@ -9,10 +9,10 @@ from typing import Dict, List, Any, Optional
 from utils.code_parser import CodeParser
 
 
-class DPyFormatter:
-    """Formatador para converter resultados no formato DPy."""
+class StructuredFormatter:
+    """Formatador para converter resultados em formato estruturado com metadados."""
 
-    # Mapeamento de smell_type para nome do smell no formato DPy
+    # Mapeamento de smell_type para nome do smell
     SMELL_MAPPING = {
         "long_method": "Long method",
         "long_parameter_list": "Long parameter list",
@@ -42,29 +42,29 @@ class DPyFormatter:
         self, code_smells: List[Dict[str, Any]], project_name: str = "Code"
     ) -> List[Dict[str, Any]]:
         """
-        Formata os resultados no formato DPy.
+        Formata os resultados em formato estruturado.
 
         Args:
             code_smells: Lista de code smells detectados
             project_name: Nome do projeto (padrão: "Code")
 
         Returns:
-            Lista de code smells no formato DPy
+            Lista de code smells em formato estruturado
         """
-        dpy_results = []
+        structured_results = []
 
         for smell in code_smells:
-            dpy_smell = self._convert_smell_to_dpy(smell, project_name)
-            if dpy_smell:
-                dpy_results.append(dpy_smell)
+            structured_smell = self._convert_smell_to_structured(smell, project_name)
+            if structured_smell:
+                structured_results.append(structured_smell)
 
-        return dpy_results
+        return structured_results
 
-    def _convert_smell_to_dpy(
+    def _convert_smell_to_structured(
         self, smell: Dict[str, Any], project_name: str
     ) -> Optional[Dict[str, Any]]:
         """
-        Converte um smell individual para o formato DPy.
+        Converte um smell individual para formato estruturado.
 
         Args:
             smell: Dicionário com smell_type e findings

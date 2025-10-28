@@ -126,166 +126,19 @@ Acesse `http://localhost:8000/docs` para visualizar a documentação interativa 
 
 ### Endpoint: POST /api/analyze
 
-Analisa código Python para detectar code smells.
+Analisa código Python para detectar code smells usando múltiplos agentes especializados.
 
-#### Formato Padrão (Default)
+**Parâmetros:**
+- `python_code` (string, obrigatório): Código Python a ser analisado
+- `file_path` (string, opcional): Caminho do arquivo
+- `output_format` (string, opcional): Formato de saída ("default" ou "structured")
+- `project_name` (string, opcional): Nome do projeto
 
-**Request:**
-```json
-{
-  "python_code": "def very_long_function_name_with_many_parameters(a, b, c, d, e, f):\n    result = some_function(x, y, z) if condition1 and condition2 and condition3 and condition4 else other()\n    return result * 9.81",
-  "file_path": "example.py",
-  "output_format": "default"
-}
-```
-
-**Response:**
-```json
-{
-  "total_smells_detected": 4,
-  "agents_executed": 11,
-  "output_format": "default",
-  "code_smells": [
-    {
-      "smell_type": "long_identifier",
-      "findings": "Identificador 'very_long_function_name_with_many_parameters' possui 47 caracteres (limite: 20)"
-    },
-    {
-      "smell_type": "long_parameter_list",
-      "findings": "Função possui 6 parâmetros (limite: 4)"
-    },
-    {
-      "smell_type": "complex_conditional",
-      "findings": "Condicional com 4 operadores lógicos (limite: 2)"
-    },
-    {
-      "smell_type": "magic_number",
-      "findings": "Número mágico 9.81 detectado. Sugestão: criar constante STANDARD_GRAVITY"
-    }
-  ]
-}
-```
-
-#### Formato DPy (Compatível com Designite DPy)
-
-Para facilitar a comparação com a ferramenta DPy, o sistema também pode retornar os resultados em formato compatível:
-
-**Request:**
-```json
-{
-  "python_code": "def validate_eligibility(user, age, country, verified, balance):\n    if user.age > 18 and user.country == 'BR' and user.verified and user.balance > 100:\n        return True\n    return False",
-  "file_path": "/home/user/project/validate.py",
-  "output_format": "dpy",
-  "project_name": "MyProject"
-}
-```
-
-**Response:**
-```json
-{
-  "total_smells_detected": 2,
-  "agents_executed": 11,
-  "output_format": "dpy",
-  "code_smells": [
-    {
-      "Project": "MyProject",
-      "Package": "project",
-      "Module": "validate",
-      "Class": "",
-      "Smell": "Complex conditional",
-      "Method": "validate_eligibility",
-      "Line no": "1 - 4",
-      "File": "/home/user/project/validate.py",
-      "Description": "A conditional in validate_eligibility has 4 conditions, more than the recommended maximum 3 conditions."
-    },
-    {
-      "Project": "MyProject",
-      "Package": "project",
-      "Module": "validate",
-      "Class": "",
-      "Smell": "Long parameter list",
-      "Method": "validate_eligibility",
-      "Line no": "1",
-      "File": "/home/user/project/validate.py",
-      "Description": "Method 'validate_eligibility' has 5 parameters, more than the recommended maximum 4 parameters."
-    }
-  ]
-}
-```
-
-**Parâmetros da Requisição:**
-
-| Parâmetro | Tipo | Obrigatório | Padrão | Descrição |
-|-----------|------|-------------|--------|-----------|
-| `python_code` | string | Sim | - | Código Python a ser analisado |
-| `file_path` | string | Não | "unknown.py" | Caminho do arquivo (usado no formato DPy) |
-| `output_format` | string | Não | "default" | Formato de saída: "default" ou "dpy" |
-| `project_name` | string | Não | "Code" | Nome do projeto (usado no formato DPy) |
-
-### Exemplos de Uso
-
-#### Usando curl
-
-```bash
-# Formato padrão
-curl -X POST "http://localhost:8000/api/analyze" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "python_code": "def test(a,b,c,d,e):\n    return a+b+c+d+e"
-  }'
-
-# Formato DPy
-curl -X POST "http://localhost:8000/api/analyze" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "python_code": "def test(a,b,c,d,e):\n    return a+b+c+d+e",
-    "file_path": "/project/test.py",
-    "output_format": "dpy",
-    "project_name": "MyProject"
-  }'
-```
-
-#### Usando Python
-
-```python
-import requests
-
-# Formato DPy
-response = requests.post(
-    "http://localhost:8000/api/analyze",
-    json={
-        "python_code": """
-def validate_eligibility(user, age, country, verified, balance):
-    if user.age > 18 and user.country == "BR" and user.verified and user.balance > 100:
-        return True
-    return False
-        """,
-        "file_path": "/home/user/project/validate.py",
-        "output_format": "dpy",
-        "project_name": "MyProject"
-    }
-)
-
-results = response.json()
-print(f"Total smells: {results['total_smells_detected']}")
-
-# Resultados compatíveis com DPy
-for smell in results['code_smells']:
-    print(f"{smell['Smell']} in {smell['Method']} at line {smell['Line no']}")
-```
-
-#### Script de Teste Completo
-
-Um script de exemplo está disponível em `examples/test_dpy_format.py`:
-
-```bash
-python examples/test_dpy_format.py
-```
-
-Este script demonstra:
-- Como usar o formato padrão
-- Como usar o formato DPy
-- Comparação entre os dois formatos
+**Resposta:**
+- `total_smells_detected` (int): Total de code smells encontrados
+- `agents_executed` (int): Número de agentes executados
+- `code_smells` (list): Lista de code smells detectados
+- `output_format` (string): Formato da resposta
 
 ---
 
@@ -310,15 +163,6 @@ python tests/test_agents.py
 - **F1-Score**: Média harmônica de precision e recall
 - **Confusion Matrix**: TP, TN, FP, FN
 
-### Comparação com DPy (Designite)
-
-```bash
-# Comparar com resultados da DPy
-python tests/compare_with_dpy.py <arquivo.py> [<dpy_results.json>]
-
-# Exemplo
-python tests/compare_with_dpy.py examples/example_code.py dpy_output.json
-```
 
 ---
 
@@ -351,7 +195,7 @@ multi-agent-smell-detector/
 │   │
 │   ├── utils/                            # Utilitários
 │   │   ├── code_parser.py                # Parser de código Python
-│   │   └── dpy_formatter.py              # Formatador para formato DPy
+│   │   └── structured_formatter.py       # Formatador para saída estruturada
 │   │
 │   ├── config/                           # Configurações
 │   │   ├── settings.py
@@ -364,11 +208,7 @@ multi-agent-smell-detector/
 │   │   └── smell_examples.py             # 12 exemplos de code smells
 │   │
 │   ├── llm_judge.py                      # LLM as a Judge
-│   ├── test_agents.py                    # Executa testes
-│   └── compare_with_dpy.py               # Comparação com DPy
-│
-├── examples/                             # Scripts de exemplo
-│   └── test_dpy_format.py                # Teste de formato DPy
+│   └── test_agents.py                    # Executa testes
 │
 ├── .env                                  # Variáveis de ambiente
 ├── pyproject.toml                        # Dependências
@@ -403,16 +243,10 @@ Sistemas baseados em LLM podem detectar code smells com **acurácia comparável 
 - Calcula métricas: Accuracy, Precision, Recall, F1-Score
 - Gera matriz de confusão (TP, TN, FP, FN)
 
-**Comparação com DPy:**
-- Analisa mesmos arquivos Python
-- Compara resultados usando Jaccard Similarity
-- Identifica concordâncias e discordâncias
-
 ### 4. Contribuições Esperadas
 
 - Framework multi-agente para detecção de code smells
 - Sistema de avaliação automática (LLM as a Judge)
-- Comparação empírica LLM vs Análise Estática
 - Dataset de exemplos de code smells
 
 ---

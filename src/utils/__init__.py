@@ -3,6 +3,6 @@ Módulo de utilitários para o sistema de detecção de code smells.
 """
 
 from utils.code_parser import CodeParser
-from utils.dpy_formatter import DPyFormatter
+from utils.structured_formatter import StructuredFormatter
 
-__all__ = ["CodeParser", "DPyFormatter"]
+__all__ = ["CodeParser", "StructuredFormatter"]
