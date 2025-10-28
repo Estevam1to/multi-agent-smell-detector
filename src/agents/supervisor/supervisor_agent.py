@@ -5,7 +5,7 @@ Implementação simples e eficiente que executa todos os agentes em paralelo.
 """
 
 import asyncio
-from typing import Dict, List
+from typing import Dict
 
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage
@@ -38,14 +38,12 @@ class CodeSmellSupervisor:
 
     def __init__(self):
         """Inicializa o supervisor e todos os agentes especializados."""
-        # Inicializa o modelo LLM
         self.model = ChatAnthropic(
             model=settings.ANTHROPIC_MODEL,
             api_key=settings.ANTHROPIC_API_KEY,
             temperature=0,
         )
 
-        # Cria todos os agentes especializados
         self.agents = {
             "long_method": create_long_method_agent(self.model),
             "long_parameter_list": create_long_parameter_list_agent(self.model),
@@ -75,7 +73,6 @@ class CodeSmellSupervisor:
             Dicionário com resultados do agente
         """
         try:
-            # Cria o estado inicial para o agente
             state = {
                 "messages": [
                     HumanMessage(
@@ -84,10 +81,8 @@ class CodeSmellSupervisor:
                 ]
             }
 
-            # Executa o agente
             result = await agent.ainvoke(state)
 
-            # Extrai a resposta do agente
             messages = result.get("messages", [])
             if messages:
                 response = messages[-1].content
@@ -121,7 +116,6 @@ class CodeSmellSupervisor:
         Returns:
             Dicionário com resultados consolidados de todos os agentes
         """
-        # Executa todos os agentes em paralelo
         tasks = [
             self._execute_agent(name, agent, python_code)
             for name, agent in self.agents.items()
@@ -129,7 +123,6 @@ class CodeSmellSupervisor:
 
         results = await asyncio.gather(*tasks)
 
-        # Consolida os resultados
         code_smells = []
         for result in results:
             if result["status"] == "success" and result["has_smells"]:
@@ -148,7 +141,6 @@ class CodeSmellSupervisor:
         }
 
 
-# Instância global do supervisor
 _supervisor_instance = None
 
 

@@ -23,7 +23,7 @@ def create_long_method_agent(model: BaseChatModel) -> CompiledStateGraph:
     que analisa código e identifica métodos muito longos.
 
     O agente é criado com:
-    - Um modelo LLM (Claude) para processar o código
+    - Um modelo LLM para processar o código
     - Uma lista vazia de tools (não precisamos de ferramentas externas)
     - Um prompt acadêmico baseado em Fowler (1999) como state_modifier
 

@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from config.logs import logger
-from supervisor import analyze_code_with_supervisor
+from agents.supervisor import analyze_code_with_supervisor
 
 
 class AnalyzeRequest(BaseModel):
@@ -42,18 +42,13 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
         HTTPException: Se houver erro na análise
     """
     try:
-        logger.info(
-            f"Iniciando análise de código"
-            + (f" do arquivo {request.file_path}" if request.file_path else "")
-        )
+        logger.info("Iniciando análise de código")
 
-        # Valida que o código não está vazio
         if not request.python_code or not request.python_code.strip():
             raise HTTPException(
                 status_code=400, detail="O código Python não pode estar vazio"
             )
 
-        # Executa a análise usando o supervisor
         result = await analyze_code_with_supervisor(request.python_code)
 
         logger.info(
@@ -70,4 +65,6 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
         raise
     except Exception as e:
         logger.error(f"Erro ao analisar código: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Erro ao analisar código: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao analisar código: {str(e)}"
+        )
