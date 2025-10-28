@@ -6,8 +6,8 @@ Baseado em McCabe (1976) - "A complexity measure".
 
 from typing import Union, List
 from langchain_core.language_models.chat_models import BaseChatModel
-from prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
-from schemas.agent_response import ComplexMethodDetection
+from agents.prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
+from agents.schemas.agent_response import ComplexMethodDetection
 
 
 def create_complex_method_agent(model: BaseChatModel):
