@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 from config.logs import logger
 from agents.supervisor import analyze_code_with_supervisor
+from utils.dpy_formatter import DPyFormatter
 
 
 class AnalyzeRequest(BaseModel):
@@ -14,6 +15,8 @@ class AnalyzeRequest(BaseModel):
 
     python_code: str
     file_path: str | None = None
+    output_format: str = "default"  # "default" ou "dpy"
+    project_name: str = "Code"  # Nome do projeto para formato DPy
 
 
 class AnalyzeResponse(BaseModel):
@@ -22,6 +25,7 @@ class AnalyzeResponse(BaseModel):
     total_smells_detected: int
     code_smells: list[dict]
     agents_executed: int
+    output_format: str = "default"
 
 
 router = APIRouter(prefix="/api", tags=["analysis"])
@@ -51,14 +55,28 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
 
         result = await analyze_code_with_supervisor(request.python_code)
 
+        code_smells = result["code_smells"]
+
+        # Se formato DPy for solicitado, converte os resultados
+        if request.output_format.lower() == "dpy":
+            formatter = DPyFormatter(
+                code=request.python_code,
+                file_path=request.file_path or "unknown.py"
+            )
+            code_smells = formatter.format_results(
+                code_smells=code_smells,
+                project_name=request.project_name
+            )
+
         logger.info(
             f"Análise concluída: {result['total_smells_detected']} code smells detectados"
         )
 
         return AnalyzeResponse(
             total_smells_detected=result["total_smells_detected"],
-            code_smells=result["code_smells"],
+            code_smells=code_smells,
             agents_executed=result["agents_executed"],
+            output_format=request.output_format,
         )
 
     except HTTPException:
