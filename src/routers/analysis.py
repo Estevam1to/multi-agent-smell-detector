@@ -11,7 +11,6 @@ from agents.supervisor import analyze_code_with_supervisor, analyze_code_with_su
 class AnalyzeRequest(BaseModel):
     python_code: str
     file_path: Optional[str] = None
-    output_format: str = "default"
     project_name: str = "Code"
     use_structured_output: bool = False
 
@@ -20,7 +19,6 @@ class AnalyzeResponse(BaseModel):
     total_smells_detected: int
     code_smells: list[dict]
     agents_executed: int
-    output_format: str = "default"
 
 
 router = APIRouter(prefix="/api", tags=["analysis"])
@@ -54,7 +52,6 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
             total_smells_detected=result["total_smells_detected"],
             code_smells=result["code_smells"],
             agents_executed=result["agents_executed"],
-            output_format=request.output_format,
         )
 
     except HTTPException:
