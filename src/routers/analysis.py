@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from config.logs import logger
-from agents.supervisor import analyze_code_with_supervisor
+from agents.supervisor import analyze_code_with_supervisor, analyze_code_with_supervisor_v2
 from utils.structured_formatter import StructuredFormatter
 
 
@@ -17,6 +17,7 @@ class AnalyzeRequest(BaseModel):
     file_path: str | None = None
     output_format: str = "default"  # "default" ou "structured"
     project_name: str = "Code"  # Nome do projeto para formato estruturado
+    use_structured_output: bool = False  # Se True, usa supervisor V2 com structured output
 
 
 class AnalyzeResponse(BaseModel):
@@ -53,12 +54,18 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
                 status_code=400, detail="O código Python não pode estar vazio"
             )
 
-        result = await analyze_code_with_supervisor(request.python_code)
+        # Escolhe qual supervisor usar
+        if request.use_structured_output:
+            # Usa supervisor V2 com structured output (response format)
+            result = await analyze_code_with_supervisor_v2(request.python_code)
+        else:
+            # Usa supervisor V1 original
+            result = await analyze_code_with_supervisor(request.python_code)
 
         code_smells = result["code_smells"]
 
-        # Se formato estruturado for solicitado, converte os resultados
-        if request.output_format.lower() == "structured":
+        # Se formato estruturado for solicitado E não estiver usando V2, converte os resultados
+        if request.output_format.lower() == "structured" and not request.use_structured_output:
             formatter = StructuredFormatter(
                 code=request.python_code,
                 file_path=request.file_path or "unknown.py"
@@ -67,6 +74,18 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
                 code_smells=code_smells,
                 project_name=request.project_name
             )
+        elif request.output_format.lower() == "structured" and request.use_structured_output:
+            # V2 já retorna estruturado, apenas adiciona metadados do arquivo
+            formatter = StructuredFormatter(
+                code=request.python_code,
+                file_path=request.file_path or "unknown.py"
+            )
+            # Adiciona informações de arquivo aos smells já estruturados
+            for smell in code_smells:
+                smell["File"] = request.file_path or "unknown.py"
+                smell["Project"] = request.project_name
+                smell["Package"] = formatter.parser.get_package_name()
+                smell["Module"] = formatter.parser.get_module_name()
 
         logger.info(
             f"Análise concluída: {result['total_smells_detected']} code smells detectados"

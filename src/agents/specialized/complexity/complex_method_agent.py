@@ -4,13 +4,13 @@ Agente especializado em detecção de Complex Method.
 Baseado em McCabe (1976) - "A complexity measure".
 """
 
+from typing import Union, List
 from langchain_core.language_models.chat_models import BaseChatModel
-from langgraph.graph.state import CompiledStateGraph
-from langgraph.prebuilt import create_react_agent
 from prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
+from schemas.agent_response import ComplexMethodDetection
 
 
-def create_complex_method_agent(model: BaseChatModel) -> CompiledStateGraph:
+def create_complex_method_agent(model: BaseChatModel):
     """
     Cria e retorna um agente para detectar Complex Method code smell.
 
@@ -18,13 +18,12 @@ def create_complex_method_agent(model: BaseChatModel) -> CompiledStateGraph:
         model: Instância do modelo BaseChatModel configurado
 
     Returns:
-        Agent configurado pronto para analisar código
+        Model configurado com structured output
     """
-    agent = create_react_agent(
-        model=model,
-        tools=[],
-        prompt=COMPLEX_METHOD_AGENT_PROMPT,
-        name="complex_method_agent",
+    # Configura o modelo para retornar JSON estruturado
+    structured_model = model.with_structured_output(
+        Union[ComplexMethodDetection, List[ComplexMethodDetection]],
+        method="json_mode"
     )
 
-    return agent
+    return structured_model
