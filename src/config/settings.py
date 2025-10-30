@@ -8,14 +8,16 @@ class Settings(BaseSettings):
     Utiliza Pydantic para validar e carregar as variáveis do arquivo .env.
 
     Variáveis:
-        ANTHROPIC_API_KEY: Chave de API para o serviço Anthropic
-        ANTHROPIC_MODEL: Nome do modelo Anthropic a ser utilizado
+        OPENROUTER_API_KEY: Chave de API para o serviço OpenRouter
+        OPENROUTER_BASE_URL: URL base do OpenRouter
+        OPENROUTER_API_MODEL: Nome do modelo a ser utilizado
     """
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    ANTHROPIC_API_KEY: str
-    ANTHROPIC_MODEL: str
+    OPENROUTER_API_KEY: str
+    OPENROUTER_BASE_URL: str
+    OPENROUTER_API_MODEL: str
 
 
 settings = Settings()

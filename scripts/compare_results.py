@@ -8,9 +8,16 @@ from collections import defaultdict
 
 def normalize_smell_key(smell: Dict) -> str:
     file = smell.get("File", "")
+    # Normalizar path: pegar apenas o nome do arquivo
+    from pathlib import Path
+    file_name = Path(file).name if file else ""
+    
     smell_type = smell.get("Smell", smell.get("smell_type", "")).lower()
     method = smell.get("Method", smell.get("method_name", ""))
-    return f"{file}::{smell_type}::{method}"
+    line_no = smell.get("Line no", "")
+    
+    # Usar file_name + smell_type + line_no para melhor matching
+    return f"{file_name}::{smell_type}::{line_no}"
 
 
 def load_json(file_path: str) -> List[Dict]:
@@ -102,7 +109,7 @@ def compare_results(system_file: str, other_file: str):
             }
         }
 
-        output_file = "discrepancies.json"
+        output_file = "results/discrepancies.json"
         Path(output_file).write_text(
             json.dumps(discrepancies, indent=2, ensure_ascii=False),
             encoding="utf-8"

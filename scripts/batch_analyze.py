@@ -1,6 +1,7 @@
 """Analisa múltiplos arquivos Python e gera JSON."""
 
 import asyncio
+import json
 import logging
 import sys
 import traceback
@@ -8,13 +9,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from agents.supervisor import analyze_code_with_supervisor_v2, get_supervisor_v2
+from core.supervisor.supervisor import analyze_code_with_supervisor_v2
 
 logging.basicConfig(level=logging.INFO)
 
 
-async def analyze_folder(folder_path: str, output_file: str, project_name: str = "Code"):
-
+async def analyze_folder(
+    folder_path: str, output_file: str, project_name: str = "Code"
+):
     folder = Path(folder_path)
 
     if not folder.exists():
@@ -28,7 +30,7 @@ async def analyze_folder(folder_path: str, output_file: str, project_name: str =
         return
 
     print(f"Encontrados {len(py_files)} arquivos Python")
-    print(f"Analisando...\n")
+    print("Analisando...\n")
 
     all_smells = []
 
@@ -47,16 +49,19 @@ async def analyze_folder(folder_path: str, output_file: str, project_name: str =
             logging.debug(traceback.format_exc())
         except Exception as e:
             print(f"✗ Erro inesperado: {e}")
-            logging.error(f"Unexpected error processing {file_path}: {traceback.format_exc()}")
+            logging.error(
+                f"Unexpected error processing {file_path}: {traceback.format_exc()}"
+            )
 
-    supervisor = get_supervisor_v2()
-    supervisor.save_to_json(all_smells, output_file)
+    Path(output_file).write_text(
+        json.dumps(all_smells, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
-    print(f"\n{'='*60}")
-    print(f"Análise concluída!")
+    print(f"\n{'=' * 60}")
+    print("Análise concluída!")
     print(f"Total de smells: {len(all_smells)}")
     print(f"Resultado salvo em: {output_file}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
 
 if __name__ == "__main__":
@@ -64,7 +69,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Analisa arquivos Python em batch")
     parser.add_argument("folder", help="Pasta com arquivos Python")
-    parser.add_argument("-o", "--output", default="results.json", help="Arquivo de saída")
+    parser.add_argument(
+        "-o", "--output", default="results/results.json", help="Arquivo de saída"
+    )
     parser.add_argument("-p", "--project", default="Code", help="Nome do projeto")
 
     args = parser.parse_args()
