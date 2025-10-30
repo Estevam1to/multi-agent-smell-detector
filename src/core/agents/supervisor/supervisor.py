@@ -22,6 +22,7 @@ class CodeSmellSupervisor:
             api_key=settings.OPENROUTER_API_KEY,
             base_url=settings.OPENROUTER_BASE_URL,
             temperature=0,
+            max_completion_tokens=4096,
         )
         self.agents = AGENT_CONFIGS
 
@@ -46,7 +47,11 @@ class CodeSmellSupervisor:
             ]
 
             result = await structured_model.ainvoke(messages)
-            detections = [result] if result.detected else []
+            
+            if hasattr(result, 'detections'):
+                detections = result.detections if result.detected else []
+            else:
+                detections = [result] if result.detected else []
             
             return enrich_detections(
                 detections, python_code, file_path, project_name, agent_name

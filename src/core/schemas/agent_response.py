@@ -82,3 +82,19 @@ class LongMessageChainDetection(CodeSmellDetection):
     Smell: str = Field(default="Long message chain")
     chain_length: Optional[int] = None
     threshold: int = Field(default=2)
+
+
+class MultipleDetectionsResponse(BaseModel):
+    """Wrapper para múltiplas detecções."""
+    detections: list[CodeSmellDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongIdentifierResponse(BaseModel):
+    detections: list[LongIdentifierDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongStatementResponse(BaseModel):
+    detections: list[LongStatementDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)

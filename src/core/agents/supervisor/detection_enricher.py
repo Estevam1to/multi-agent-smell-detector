@@ -15,7 +15,7 @@ def enrich_detections(
     project_name: str,
     agent_name: str
 ) -> List[Any]:
-    """Enriquece detecções com metadados do projeto."""
+    """Enriquece detecções com metadados do projeto e corrige números de linha."""
     parser = CodeParser(python_code, file_path)
     valid_detections = []
     
@@ -23,8 +23,22 @@ def enrich_detections(
         if not detection.detected:
             continue
             
-        if not detection.Line_no or not detection.Description:
-            logger.warning(f"Detecção incompleta ignorada em {agent_name}")
+        if not detection.Description:
+            logger.warning(f"Detecção sem descrição ignorada em {agent_name}")
+            continue
+        
+        # Corrige número de linha usando CodeParser
+        if hasattr(detection, 'identifier_name') and detection.identifier_name:
+            correct_line = parser.find_identifier_line(detection.identifier_name)
+            if correct_line:
+                detection.Line_no = str(correct_line)
+        elif hasattr(detection, 'Method') and detection.Method:
+            func = parser.find_function_by_name(detection.Method)
+            if func:
+                detection.Line_no = str(func['lineno'])
+        
+        if not detection.Line_no:
+            logger.warning(f"Detecção sem linha ignorada em {agent_name}: {detection.Description}")
             continue
         
         detection.Project = project_name

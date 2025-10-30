@@ -23,6 +23,8 @@ from core.schemas.agent_response import (
     LongStatementDetection,
     MagicNumberDetection,
     MissingDefaultDetection,
+    MultipleLongIdentifierResponse,
+    MultipleLongStatementResponse,
 )
 
 AGENT_CONFIGS = {
@@ -44,11 +46,11 @@ AGENT_CONFIGS = {
     },
     "long_statement": {
         "prompt": LONG_STATEMENT_AGENT_PROMPT,
-        "schema": LongStatementDetection,
+        "schema": MultipleLongStatementResponse,
     },
     "long_identifier": {
         "prompt": LONG_IDENTIFIER_AGENT_PROMPT,
-        "schema": LongIdentifierDetection,
+        "schema": MultipleLongIdentifierResponse,
     },
     "magic_number": {
         "prompt": MAGIC_NUMBER_AGENT_PROMPT,

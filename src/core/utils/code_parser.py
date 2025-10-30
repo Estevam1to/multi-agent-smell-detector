@@ -46,6 +46,26 @@ class CodeParser:
                     "methods": self._get_class_methods(node),
                 })
 
+    def find_identifier_line(self, identifier_name: str) -> Optional[int]:
+        """Encontra a linha onde um identificador é definido."""
+        if not self.tree:
+            return None
+        
+        for node in ast.walk(self.tree):
+            # Variáveis/constantes (Assign)
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id == identifier_name:
+                        return node.lineno
+            # Funções
+            elif isinstance(node, ast.FunctionDef) and node.name == identifier_name:
+                return node.lineno
+            # Classes
+            elif isinstance(node, ast.ClassDef) and node.name == identifier_name:
+                return node.lineno
+        
+        return None
+
     def _get_decorator_name(self, decorator) -> str:
         if isinstance(decorator, ast.Name):
             return decorator.id

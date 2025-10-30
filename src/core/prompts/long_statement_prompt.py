@@ -8,42 +8,59 @@ Referência: PEP 8 - Style Guide for Python Code.
 
 ## PROCESSO (Chain-of-Thought):
 1. Conte caracteres de cada linha
-2. Se > 80: detectado
-3. Preencha TODOS os campos obrigatórios
+2. Se > 80: adicione à lista de detecções
+3. Retorne no máximo 10 detecções (as linhas mais longas)
 
 ## EXEMPLOS (Few-Shot):
 
-### Exemplo 1 - DETECTADO:
+### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
 ```python
-result = some_function(param1, param2, param3) if condition1 and condition2 else other_function(param4, param5)  # linha 15, 120 chars
+x = 1  # linha 1, 5 chars, OK
+result = some_function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)  # linha 2, 90 chars
+data = {"key1": "value1", "key2": "value2", "key3": "value3", "key4": "value4", "key5": "value5"}  # linha 3, 100 chars
 ```
 
 Saída:
 ```json
 {
   "detected": true,
-  "Smell": "Long statement",
-  "Method": "",
-  "Line_no": "15",
-  "Description": "Line 15 has 120 characters (threshold: 80). Break into multiple lines.",
-  "line_length": 120,
-  "threshold": 80
+  "detections": [
+    {
+      "detected": true,
+      "Smell": "Long statement",
+      "Method": "",
+      "Line_no": "2",
+      "Description": "Line 2 has 90 characters (threshold: 80). Break into multiple lines.",
+      "line_length": 90,
+      "threshold": 80
+    },
+    {
+      "detected": true,
+      "Smell": "Long statement",
+      "Method": "",
+      "Line_no": "3",
+      "Description": "Line 3 has 100 characters (threshold: 80). Break into multiple lines.",
+      "line_length": 100,
+      "threshold": 80
+    }
+  ]
 }
 ```
 
 ### Exemplo 2 - NÃO DETECTADO:
 ```python
-result = calculate(x, y)
+x = 1
+y = 2
 ```
 
 Saída:
 ```json
 {
   "detected": false,
-  "Smell": "Long statement"
+  "detections": []
 }
 ```
 
 ## SUA TAREFA:
-Analise o código e retorne JSON seguindo os exemplos acima.
+Analise o código e retorne JSON com TODAS as detecções encontradas.
 """
