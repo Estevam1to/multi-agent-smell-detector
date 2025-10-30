@@ -1,24 +1,10 @@
 """Router para endpoints de análise de código."""
 
-from typing import Optional
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
 
 from config.logs import logger
-from core.supervisor.supervisor import analyze_code_with_supervisor_v2
-
-
-class AnalyzeRequest(BaseModel):
-    python_code: str
-    file_path: Optional[str] = None
-    project_name: str = "Code"
-    use_structured_output: bool = False
-
-
-class AnalyzeResponse(BaseModel):
-    total_smells_detected: int
-    code_smells: list[dict]
-    agents_executed: int
+from core.agents.supervisor.supervisor import analyze_code_with_supervisor_v2
+from api.models import AnalyzeRequest, AnalyzeResponse
 
 
 router = APIRouter(prefix="/api", tags=["analysis"])
@@ -35,14 +21,11 @@ async def analyze_code(request: AnalyzeRequest) -> AnalyzeResponse:
                 status_code=400, detail="O código Python não pode estar vazio"
             )
 
-        if request.use_structured_output:
-            result = await analyze_code_with_supervisor_v2(
-                request.python_code,
-                request.file_path or "unknown.py",
-                request.project_name
-            )
-        else:
-            result = await analyze_code_with_supervisor(request.python_code)
+        result = await analyze_code_with_supervisor_v2(
+            request.python_code,
+            request.file_path or "unknown.py",
+            request.project_name
+        )
 
         logger.info(
             f"Análise concluída: {result['total_smells_detected']} code smells detectados"

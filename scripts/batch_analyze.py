@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from core.supervisor.supervisor import analyze_code_with_supervisor_v2
+from core.agents.supervisor.supervisor import analyze_code_with_supervisor_v2
 
 logging.basicConfig(level=logging.INFO)
 

@@ -1,9 +1,9 @@
 """Supervisor agent para coordenação dos agentes especializados."""
 
 from .supervisor import (
-    CodeSmellSupervisorV2,
+    CodeSmellSupervisor,
     analyze_code_with_supervisor_v2,
-    get_supervisor_v2,
+    get_supervisor,
 )
 
 __all__ = [
