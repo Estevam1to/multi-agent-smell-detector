@@ -11,8 +11,6 @@ from config.settings import settings
 from core.agents.supervisor.agent_config import AGENT_CONFIGS
 from core.agents.supervisor.constants import AGENT_EXECUTION_DELAY
 from core.agents.supervisor.detection_enricher import enrich_detections
-from core.utils.static_analyzers import detect_long_identifiers, detect_long_statements
-from core.schemas.agent_response import LongIdentifierDetection, LongStatementDetection
 
 logger = logging.getLogger(__name__)
 
@@ -71,19 +69,9 @@ class CodeSmellSupervisor:
     ) -> Dict[str, Any]:
         results = []
         for name, config in self.agents.items():
-            # Usa análise estática para Long Statement e Long Identifier
-            if name == "long_statement":
-                detections = detect_long_statements(python_code)
-                detections = [LongStatementDetection(**d) for d in detections]
-                result = enrich_detections(detections, python_code, file_path, project_name, name)
-            elif name == "long_identifier":
-                detections = detect_long_identifiers(python_code)
-                detections = [LongIdentifierDetection(**d) for d in detections]
-                result = enrich_detections(detections, python_code, file_path, project_name, name)
-            else:
-                result = await self._execute_agent(
-                    name, config, python_code, file_path, project_name
-                )
+            result = await self._execute_agent(
+                name, config, python_code, file_path, project_name
+            )
             results.append(result)
             await asyncio.sleep(AGENT_EXECUTION_DELAY)
 
