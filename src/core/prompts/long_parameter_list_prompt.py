@@ -8,28 +8,44 @@ Referência: Fowler (1999) - Refactoring.
 
 ## PROCESSO (Chain-of-Thought):
 1. Conte parâmetros de cada método
-2. Se > 4: detectado
-3. Preencha TODOS os campos obrigatórios
+2. Se > 4: adicione à lista
+3. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 
-### Exemplo 1 - DETECTADO:
+### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
 ```python
-def create_user(name, email, age, address, phone, country):  # linha 5
+def create_user(name, email, age, address, phone, country):  # linha 5, 6 params
+    pass
+
+def update_order(id, status, date, amount, customer):  # linha 10, 5 params
     pass
 ```
-6 parâmetros
 
 Saída:
 ```json
 {
   "detected": true,
-  "Smell": "Long parameter list",
-  "Method": "create_user",
-  "Line_no": "5",
-  "Description": "Method 'create_user' has 6 parameters (threshold: 4). Consider introducing a User parameter object.",
-  "parameter_count": 6,
-  "threshold": 4
+  "detections": [
+    {
+      "detected": true,
+      "Smell": "Long parameter list",
+      "Method": "create_user",
+      "Line_no": "5",
+      "Description": "Method 'create_user' has 6 parameters (threshold: 4). Consider introducing a User parameter object.",
+      "parameter_count": 6,
+      "threshold": 4
+    },
+    {
+      "detected": true,
+      "Smell": "Long parameter list",
+      "Method": "update_order",
+      "Line_no": "10",
+      "Description": "Method 'update_order' has 5 parameters (threshold: 4). Consider introducing an Order parameter object.",
+      "parameter_count": 5,
+      "threshold": 4
+    }
+  ]
 }
 ```
 
@@ -43,10 +59,10 @@ Saída:
 ```json
 {
   "detected": false,
-  "Smell": "Long parameter list"
+  "detections": []
 }
 ```
 
 ## SUA TAREFA:
-Analise o código e retorne JSON seguindo os exemplos acima.
+Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
 """

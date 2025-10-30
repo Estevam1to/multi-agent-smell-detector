@@ -8,14 +8,14 @@ Referência: McCabe (1976) - A complexity measure.
 
 ## PROCESSO (Chain-of-Thought):
 1. Calcule CC = 1 + pontos de decisão (if, elif, for, while, and, or, except)
-2. Se CC > 7: detectado
-3. Preencha TODOS os campos obrigatórios
+2. Se CC > 7: adicione à lista
+3. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 
-### Exemplo 1 - DETECTADO:
+### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
 ```python
-def validate(data):  # linha 10
+def validate(data):  # linha 10, CC=9
     if data:
         if data.valid:
             if data.type == "A":
@@ -25,19 +25,40 @@ def validate(data):  # linha 10
                             if item.value > 0:
                                 return True
     return False
+
+def process(x):  # linha 20, CC=8
+    if x > 0:
+        if x < 100:
+            for i in range(x):
+                if i % 2 == 0:
+                    if i > 10:
+                        return i
 ```
-CC = 1 + 8 = 9
 
 Saída:
 ```json
 {
   "detected": true,
-  "Smell": "Complex method",
-  "Method": "validate",
-  "Line_no": "10",
-  "Description": "Method 'validate' has cyclomatic complexity of 9 (threshold: 7). Extract nested conditions into separate validation methods.",
-  "cyclomatic_complexity": 9,
-  "threshold": 7
+  "detections": [
+    {
+      "detected": true,
+      "Smell": "Complex method",
+      "Method": "validate",
+      "Line_no": "10",
+      "Description": "Method 'validate' has cyclomatic complexity of 9 (threshold: 7). Extract nested conditions into separate methods.",
+      "cyclomatic_complexity": 9,
+      "threshold": 7
+    },
+    {
+      "detected": true,
+      "Smell": "Complex method",
+      "Method": "process",
+      "Line_no": "20",
+      "Description": "Method 'process' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.",
+      "cyclomatic_complexity": 8,
+      "threshold": 7
+    }
+  ]
 }
 ```
 
@@ -46,16 +67,15 @@ Saída:
 def add(x, y):
     return x + y
 ```
-CC = 1
 
 Saída:
 ```json
 {
   "detected": false,
-  "Smell": "Complex method"
+  "detections": []
 }
 ```
 
 ## SUA TAREFA:
-Analise o código e retorne JSON seguindo os exemplos acima.
+Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
 """

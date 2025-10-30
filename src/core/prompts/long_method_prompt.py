@@ -8,30 +8,49 @@ Referência: Fowler (1999) - Refactoring.
 
 ## PROCESSO (Chain-of-Thought):
 1. Conte linhas de código de cada método (ignore comentários/linhas vazias)
-2. Se > 67 linhas: detectado
-3. Preencha TODOS os campos obrigatórios
+2. Se > 67 linhas: adicione à lista
+3. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 
-### Exemplo 1 - DETECTADO:
+### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
 ```python
-def process_order(order):
+def process_order(order):  # linha 1, 70 linhas
     # 70 linhas de código aqui...
     validate()
     calculate()
     save()
+
+def generate_report(data):  # linha 80, 75 linhas
+    # 75 linhas de código aqui...
+    format()
+    export()
 ```
 
 Saída:
 ```json
 {
   "detected": true,
-  "Smell": "Long method",
-  "Method": "process_order",
-  "Line_no": "1",
-  "Description": "Method 'process_order' has 70 lines (threshold: 67). Extract validation, calculation and persistence into separate methods.",
-  "total_lines": 70,
-  "threshold": 67
+  "detections": [
+    {
+      "detected": true,
+      "Smell": "Long method",
+      "Method": "process_order",
+      "Line_no": "1",
+      "Description": "Method 'process_order' has 70 lines (threshold: 67). Extract validation, calculation and persistence into separate methods.",
+      "total_lines": 70,
+      "threshold": 67
+    },
+    {
+      "detected": true,
+      "Smell": "Long method",
+      "Method": "generate_report",
+      "Line_no": "80",
+      "Description": "Method 'generate_report' has 75 lines (threshold: 67). Extract formatting and export logic into separate methods.",
+      "total_lines": 75,
+      "threshold": 67
+    }
+  ]
 }
 ```
 
@@ -45,10 +64,10 @@ Saída:
 ```json
 {
   "detected": false,
-  "Smell": "Long method"
+  "detections": []
 }
 ```
 
 ## SUA TAREFA:
-Analise o código e retorne JSON seguindo os exemplos acima.
+Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
 """
