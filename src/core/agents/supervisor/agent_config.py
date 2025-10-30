@@ -12,37 +12,35 @@ from core.prompts.long_statement_prompt import LONG_STATEMENT_AGENT_PROMPT
 from core.prompts.magic_number_prompt import MAGIC_NUMBER_AGENT_PROMPT
 from core.prompts.missing_default_prompt import MISSING_DEFAULT_AGENT_PROMPT
 from core.schemas.agent_response import (
-    ComplexConditionalDetection,
-    ComplexMethodDetection,
     EmptyCatchBlockDetection,
-    LongIdentifierDetection,
-    LongLambdaFunctionDetection,
-    LongMessageChainDetection,
-    LongMethodDetection,
-    LongParameterListDetection,
-    LongStatementDetection,
-    MagicNumberDetection,
     MissingDefaultDetection,
+    MultipleComplexConditionalResponse,
+    MultipleComplexMethodResponse,
     MultipleLongIdentifierResponse,
+    MultipleLongLambdaResponse,
+    MultipleLongMessageChainResponse,
+    MultipleLongMethodResponse,
+    MultipleLongParameterListResponse,
     MultipleLongStatementResponse,
+    MultipleMagicNumberResponse,
 )
 
 AGENT_CONFIGS = {
     "complex_method": {
         "prompt": COMPLEX_METHOD_AGENT_PROMPT,
-        "schema": ComplexMethodDetection,
+        "schema": MultipleComplexMethodResponse,
     },
     "long_method": {
         "prompt": LONG_METHOD_AGENT_PROMPT,
-        "schema": LongMethodDetection,
+        "schema": MultipleLongMethodResponse,
     },
     "complex_conditional": {
         "prompt": COMPLEX_CONDITIONAL_AGENT_PROMPT,
-        "schema": ComplexConditionalDetection,
+        "schema": MultipleComplexConditionalResponse,
     },
     "long_parameter_list": {
         "prompt": LONG_PARAMETER_LIST_AGENT_PROMPT,
-        "schema": LongParameterListDetection,
+        "schema": MultipleLongParameterListResponse,
     },
     "long_statement": {
         "prompt": LONG_STATEMENT_AGENT_PROMPT,
@@ -54,7 +52,7 @@ AGENT_CONFIGS = {
     },
     "magic_number": {
         "prompt": MAGIC_NUMBER_AGENT_PROMPT,
-        "schema": MagicNumberDetection,
+        "schema": MultipleMagicNumberResponse,
     },
     "empty_catch_block": {
         "prompt": EMPTY_CATCH_BLOCK_AGENT_PROMPT,
@@ -66,10 +64,10 @@ AGENT_CONFIGS = {
     },
     "long_lambda_function": {
         "prompt": LONG_LAMBDA_FUNCTION_AGENT_PROMPT,
-        "schema": LongLambdaFunctionDetection,
+        "schema": MultipleLongLambdaResponse,
     },
     "long_message_chain": {
         "prompt": LONG_MESSAGE_CHAIN_AGENT_PROMPT,
-        "schema": LongMessageChainDetection,
+        "schema": MultipleLongMessageChainResponse,
     },
 }

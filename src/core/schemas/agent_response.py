@@ -50,7 +50,7 @@ class LongParameterListDetection(CodeSmellDetection):
 class LongStatementDetection(CodeSmellDetection):
     Smell: str = Field(default="Long statement")
     line_length: Optional[int] = None
-    threshold: int = Field(default=80)
+    threshold: int = Field(default=120)
 
 
 class LongIdentifierDetection(CodeSmellDetection):
@@ -84,9 +84,28 @@ class LongMessageChainDetection(CodeSmellDetection):
     threshold: int = Field(default=2)
 
 
-class MultipleDetectionsResponse(BaseModel):
-    """Wrapper para múltiplas detecções."""
-    detections: list[CodeSmellDetection] = Field(default_factory=list)
+class MultipleComplexMethodResponse(BaseModel):
+    detections: list[ComplexMethodDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongMethodResponse(BaseModel):
+    detections: list[LongMethodDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleComplexConditionalResponse(BaseModel):
+    detections: list[ComplexConditionalDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongParameterListResponse(BaseModel):
+    detections: list[LongParameterListDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongStatementResponse(BaseModel):
+    detections: list[LongStatementDetection] = Field(default_factory=list)
     detected: bool = Field(default=False)
 
 
@@ -95,6 +114,16 @@ class MultipleLongIdentifierResponse(BaseModel):
     detected: bool = Field(default=False)
 
 
-class MultipleLongStatementResponse(BaseModel):
-    detections: list[LongStatementDetection] = Field(default_factory=list)
+class MultipleMagicNumberResponse(BaseModel):
+    detections: list[MagicNumberDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongMessageChainResponse(BaseModel):
+    detections: list[LongMessageChainDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleLongLambdaResponse(BaseModel):
+    detections: list[LongLambdaFunctionDetection] = Field(default_factory=list)
     detected: bool = Field(default=False)

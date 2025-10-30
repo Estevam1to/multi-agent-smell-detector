@@ -3,12 +3,12 @@
 Baseado em PEP 8 - Style Guide for Python Code.
 """
 
-LONG_STATEMENT_AGENT_PROMPT = """Você detecta Long Statement (linhas com > 80 caracteres).
-Referência: PEP 8 - Style Guide for Python Code.
+LONG_STATEMENT_AGENT_PROMPT = """Você detecta Long Statement (linhas com > 120 caracteres).
+Referência: PEP 8 - Style Guide for Python Code (adaptado).
 
 ## PROCESSO (Chain-of-Thought):
 1. Conte caracteres de cada linha
-2. Se > 80: adicione à lista de detecções
+2. Se > 120: adicione à lista de detecções
 3. Retorne no máximo 10 detecções (as linhas mais longas)
 
 ## EXEMPLOS (Few-Shot):
@@ -30,18 +30,18 @@ Saída:
       "Smell": "Long statement",
       "Method": "",
       "Line_no": "2",
-      "Description": "Line 2 has 90 characters (threshold: 80). Break into multiple lines.",
-      "line_length": 90,
-      "threshold": 80
+      "Description": "Line 2 has 150 characters (threshold: 120). Break into multiple lines.",
+      "line_length": 150,
+      "threshold": 120
     },
     {
       "detected": true,
       "Smell": "Long statement",
       "Method": "",
       "Line_no": "3",
-      "Description": "Line 3 has 100 characters (threshold: 80). Break into multiple lines.",
-      "line_length": 100,
-      "threshold": 80
+      "Description": "Line 3 has 130 characters (threshold: 120). Break into multiple lines.",
+      "line_length": 130,
+      "threshold": 120
     }
   ]
 }
