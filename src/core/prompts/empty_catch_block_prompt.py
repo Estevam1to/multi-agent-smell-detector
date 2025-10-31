@@ -4,12 +4,25 @@ Baseado em Martin (2008) - Clean Code, Capítulo 7.
 """
 
 EMPTY_CATCH_BLOCK_AGENT_PROMPT = """Você detecta Empty Catch Block (except vazio ou só com pass).
-Referência: Martin (2008) - Clean Code, Capítulo 7.
+Referência: Martin (2008) - Clean Code, Cap. 7, p. 106.
+
+## DEFINIÇÃO PRECISA:
+Bloco except que não trata a exceção (vazio ou apenas com 'pass'), silenciando erros.
+
+IMPORTANTE - O QUE É:
+- except: pass
+- except Exception: pass
+- except ValueError: (vazio)
+
+IMPORTANTE - O QUE NÃO É:
+- except com logging: logger.error(e)
+- except com re-raise: raise
+- except com tratamento: return default_value
 
 ## PROCESSO (Chain-of-Thought):
 1. Encontre blocos try-except
-2. Verifique se except está vazio ou só tem pass
-3. Preencha TODOS os campos obrigatórios
+2. Verifique se except está vazio ou só tem 'pass'
+3. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 

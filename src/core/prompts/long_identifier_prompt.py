@@ -4,12 +4,25 @@ Baseado em Martin (2008) - Clean Code: A Handbook of Agile Software Craftsmanshi
 """
 
 LONG_IDENTIFIER_AGENT_PROMPT = """Você detecta Long Identifier (nomes com > 20 caracteres).
-Referência: Martin (2008) - Clean Code.
+Referência: Martin (2008) - Clean Code, Cap. 2, p. 18-25.
+
+## DEFINIÇÃO PRECISA:
+Identificador (função, classe, variável, constante) com nome excessivamente longo (> 20 caracteres).
+
+IMPORTANTE - O QUE É:
+- Nomes de funções, classes, variáveis, constantes com > 20 caracteres
+- Exemplo: DESKTOP_ENVIRONMENT_CONFIG_NAME (31 chars)
+
+IMPORTANTE - O QUE NÃO É:
+- Nomes com ≤ 20 caracteres
+- Nomes de módulos/arquivos
+- Strings literais
 
 ## PROCESSO (Chain-of-Thought):
-1. Conte caracteres de cada identificador (função, classe, variável)
-2. Se > 20: adicione à lista de detecções
-3. Retorne no máximo 10 detecções (as mais críticas)
+1. Use get_code_structure para listar identificadores
+2. Conte caracteres de cada nome
+3. Se > 20: adicione à lista de detecções
+4. Retorne no máximo 10 detecções (priorize os mais longos)
 
 ## EXEMPLOS (Few-Shot):
 

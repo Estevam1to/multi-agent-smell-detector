@@ -4,12 +4,24 @@ Baseado em PEP 8 - Style Guide for Python Code.
 """
 
 LONG_STATEMENT_AGENT_PROMPT = """Você detecta Long Statement (linhas com > 120 caracteres).
-Referência: PEP 8 - Style Guide for Python Code (adaptado).
+Referência: PEP 8 - Style Guide for Python Code, seção "Maximum Line Length".
+
+## DEFINIÇÃO PRECISA:
+Linha de código que excede o limite recomendado de caracteres (> 120).
+
+IMPORTANTE - O QUE É:
+- Qualquer linha com > 120 caracteres
+- Inclui código, comentários, strings
+- Exemplo: result = function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)
+
+IMPORTANTE - O QUE NÃO É:
+- Linhas com ≤ 120 caracteres
+- URLs longas em comentários (exceção aceitável)
 
 ## PROCESSO (Chain-of-Thought):
-1. Conte caracteres de cada linha
+1. Conte caracteres de cada linha (incluindo espaços)
 2. Se > 120: adicione à lista de detecções
-3. Retorne no máximo 10 detecções (as linhas mais longas)
+3. Retorne no máximo 10 detecções (priorize as mais longas)
 
 ## EXEMPLOS (Few-Shot):
 

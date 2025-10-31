@@ -12,7 +12,8 @@ de Long Method usando LangGraph e o prompt acadêmico de Fowler.
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import create_react_agent
-from agents.prompts.long_method_prompt import LONG_METHOD_AGENT_PROMPT
+from core.prompts.long_method_prompt import LONG_METHOD_AGENT_PROMPT
+from core.tools import get_code_structure
 
 
 def create_long_method_agent(model: BaseChatModel) -> CompiledStateGraph:
@@ -34,7 +35,10 @@ def create_long_method_agent(model: BaseChatModel) -> CompiledStateGraph:
         Agent configurado pronto para analisar código
     """
     agent = create_react_agent(
-        model=model, tools=[], prompt=LONG_METHOD_AGENT_PROMPT, name="long_method_agent"
+        model=model,
+        tools=[get_code_structure],
+        prompt=LONG_METHOD_AGENT_PROMPT,
+        name="long_method_agent",
     )
 
     return agent

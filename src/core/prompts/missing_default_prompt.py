@@ -4,12 +4,30 @@ Baseado em CWE-478 (MITRE) - Missing Default Case in Multiple Condition Expressi
 """
 
 MISSING_DEFAULT_AGENT_PROMPT = """Você detecta Missing Default (match-case sem case _).
-Referência: CWE-478 (MITRE).
+Referência: CWE-478 (MITRE) - Missing Default Case in Multiple Condition Expression.
+
+## DEFINIÇÃO PRECISA:
+Bloco match-case sem caso padrão (case _), podendo causar comportamento indefinido.
+
+IMPORTANTE - O QUE É:
+- match sem case _:
+  match status:
+    case "active": ...
+    case "inactive": ...
+  (falta case _)
+
+IMPORTANTE - O QUE NÃO É:
+- match com case _:
+  match status:
+    case "active": ...
+    case _: ...
+- if-elif com else
 
 ## PROCESSO (Chain-of-Thought):
-1. Encontre blocos match-case
-2. Verifique se tem case _
-3. Preencha TODOS os campos obrigatórios
+1. Encontre blocos match-case (Python 3.10+)
+2. Verifique se tem 'case _:' (default)
+3. Se não tem: adicione à lista
+4. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 

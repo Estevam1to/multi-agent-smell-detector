@@ -7,7 +7,8 @@ Baseado em CWE-478 (MITRE) - Missing Default Case in Multiple Condition Expressi
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import create_react_agent
-from agents.prompts.missing_default_prompt import MISSING_DEFAULT_AGENT_PROMPT
+from core.prompts.missing_default_prompt import MISSING_DEFAULT_AGENT_PROMPT
+from core.tools import get_code_structure
 
 
 def create_missing_default_agent(model: BaseChatModel) -> CompiledStateGraph:
@@ -22,7 +23,7 @@ def create_missing_default_agent(model: BaseChatModel) -> CompiledStateGraph:
     """
     agent = create_react_agent(
         model=model,
-        tools=[],
+        tools=[get_code_structure],
         prompt=MISSING_DEFAULT_AGENT_PROMPT,
         name="missing_default_agent",
     )

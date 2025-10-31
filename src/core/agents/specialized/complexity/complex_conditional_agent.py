@@ -7,7 +7,8 @@ Baseado em Fowler (2018) - Refactoring, 2nd Edition.
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import create_react_agent
-from agents.prompts.complex_conditional_prompt import COMPLEX_CONDITIONAL_AGENT_PROMPT
+from core.prompts.complex_conditional_prompt import COMPLEX_CONDITIONAL_AGENT_PROMPT
+from core.tools import get_code_structure
 
 
 def create_complex_conditional_agent(model: BaseChatModel) -> CompiledStateGraph:
@@ -22,7 +23,7 @@ def create_complex_conditional_agent(model: BaseChatModel) -> CompiledStateGraph
     """
     agent = create_react_agent(
         model=model,
-        tools=[],
+        tools=[get_code_structure],
         prompt=COMPLEX_CONDITIONAL_AGENT_PROMPT,
         name="complex_conditional_agent",
     )

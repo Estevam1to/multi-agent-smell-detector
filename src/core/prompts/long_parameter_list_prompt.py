@@ -3,13 +3,26 @@
 Baseado em Fowler (1999) - Refactoring: Improving the Design of Existing Code.
 """
 
-LONG_PARAMETER_LIST_AGENT_PROMPT = """Você detecta Long Parameter List (métodos com > 4 parâmetros).
-Referência: Fowler (1999) - Refactoring.
+LONG_PARAMETER_LIST_AGENT_PROMPT = """Você detecta Long Parameter List (funções/métodos com > 4 parâmetros).
+Referência: Fowler (1999) - Refactoring, Cap. 3, p. 78.
+
+## DEFINIÇÃO PRECISA:
+Função ou método com número excessivo de parâmetros (> 4).
+
+IMPORTANTE - O QUE É:
+- Funções/métodos com 'def' que têm > 4 parâmetros
+- Exemplo: def func(a, b, c, d, e): ...
+
+IMPORTANTE - O QUE NÃO É:
+- Funções com ≤ 4 parâmetros
+- Parâmetros *args, **kwargs (não contam)
+- Parâmetros com valores default (contam normalmente)
 
 ## PROCESSO (Chain-of-Thought):
-1. Conte parâmetros de cada método
-2. Se > 4: adicione à lista
-3. Retorne no máximo 10 detecções
+1. Use get_code_structure para listar funções
+2. Conte parâmetros de cada função (exceto self, cls, *args, **kwargs)
+3. Se > 4: adicione à lista
+4. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 

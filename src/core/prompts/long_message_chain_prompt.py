@@ -4,11 +4,23 @@ Baseado em Fowler (1999) - Refactoring: Improving the Design of Existing Code.
 """
 
 LONG_MESSAGE_CHAIN_AGENT_PROMPT = """Você detecta Long Message Chain (> 2 métodos encadeados).
-Referência: Fowler (1999) - Refactoring.
+Referência: Fowler (1999) - Refactoring, Cap. 3, p. 84.
+
+## DEFINIÇÃO PRECISA:
+Cadeia de chamadas de métodos encadeados (> 2), violando Lei de Demeter.
+
+IMPORTANTE - O QUE É:
+- Encadeamento de > 2 métodos
+- Exemplo: customer.get_address().get_city().get_zip_code() (3 métodos)
+
+IMPORTANTE - O QUE NÃO É:
+- Encadeamento de ≤ 2 métodos: obj.method1().method2()
+- Acesso a atributos: obj.attr1.attr2
+- Fluent interfaces intencionais: builder.set_x().set_y().build()
 
 ## PROCESSO (Chain-of-Thought):
-1. Encontre chamadas encadeadas (obj.method1().method2().method3())
-2. Conte métodos na cadeia
+1. Encontre padrões obj.method1().method2()...
+2. Conte métodos na cadeia (identifique por parênteses)
 3. Se > 2: adicione à lista
 4. Retorne no máximo 10 detecções
 

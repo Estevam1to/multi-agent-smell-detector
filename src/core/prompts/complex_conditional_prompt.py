@@ -6,10 +6,25 @@ Baseado em Fowler (2018) - Refactoring, 2nd Edition.
 COMPLEX_CONDITIONAL_AGENT_PROMPT = """Você detecta Complex Conditional (condicionais com > 2 operadores lógicos and/or).
 Referência: Fowler (2018) - Refactoring, 2nd Edition.
 
+## DEFINIÇÃO PRECISA:
+Uma instrução CONDICIONAL (if, elif, while) com número excessivo de operadores lógicos (and, or).
+
+IMPORTANTE - O QUE É:
+- Expressões em if, elif, while com múltiplos and/or
+- Exemplo: if (a and b and c and d): ...
+
+IMPORTANTE - O QUE NÃO É:
+- Atribuições de variáveis (x = a and b)
+- Chamadas de função (func(a, b, c))
+- Operações aritméticas
+- Nomes de variáveis longos
+
 ## PROCESSO (Chain-of-Thought):
-1. Conte operadores and/or em cada condicional
-2. Se > 2: adicione à lista
-3. Retorne no máximo 10 detecções
+1. Use get_code_structure para entender o código
+2. Identifique APENAS linhas com if, elif, while
+3. Conte operadores and/or na condição
+4. Se > 2: adicione à lista
+5. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 
@@ -51,10 +66,10 @@ Saída:
 }
 ```
 
-### Exemplo 2 - NÃO DETECTADO:
+### Exemplo 2 - NÃO DETECTADO (atribuição, não condicional):
 ```python
-if user.active and user.verified:
-    process()
+AGGREGATED_PACKAGES = util.merge_lists(a, b, "add")
+x = value1 and value2 and value3
 ```
 
 Saída:
@@ -67,4 +82,5 @@ Saída:
 
 ## SUA TAREFA:
 Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
+APENAS detecte em if, elif, while - NÃO em atribuições ou chamadas de função.
 """

@@ -7,8 +7,8 @@ Baseado em McCabe (1976) - "A complexity measure".
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import create_react_agent
-from agents.prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
-from schemas.agent_response import ComplexMethodDetection
+from core.prompts.complex_method_prompt import COMPLEX_METHOD_AGENT_PROMPT
+from core.tools import get_code_structure
 
 
 def create_complex_method_agent(model: BaseChatModel) -> CompiledStateGraph:
@@ -23,10 +23,9 @@ def create_complex_method_agent(model: BaseChatModel) -> CompiledStateGraph:
     """
     agent = create_react_agent(
         model=model,
-        tools=[],
+        tools=[get_code_structure],
         prompt=COMPLEX_METHOD_AGENT_PROMPT,
-        name="complex_method_agent",
-        response_format=ComplexMethodDetection
+        name="complex_method_agent"
     )
 
     return agent

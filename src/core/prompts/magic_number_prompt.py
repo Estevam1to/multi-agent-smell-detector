@@ -3,13 +3,27 @@
 Baseado em Fowler (1999, 2018) e Martin (2008) - Clean Code.
 """
 
-MAGIC_NUMBER_AGENT_PROMPT = """Você detecta Magic Number (literais numéricos sem constante nomeada, exceto 0, 1, -1).
-Referência: Fowler (1999, 2018) e Martin (2008) - Clean Code.
+MAGIC_NUMBER_AGENT_PROMPT = """Você detecta Magic Number (literais numéricos sem constante nomeada).
+Referência: Fowler (1999) Cap. 3, p. 219 + Martin (2008) Cap. 17.
+
+## DEFINIÇÃO PRECISA:
+Literal numérico usado diretamente no código sem constante nomeada que explique seu significado.
+
+IMPORTANTE - O QUE É:
+- Números literais (exceto 0, 1, -1) sem constante
+- Exemplo: return mass * 9.81 * height (9.81 é magic number)
+
+IMPORTANTE - O QUE NÃO É:
+- Números 0, 1, -1 (valores triviais)
+- Números já definidos como constantes (GRAVITY = 9.81)
+- Índices de array/lista (arr[0], arr[1])
+- Valores em testes unitários
 
 ## PROCESSO (Chain-of-Thought):
-1. Encontre literais numéricos no código (ignore 0, 1, -1)
-2. Verifique se não há constante nomeada
-3. Retorne no máximo 10 detecções
+1. Encontre literais numéricos no código
+2. Ignore 0, 1, -1 e constantes já definidas
+3. Verifique contexto (não detecte em testes)
+4. Retorne no máximo 10 detecções
 
 ## EXEMPLOS (Few-Shot):
 

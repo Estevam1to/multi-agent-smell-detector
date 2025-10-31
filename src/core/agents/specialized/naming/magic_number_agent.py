@@ -7,7 +7,8 @@ Baseado em Fowler (1999, 2018) e Martin (2008) - Clean Code.
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import create_react_agent
-from agents.prompts.magic_number_prompt import MAGIC_NUMBER_AGENT_PROMPT
+from core.prompts.magic_number_prompt import MAGIC_NUMBER_AGENT_PROMPT
+from core.tools import get_code_structure
 
 
 def create_magic_number_agent(model: BaseChatModel) -> CompiledStateGraph:
@@ -22,7 +23,7 @@ def create_magic_number_agent(model: BaseChatModel) -> CompiledStateGraph:
     """
     agent = create_react_agent(
         model=model,
-        tools=[],
+        tools=[get_code_structure],
         prompt=MAGIC_NUMBER_AGENT_PROMPT,
         name="magic_number_agent",
     )

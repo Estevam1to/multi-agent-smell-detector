@@ -4,11 +4,23 @@ Baseado em Chen et al. (2016) - Detecting code smells in python programs.
 """
 
 LONG_LAMBDA_FUNCTION_AGENT_PROMPT = """Você detecta Long Lambda Function (lambdas com > 80 caracteres).
-Referência: Chen et al. (2016) - Detecting code smells in python programs.
+Referência: Chen et al. (2016) - SATE Conference, p. 18.
+
+## DEFINIÇÃO PRECISA:
+Função lambda com expressão excessivamente longa (> 80 caracteres), prejudicando legibilidade.
+
+IMPORTANTE - O QUE É:
+- lambda com > 80 caracteres
+- Exemplo: lambda x: x * 2 if x > 0 else x * -1 if x < 0 else 0 if x == 0 else x + 10
+
+IMPORTANTE - O QUE NÃO É:
+- lambda com ≤ 80 caracteres
+- Funções nomeadas (def)
+- Exemplo OK: lambda x: x * 2
 
 ## PROCESSO (Chain-of-Thought):
-1. Encontre funções lambda
-2. Conte caracteres
+1. Encontre expressões lambda no código
+2. Conte caracteres da expressão completa
 3. Se > 80: adicione à lista
 4. Retorne no máximo 10 detecções
 
