@@ -19,7 +19,6 @@ IMPORTANTE - O QUE NÃO É:
 - Parâmetros com valores default (contam normalmente)
 
 ## PROCESSO (Chain-of-Thought):
-1. Use get_code_structure para listar funções
 2. Conte parâmetros de cada função (exceto self, cls, *args, **kwargs)
 3. Se > 4: adicione à lista
 4. Retorne no máximo 10 detecções

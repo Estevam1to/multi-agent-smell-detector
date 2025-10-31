@@ -20,7 +20,6 @@ IMPORTANTE - O QUE NÃO É:
 - Classes (use Complex Method para classes)
 
 ## PROCESSO (Chain-of-Thought):
-1. Use get_code_structure para listar todas as funções
 2. Para cada função, calcule: end_line - start_line + 1
 3. Se > 67 linhas: adicione à lista
 4. Retorne no máximo 10 detecções
@@ -85,7 +84,14 @@ Saída:
 }
 ```
 
+## REGRAS IMPORTANTES:
+1. APENAS detecte funções DEFINIDAS no código fornecido (com 'def')
+2. NÃO detecte funções apenas CHAMADAS/REFERENCIADAS
+3. Se uma função não está definida no código, NÃO a inclua
+4. total_lines DEVE ser um número inteiro (ex: 70, 75, 100)
+5. NUNCA use strings como "Unknown" ou "Not provided" para total_lines
+
 ## SUA TAREFA:
 Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
-APENAS detecte funções definidas com 'def' - NÃO detecte código de nível de módulo.
+APENAS detecte funções DEFINIDAS com 'def' no código fornecido.
 """

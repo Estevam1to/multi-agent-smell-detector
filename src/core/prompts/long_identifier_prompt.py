@@ -19,7 +19,6 @@ IMPORTANTE - O QUE NÃO É:
 - Strings literais
 
 ## PROCESSO (Chain-of-Thought):
-1. Use get_code_structure para listar identificadores
 2. Conte caracteres de cada nome
 3. Se > 20: adicione à lista de detecções
 4. Retorne no máximo 10 detecções (priorize os mais longos)

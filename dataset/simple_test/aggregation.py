@@ -93,7 +93,7 @@ if not BUILD_MINIMAL:
 # Desktop environment packages; packages + packages.external
 desktop_packages_main = util.aggregate_all_desktop("packages")
 desktop_packages_external = util.aggregate_all_desktop("packages.external")
-desktop_packages_additional = util.aggregate_all_desktop("packages.additional")
+desktop_packages_additional = util.aggregate_all_deskt op("packages.additional")
 desktop_packages_all = util.merge_lists(desktop_packages_main, desktop_packages_external, "add")
 desktop_packages_all = util.merge_lists(desktop_packages_all, desktop_packages_additional, "add")
 desktop_packages_remove = util.aggregate_all_desktop("packages.remove")

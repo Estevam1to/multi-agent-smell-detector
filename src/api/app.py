@@ -1,3 +1,5 @@
+"""API FastAPI para detecção de code smells."""
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -5,8 +7,8 @@ from api.routes import analysis
 
 app = FastAPI(
     title="Multi-Agent Code Smell Detector",
-    description="API para detecção de code smells usando múltiplos agentes especializados",
-    version="0.1.0",
+    description="Detecção de code smells usando LLMs",
+    version="1.0.0",
 )
 
 app.add_middleware(
@@ -22,5 +24,4 @@ app.include_router(analysis.router)
 
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

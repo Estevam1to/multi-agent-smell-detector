@@ -22,12 +22,12 @@ Desenvolver um sistema baseado em LLM multi-agente capaz de detectar code smells
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Supervisor Agent                              │
-│  • Coordena execução sequencial dos 11 agentes                  │
-│  • Usa análise estática para Long Statement/Identifier          │
-│  • Usa LLM (GPT-4o-mini) para smells complexos                  │
+│                   CodeSmellSupervisor                            │
+│  • Coordena 11 agentes (paralelo ou sequencial)                 │
+│  • Usa LLM (DeepSeek/GPT-4o-mini) com structured output         │
 │  • Enriquece detecções com metadados (AST)                      │
-│  • Limita a 10 detecções por agente (controle de tokens)        │
+│  • Filtra falsos positivos                                       │
+│  • Limites: 500 linhas, 50KB por arquivo                        │
 └────────────────────────────┬────────────────────────────────────┘
                              │
         ┌────────────────────┼────────────────────┐
@@ -53,37 +53,55 @@ Desenvolver um sistema baseado em LLM multi-agente capaz de detectar code smells
 
 ### Fluxo de Execução
 
-1. **Entrada**: Código Python via API REST
-2. **Supervisor**: Coordena execução dos 11 agentes especializados
-3. **Análise Estática**: Long Statement e Long Identifier (AST + Regex)
-4. **Análise LLM**: Outros 9 smells (GPT-4o-mini com structured output)
-5. **Enriquecimento**: Adiciona metadados (Project, Package, Module, Line)
-6. **Saída**: JSON com todas as detecções
+1. **Request** → API recebe código Python
+2. **Validação** → Verifica tamanho (max 500 linhas, 50KB)
+3. **Supervisor** → Coordena execução dos 11 agentes
+4. **LLM** → Cada agente chama LLM com structured output (prompt + schema)
+5. **Enrichment** → Adiciona metadados (Project, Package, Module, Line)
+6. **Validação** → Filtra falsos positivos (ex: Long Identifier ≤ 20 chars)
+7. **Response** → Retorna JSON com detecções
 
-### ⚙️ Configurações e Limitações
+### ⚙️ Configurações
 
-- **Max tokens por resposta**: 4096 tokens
-- **Delay entre agentes**: 0.5 segundos (rate limiting)
-- **Detecções por agente**: Máximo 10 (evita estouro de tokens)
-- **Timeout**: Configurável por agente
+- **Modelo**: DeepSeek Chat V3.1 ou GPT-4o-mini (via OpenRouter)
+- **Temperatura**: 0 (determinístico)
+- **Modo**: Paralelo (11 requests simultâneos) ou Sequencial (delay 0.3s)
+- **Limites**: 500 linhas, 50KB por arquivo
+- **Validação**: Filtra falsos positivos automaticamente
 
 ## 🤖 Code Smells Detectados
 
-### Tabela de Referências
+### Tabela de Thresholds
 
-| # | Code Smell | Categoria | Threshold | Referência | Localização |
-|---|------------|-----------|-----------|------------|-------------|
-| 1 | **Long Method** | Complexidade | > 67 linhas | Fowler (1999) | Cap. 3, p. 76 |
-| 2 | **Complex Method** | Complexidade | CC > 7 | McCabe (1976) | IEEE Trans. SE, p. 308 |
-| 3 | **Complex Conditional** | Complexidade | > 2 operadores lógicos | Fowler (2018) | Cap. 10, p. 260 |
-| 4 | **Long Parameter List** | Estrutura | > 4 parâmetros | Fowler (1999) | Cap. 3, p. 78 |
-| 5 | **Long Message Chain** | Estrutura | > 2 métodos encadeados | Fowler (1999) | Cap. 3, p. 84 |
-| 6 | **Long Statement** | Statements | > 120 caracteres | PEP 8 | Seção "Maximum Line Length" |
-| 7 | **Long Identifier** | Nomenclatura | > 20 caracteres | Martin (2008) | Cap. 2, p. 18-25 |
-| 8 | **Magic Number** | Nomenclatura | Literais sem constante | Fowler (1999) + Martin (2008) | Cap. 3, p. 219 / Cap. 17 |
-| 9 | **Empty Catch Block** | Statements | Bloco except vazio | Martin (2008) | Cap. 7, p. 106 |
-| 10 | **Missing Default** | Statements | match-case sem default | CWE-478 (MITRE) | Common Weakness Enumeration |
-| 11 | **Long Lambda Function** | Statements | > 80 caracteres | Chen et al. (2016) | SATE Conference, p. 18 |
+| # | Code Smell | Categoria | Threshold | Descrição |
+|---|------------|-----------|-----------|----------|
+| 1 | **Long Method** | Complexidade | > 67 linhas | Métodos com mais de 67 linhas |
+| 2 | **Complex Method** | Complexidade | CC > 7 | Complexidade Ciclomática maior que 7 |
+| 3 | **Complex Conditional** | Complexidade | > 2 operadores | Mais de 2 operadores lógicos (and/or) |
+| 4 | **Long Parameter List** | Estrutura | > 4 parâmetros | Funções com mais de 4 parâmetros |
+| 5 | **Long Message Chain** | Estrutura | > 2 métodos | Mais de 2 métodos encadeados |
+| 6 | **Long Statement** | Statements | > 120 caracteres | Linhas com mais de 120 caracteres |
+| 7 | **Long Identifier** | Nomenclatura | > 20 caracteres | Identificadores com mais de 20 caracteres |
+| 8 | **Magic Number** | Nomenclatura | Literais (exceto 0,1,-1) | Números literais sem constante nomeada |
+| 9 | **Empty Catch Block** | Statements | Bloco vazio | Blocos except vazios ou apenas com pass |
+| 10 | **Missing Default** | Statements | Sem case _ | match-case sem caso padrão |
+| 11 | **Long Lambda** | Statements | > 80 caracteres | Lambdas com mais de 80 caracteres |
+
+### Referências Bibliográficas
+
+| Code Smell | Referência | Localização |
+|------------|------------|-------------|
+| Long Method | Fowler (1999) | Cap. 3, p. 76 |
+| Complex Method | McCabe (1976) | IEEE Trans. SE, p. 308 |
+| Complex Conditional | Fowler (2018) | Cap. 10, p. 260 |
+| Long Parameter List | Fowler (1999) | Cap. 3, p. 78 |
+| Long Message Chain | Fowler (1999) | Cap. 3, p. 84 |
+| Long Statement | PEP 8 | Seção "Maximum Line Length" |
+| Long Identifier | Martin (2008) | Cap. 2, p. 18-25 |
+| Magic Number | Fowler (1999) + Martin (2008) | Cap. 3, p. 219 / Cap. 17 |
+| Empty Catch Block | Martin (2008) | Cap. 7, p. 106 |
+| Missing Default | CWE-478 (MITRE) | Common Weakness Enumeration |
+| Long Lambda | Chen et al. (2016) | SATE Conference, p. 18 |
 
 ### Detalhamento por Categoria
 
@@ -194,36 +212,25 @@ python scripts/compare_results.py results.json other_tool.json
 ```
 multi-agent-smell-detector/
 ├── src/
-│   ├── api/                              # API FastAPI
-│   │   ├── app.py                        # Aplicação principal
-│   │   ├── routes/                       # Endpoints
-│   │   └── models/                       # Request/Response models
+│   ├── api/                    # API FastAPI
+│   │   ├── app.py              # Aplicação principal
+│   │   ├── routes/             # Endpoints
+│   │   └── models/             # Request/Response
 │   │
 │   ├── core/
-│   │   ├── agents/
-│   │   │   └── supervisor/               # Supervisor Agent
-│   │   │       ├── supervisor.py         # Orquestração
-│   │   │       ├── agent_config.py       # Configuração dos 11 agentes
-│   │   │       ├── detection_enricher.py # Enriquecimento com AST
-│   │   │       └── constants.py          # Constantes
+│   │   ├── supervisor/         # Coordenador
+│   │   │   ├── supervisor.py   # Lógica principal
+│   │   │   ├── agent_config.py # Config dos 11 agentes
+│   │   │   └── enricher.py     # Enriquecimento + validação
 │   │   │
-│   │   ├── prompts/                      # Prompts dos 11 agentes
-│   │   │   ├── long_method_prompt.py
-│   │   │   ├── complex_method_prompt.py
-│   │   │   └── ...
-│   │   │
-│   │   ├── schemas/                      # Schemas Pydantic
-│   │   │   └── agent_response.py         # Schemas de detecção
-│   │   │
-│   │   └── utils/                        # Utilitários
-│   │       ├── code_parser.py            # Parser AST
-│   │       └── static_analyzers.py       # Análise estática
+│   │   ├── prompts/            # 11 prompts especializados
+│   │   ├── schemas/            # Schemas Pydantic
+│   │   └── utils/              # Parser AST
 │   │
-│   └── config/                           # Configurações
-│       └── settings.py
+│   └── config/                 # Configurações
 │
-├── scripts/                              # Scripts de análise
-│   ├── batch_analyze.py
+├── scripts/                    # Scripts de análise
+│   ├── batch_analyze.py        # Análise em batch
 │   └── compare_results.py
 │
 ├── examples/                             # Exemplos de código
@@ -232,14 +239,14 @@ multi-agent-smell-detector/
 └── pyproject.toml                        # Dependências
 ```
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias
 
-- **FastAPI**: Framework web para API REST
+- **FastAPI**: API REST
 - **LangChain**: Integração com LLMs
-- **OpenAI GPT-4o-mini**: Modelo LLM via OpenRouter
-- **Pydantic**: Validação de dados e structured output
-- **Python AST**: Análise estática de código
-- **Python 3.12**: Linguagem base
+- **DeepSeek Chat V3.1 / GPT-4o-mini**: Modelos LLM via OpenRouter
+- **Pydantic**: Validação e structured output
+- **Python AST**: Parser de código
+- **Python 3.12+**: Linguagem base
 
 ## 📖 Referências Bibliográficas
 

@@ -20,7 +20,6 @@ IMPORTANTE - O QUE NÃO É:
 - Nomes de variáveis longos
 
 ## PROCESSO (Chain-of-Thought):
-1. Use get_code_structure para entender o código
 2. Identifique APENAS linhas com if, elif, while
 3. Conte operadores and/or na condição
 4. Se > 2: adicione à lista
