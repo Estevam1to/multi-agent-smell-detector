@@ -4,40 +4,28 @@ Baseado em Fowler (1999) - Refactoring: Improving the Design of Existing Code.
 """
 
 LONG_METHOD_AGENT_PROMPT = """Você detecta Long Method (métodos com > 67 linhas).
-Referência: Fowler (1999) - Refactoring, Cap. 3, p. 64.
+Referência: Fowler (1999) - Refactoring.
 
-## DEFINIÇÃO PRECISA (Fowler, 1999):
-Um método é considerado "longo" quando contém muitas linhas de código, tornando-o difícil 
-de entender, manter e reutilizar. "The programs that live best and longest are those with short methods".
+## DEFINIÇÃO:
+Método longo = muitas linhas de código, dificulta compreensão e manutenção.
 
-IMPORTANTE - O QUE É:
-- Funções/métodos definidos com 'def nome():'
-- Contagem de linhas do início ao fim da função
+O QUE É: Funções/métodos definidos com 'def nome():'
+O QUE NÃO É: Scripts de módulo, variáveis, classes (use Complex Method para classes)
 
-IMPORTANTE - O QUE NÃO É:
-- Scripts de nível de módulo (código fora de funções)
-- Variáveis ou constantes
-- Classes (use Complex Method para classes)
-
-## PROCESSO (Chain-of-Thought):
-2. Para cada função, calcule: end_line - start_line + 1
+## PROCESSO:
+1. Para cada função 'def', identifique start_line (linha do 'def') e end_line (última linha)
+2. Calcule: end_line - start_line + 1
 3. Se > 67 linhas: adicione à lista
 4. Retorne no máximo 10 detecções
+5. SEMPRE retorne start_line e end_line; Line_no deve ser vazio ("")
 
-## EXEMPLOS (Few-Shot):
-
-### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
+## EXEMPLO:
 ```python
 def process_order(order):  # linha 1, 70 linhas
-    # 70 linhas de código aqui...
+    # 70 linhas de código...
     validate()
     calculate()
     save()
-
-def generate_report(data):  # linha 80, 75 linhas
-    # 75 linhas de código aqui...
-    format()
-    export()
 ```
 
 Saída:
@@ -49,49 +37,21 @@ Saída:
       "detected": true,
       "Smell": "Long method",
       "Method": "process_order",
-      "Line_no": "1",
+      "Line_no": "",
       "Description": "Method 'process_order' has 70 lines (threshold: 67). Consider breaking it down into smaller methods.",
       "total_lines": 70,
-      "threshold": 67
-    },
-    {
-      "detected": true,
-      "Smell": "Long method",
-      "Method": "generate_report",
-      "Line_no": "80",
-      "Description": "Method 'generate_report' has 75 lines (threshold: 67). Consider breaking it down into smaller methods.",
-      "total_lines": 75,
-      "threshold": 67
+      "threshold": 67,
+      "start_line": 1,
+      "end_line": 70
     }
   ]
 }
 ```
 
-### Exemplo 2 - NÃO DETECTADO (script de módulo, não função):
-```python
-# Código no nível do módulo (235 linhas)
-import os
-x = 1
-y = 2
-# ... mais 230 linhas de código solto
-```
-
-Saída:
-```json
-{
-  "detected": false,
-  "detections": []
-}
-```
-
-## REGRAS IMPORTANTES:
-1. APENAS detecte funções DEFINIDAS no código fornecido (com 'def')
-2. NÃO detecte funções apenas CHAMADAS/REFERENCIADAS
-3. Se uma função não está definida no código, NÃO a inclua
-4. total_lines DEVE ser um número inteiro (ex: 70, 75, 100)
-5. NUNCA use strings como "Unknown" ou "Not provided" para total_lines
-
-## SUA TAREFA:
-Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
-APENAS detecte funções DEFINIDAS com 'def' no código fornecido.
+## REGRAS:
+1. APENAS funções DEFINIDAS com 'def' no código fornecido
+2. NÃO detecte funções apenas chamadas/importadas
+3. total_lines = número inteiro (nunca "Unknown")
+4. Line_no = "" (vazio) para smells de método
+5. SEMPRE retorne start_line e end_line
 """

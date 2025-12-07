@@ -1,0 +1,920 @@
+Source,File,Method,Code_Smell,Line_no,Start_line,End_line,Details
+dataset,ff_ippo_store_experience.py,_update_step,Complex method,,68,308,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo_store_experience.py,_update_epoch,Complex method,,154,296,Method '_update_epoch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo_store_experience.py,get_learner_fn,Long method,,57,343,Method 'get_learner_fn' has 281 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_ippo_store_experience.py,learner_setup,Long method,,346,448,Method 'learner_setup' has 102 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_ippo_store_experience.py,run_experiment,Long method,,451,671,Method 'run_experiment' has 220 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_ippo_store_experience.py,run_experiment,Complex conditional,639,,,Conditional at line 639 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,104,,,Line 104 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,217,,,Line 217 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,223,,,Line 223 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,286,,,Line 286 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,332,,,Line 332 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,424,,,Line 424 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,431,,,Line 431 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,435,,,Line 435 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,438,,,Line 438 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,463,,,Line 463 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,471,,,Line 471 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,552,,,Line 552 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,553,,,Line 553 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long statement,656,,,Line 656 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo_store_experience.py,file_level,Long identifier,502,,,Identifier 'dummy_flashbax_transition' has 27 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo_store_experience.py,file_level,Long identifier,547,,,Identifier '_reshape_experience' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo_store_experience.py,file_level,Long identifier,579,,,Identifier 'flashbax_transition' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo_store_experience.py,_get_advantages,Magic number,141,,,Magic number 1e-8 found in '_get_advantages'. Define as EPSILON = 1e-8.
+dataset,ff_ippo_store_experience.py,_actor_loss_fn,Magic number,177,,,Magic number 1e-8 found in '_actor_loss_fn'. Define as EPSILON = 1e-8.
+dataset,ff_ippo_store_experience.py,_critic_loss_fn,Magic number,210,,,Magic number 0.5 found in '_critic_loss_fn'. Define as VALUE_LOSS_COEF = 0.5.
+dataset,ff_ippo_store_experience.py,file_level,Long lambda function,413,,,Lambda at line 413 has 81 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo_store_experience.py,_reshape_experience,Long message chain,550,,,Message chain at line 550 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_ippo_store_experience.py,_reshape_experience,Long message chain,553,,,Message chain at line 553 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,checkpointing.py,__init__,Long parameter list,39,,,Method '__init__' has 7 parameters (threshold: 4). Consider introducing a parameter object or using keyword-only arguments.
+dataset,checkpointing.py,restore_params,Long parameter list,149,,,Method 'restore_params' has 5 parameters (threshold: 4). Consider introducing a parameter object or using keyword-only arguments.
+dataset,checkpointing.py,Checkpointer.__init__,Long statement,104,,,Line 104 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,checkpointing.py,Checkpointer.restore_params,Long statement,175,,,Line 175 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,checkpointing.py,Checkpointer.restore_params,Long statement,203,,,Line 203 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,checkpointing.py,Checkpointer.__init__,Long identifier,119,,,Identifier 'unreplicated_learner_state' has 28 characters (threshold: 20). Consider shortening.
+dataset,checkpointing.py,Checkpointer.restore_params,Long identifier,185,,,Identifier 'restored_learner_state_raw' has 27 characters (threshold: 20). Consider shortening.
+dataset,checkpointing.py,restore_params,Long message chain,181,,,Message chain at line 181 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,update_actor_and_alpha,Complex method,,342,384,Method 'update_actor_and_alpha' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_isac.py,init,Long method,,58,208,Method 'init' has 150 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_isac.py,make_update_fns,Long method,,211,458,Method 'make_update_fns' has 247 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_isac.py,run_experiment,Long method,,491,603,Method 'run_experiment' has 112 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_isac.py,update_actor_and_alpha,Complex conditional,348,,,Conditional at line 348 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,ff_isac.py,make_update_fns,Long parameter list,211,,,Method 'make_update_fns' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_isac.py,actor_loss_fn,Long parameter list,284,,,Method 'actor_loss_fn' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_isac.py,train,Long parameter list,387,,,Method 'train' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_isac.py,act,Long parameter list,418,,,Method 'act' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_isac.py,explore,Long parameter list,431,,,Method 'explore' has 7 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_isac.py,update_step,Long parameter list,450,,,Method 'update_step' has 7 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_isac.py,file_level,Long statement,96,,,Line 96 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,104,,,Line 104 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,124,,,Line 124 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,125,,,Line 125 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,141,,,Line 141 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,183,,,Line 183 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,184,,,Line 184 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,190,,,Line 190 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,191,,,Line 191 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,206,,,Line 206 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,208,,,Line 208 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,355,,,Line 355 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,374,,,Line 374 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,442,,,Line 442 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,464,,,Line 464 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,508,,,Line 508 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,569,,,Line 569 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,575,,,Line 575 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,581,,,Line 581 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long statement,595,,,Line 595 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_isac.py,file_level,Long identifier,52,,,Identifier 'unreplicate_batch_dim' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,54,,,Identifier 'total_timestep_checker' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,128,,,Identifier 'target_entropy_scale' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,342,,,Identifier 'update_actor_and_alpha' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,346,,,Identifier 'policy_update_delay' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,400,,,Identifier 'policy_update_delay' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,431,,,Identifier 'ObservationGlobalState' has 25 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,513,,,Identifier 'make_ff_eval_act_fn' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,535,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,554,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,567,,,Identifier 'unreplicate_batch_dim' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,file_level,Long identifier,595,,,Identifier 'abs_metric_evaluator' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_isac.py,init,Magic number,104,,,Magic number 6 found in 'init'. Define as KEY_SPLIT_COUNT = 6.
+dataset,ff_isac.py,init,Magic number,184,,,Magic number 4 found in 'init'. Define as KEY_SHAPE_DIMENSIONS = 4.
+dataset,ff_isac.py,make_update_fns,Magic number,392,,,Magic number 4 found in 'make_update_fns'. Define as KEY_SPLIT_COUNT = 4.
+dataset,ff_isac.py,make_update_fns,Magic number,453,,,Magic number 3 found in 'make_update_fns'. Define as KEY_SPLIT_COUNT = 3.
+dataset,ff_isac.py,file_level,Long lambda function,96,,,Lambda at line 96 has 95 characters (threshold: 80). Convert to named function.
+dataset,ff_isac.py,init,Long message chain,96,,,Message chain at line 96 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,init,Long message chain,109,,,Message chain at line 109 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,init,Long message chain,196,,,Message chain at line 196 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,init,Long message chain,199,,,Message chain at line 199 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,init,Long message chain,200,,,Message chain at line 200 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,run_experiment,Long message chain,535,,,Message chain at line 535 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,run_experiment,Long message chain,554,,,Message chain at line 554 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,run_experiment,Long message chain,569,,,Message chain at line 569 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_isac.py,run_experiment,Long message chain,581,,,Message chain at line 581 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,rec_ippo.py,_update_step,Complex method,,69,408,Method '_update_step' has cyclomatic complexity of 15 (threshold: 7). Extract nested conditions into separate methods.
+dataset,rec_ippo.py,_update_epoch,Complex method,,205,381,Method '_update_epoch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,rec_ippo.py,_update_minibatch,Complex method,,208,338,Method '_update_minibatch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,rec_ippo.py,get_learner_fn,Long method,,59,439,Method 'get_learner_fn' has 380 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,rec_ippo.py,learner_setup,Long method,,442,580,Method 'learner_setup' has 138 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,rec_ippo.py,run_experiment,Long method,,583,722,Method 'run_experiment' has 139 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,rec_ippo.py,_actor_loss_fn,Long parameter list,214,,,Method '_actor_loss_fn' has 5 parameters (threshold: 4). Consider introducing a parameter object for actor loss calculation.
+dataset,rec_ippo.py,_critic_loss_fn,Long parameter list,249,,,Method '_critic_loss_fn' has 5 parameters (threshold: 4). Consider introducing a parameter object for critic loss calculation.
+dataset,rec_ippo.py,_update_minibatch,Long parameter list,208,,,Method '_update_minibatch' has 5 parameters (threshold: 4). Consider introducing a parameter object for minibatch updates.
+dataset,rec_ippo.py,file_level,Long statement,108,,,Line 108 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,132,,,Line 132 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,170,,,Line 170 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,224,,,Line 224 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,226,,,Line 226 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,258,,,Line 258 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,263,,,Line 263 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,264,,,Line 264 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,268,,,Line 268 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,287,,,Line 287 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,347,,,Line 347 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,348,,,Line 348 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,349,,,Line 349 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,350,,,Line 350 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,360,,,Line 360 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,361,,,Line 361 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,431,,,Line 431 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,492,,,Line 492 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,493,,,Line 493 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,496,,,Line 496 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,501,,,Line 501 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,504,,,Line 504 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,533,,,Line 533 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,541,,,Line 541 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,546,,,Line 546 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,547,,,Line 547 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,563,,,Line 563 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,602,,,Line 602 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,623,,,Line 623 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,624,,,Line 624 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,625,,,Line 625 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,626,,,Line 626 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,627,,,Line 627 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,628,,,Line 628 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,629,,,Line 629 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,650,,,Line 650 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,707,,,Line 707 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,710,,,Line 710 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long statement,737,,,Line 737 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,rec_ippo.py,file_level,Long identifier,,,,Identifier 'config.system.num_agents' has 24 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,170,,,Identifier 'batched_last_observation' has 25 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,344,,,Identifier 'num_recurrent_chunks' has 21 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,428,,,Identifier 'batched_update_step' has 21 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,503,,,Identifier 'init_critic_hstate' has 21 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,570,,,Identifier 'init_learner_state' has 21 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,613,,,Identifier 'make_rec_eval_act_fn' has 22 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,624,,,Identifier 'config.system.num_updates_per_eval' has 33 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,624,,,Identifier 'config.system.num_updates_per_eval' has 33 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,666,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,file_level,Long identifier,676,,,Identifier 'unreplicate_batch_dim' has 24 characters (threshold: 20). Consider shortening.
+dataset,rec_ippo.py,_get_advantages,Magic number,200,,,Magic number 16 found in '_get_advantages'. Define as UNROLL_FACTOR = 16.
+dataset,rec_ippo.py,_actor_loss_fn,Magic number,232,,,Magic number 1e-8 found in '_actor_loss_fn'. Define as EPSILON = 1e-8.
+dataset,rec_ippo.py,_critic_loss_fn,Magic number,268,,,Magic number 0.5 found in '_critic_loss_fn'. Define as VALUE_LOSS_COEF = 0.5.
+dataset,rec_ippo.py,learner_setup,Magic number,483,,,Magic number 1e-5 found in 'learner_setup'. Define as ADAM_EPS = 1e-5.
+dataset,rec_ippo.py,learner_setup,Magic number,487,,,Magic number 1e-5 found in 'learner_setup'. Define as ADAM_EPS = 1e-5.
+dataset,rec_ippo.py,run_experiment,Magic number,603,,,Magic number 4 found in 'run_experiment'. Define as NUM_KEYS = 4.
+dataset,rec_ippo.py,run_experiment,Magic number,655,,,Magic number -jnp.inf found in 'run_experiment'. Define as INIT_MAX_RETURN = -jnp.inf.
+dataset,rec_ippo.py,file_level,Long lambda function,108,,,Lambda at line 108 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,132,,,Lambda at line 132 has 95 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,170,,,Lambda at line 170 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,348,,,Lambda at line 348 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,359,,,Lambda at line 359 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,491,,,Lambda at line 491 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,546,,,Lambda at line 546 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,file_level,Long lambda function,563,,,Lambda at line 563 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,_update_minibatch,Long message chain,258,,,Message chain at line 258 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,rec_ippo.py,_update_minibatch,Long message chain,259,,,Message chain at line 259 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,rec_ippo.py,_update_minibatch,Long message chain,260,,,Message chain at line 260 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_ippo.py,_update_step,Complex method,,61,317,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo.py,_update_epoch,Complex method,,153,305,Method '_update_epoch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo.py,_update_minibatch,Complex method,,156,283,Method '_update_minibatch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo.py,_update_step,Long method,,61,316,Method '_update_step' has 256 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_ippo.py,learner_setup,Long method,,349,447,Method 'learner_setup' has 99 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_ippo.py,run_experiment,Long method,,451,570,Method 'run_experiment' has 120 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_ippo.py,_actor_loss_fn,Long parameter list,162,,,Method '_actor_loss_fn' has 5 parameters (threshold: 4). Consider introducing a parameter object for actor loss calculation.
+dataset,ff_ippo.py,file_level,Long statement,98,,,Line 98 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,205,,,Line 205 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,294,,,Line 294 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,338,,,Line 338 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,409,,,Line 409 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,414,,,Line 414 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,438,,,Line 438 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,442,,,Line 442 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,483,,,Line 483 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,520,,,Line 520 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,555,,,Line 555 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long statement,559,,,Line 559 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_ippo.py,file_level,Long identifier,45,,,Identifier 'check_total_timesteps' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,file_level,Long identifier,47,,,Identifier 'get_final_step_metrics' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,file_level,Long identifier,477,,,Identifier 'check_total_timesteps' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,file_level,Long identifier,483,,,Identifier 'num_updates_per_eval' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,file_level,Long identifier,520,,,Identifier 'get_final_step_metrics' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,file_level,Long identifier,530,,,Identifier 'unreplicate_batch_dim' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,file_level,Long identifier,559,,,Identifier 'abs_metric_evaluator' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_ippo.py,_get_advantages,Magic number,140,,,Magic number 1e-8 found in '_get_advantages'. Define as EPSILON = 1e-8.
+dataset,ff_ippo.py,_actor_loss_fn,Magic number,177,,,Magic number 1e-8 found in '_actor_loss_fn'. Define as EPSILON = 1e-8.
+dataset,ff_ippo.py,learner_setup,Magic number,378,,,Magic number 1e-5 found in 'learner_setup'. Define as ADAM_EPSILON = 1e-5.
+dataset,ff_ippo.py,learner_setup,Magic number,382,,,Magic number 1e-5 found in 'learner_setup'. Define as ADAM_EPSILON = 1e-5.
+dataset,ff_ippo.py,file_level,Long lambda function,98,,,Lambda at line 98 has 95 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo.py,file_level,Long lambda function,414,,,Lambda at line 414 has 89 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo.py,file_level,Long lambda function,438,,,Lambda at line 438 has 88 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo.py,get_final_step_metrics,Long message chain,520,,,Message chain at line 520 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_mappo.py,_update_step,Complex method,,56,300,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_mappo.py,_update_epoch,Complex method,,141,288,Method '_update_epoch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_mappo.py,_update_minibatch,Complex method,,144,266,Method '_update_minibatch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_mappo.py,get_learner_fn,Long method,,45,330,Method 'get_learner_fn' has 286 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_mappo.py,learner_setup,Long method,,333,431,Method 'learner_setup' has 99 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_mappo.py,run_experiment,Long method,,435,553,Method 'run_experiment' has 119 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,ff_mappo.py,_actor_loss_fn,Long parameter list,150,,,Method '_actor_loss_fn' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_mappo.py,actor_grad_fn,Long parameter list,206,,,Method 'actor_grad_fn' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,ff_mappo.py,file_level,Long statement,92,,,Line 92 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,217,,,Line 217 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,278,,,Line 278 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,322,,,Line 322 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,393,,,Line 393 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,399,,,Line 399 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,422,,,Line 422 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,445,,,Line 445 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,458,,,Line 458 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,526,,,Line 526 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long statement,542,,,Line 542 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,ff_mappo.py,file_level,Long identifier,38,,,Identifier 'unreplicate_n_dims' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,38,,,Identifier 'unreplicate_batch_dim' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,38,,,Identifier 'merge_leading_dims' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,38,,,Identifier 'unreplicate_n_dims' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,40,,,Identifier 'check_total_timesteps' has 22 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,40,,,Identifier 'total_timestep_checker' has 24 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'episode_metrics' has 21 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,file_level,Long identifier,42,,,Identifier 'get_final_step_metrics' has 23 characters (threshold: 20). Consider shortening.
+dataset,ff_mappo.py,_get_advantages,Magic number,128,,,Magic number 1e-8 found in '_get_advantages'. Define as EPSILON = 1e-8.
+dataset,ff_mappo.py,_actor_loss_fn,Magic number,164,,,Magic number 1e-8 found in '_actor_loss_fn'. Define as EPSILON = 1e-8.
+dataset,ff_mappo.py,_critic_loss_fn,Magic number,198,,,Magic number 0.5 found in '_critic_loss_fn'. Define as VALUE_LOSS_COEFFICIENT = 0.5.
+dataset,ff_mappo.py,actor_optim,Magic number,361,,,Magic number 1e-5 found in 'actor_optim'. Define as ADAM_EPSILON = 1e-5.
+dataset,ff_mappo.py,critic_optim,Magic number,365,,,Magic number 1e-5 found in 'critic_optim'. Define as ADAM_EPSILON = 1e-5.
+dataset,ff_mappo.py,get_learner_fn,Long message chain,92,,,Message chain at line 92 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,ff_mappo.py,get_learner_fn,Long message chain,93,,,Message chain at line 93 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_spellchecker.py,build_dict,Long message chain,62,,,Message chain at line 62 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_spellchecker.py,build_dict,Long message chain,65,,,Message chain at line 65 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_spellchecker.py,build_dict,Long message chain,66,,,Message chain at line 66 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_codespell.py,parse_file,Complex method,,873,1084,Method 'parse_file' has cyclomatic complexity of 15 (threshold: 7). Extract nested conditions into separate methods.
+dataset,_codespell.py,parse_file,Long method,,873,1070,Method 'parse_file' has 198 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,_codespell.py,main,Long method,,1117,1351,Method 'main' has 235 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,_codespell.py,open_with_internal,Complex conditional,269,,,Conditional at line 269 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,_codespell.py,parse_file,Complex conditional,992,,,Conditional at line 992 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,_codespell.py,parse_file,Long parameter list,873,,,Method 'parse_file' has 12 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,_codespell.py,ask_for_word_fix,Long parameter list,754,,,Method 'ask_for_word_fix' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,_codespell.py,apply_uri_ignore_words,Long parameter list,852,,,Method 'apply_uri_ignore_words' has 6 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,_codespell.py,file_level,Long statement,111,,,Line 111 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long statement,448,,,Line 448 has 139 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long statement,561,,,Line 561 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long statement,596,,,Line 596 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long statement,775,,,Line 775 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long statement,1060,,,Line 1060 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long statement,1066,,,Line 1066 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,_codespell.py,file_level,Long identifier,45,,,Identifier 'ENABLE_VIRTUAL_TERMINAL_PROCESSING' has 33 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,46,,,Identifier 'STD_OUTPUT_HANDLE' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,111,,,Identifier '_builtin_dictionaries' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,128,,,Identifier 'en-GB_to_en-US' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,130,,,Identifier '_en-GB_to_en-US' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,137,,,Identifier '_builtin_default' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,205,,,Identifier 'FileOpener' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,210,,,Identifier 'ignore_multiline_regex' has 25 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,211,,,Identifier 'ignore_multiline_regex' has 25 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,218,,,Identifier 'init_chardet' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,229,,,Identifier 'encdetector' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,236,,,Identifier 'open_with_chardet' has 22 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,263,,,Identifier 'open_with_internal' has 22 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,290,,,Identifier 'ignore_multiline_regex' has 25 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,314,,,Identifier 'NewlineHelpFormatter' has 24 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,334,,,Identifier '_toml_to_parseconfig' has 24 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,343,,,Identifier '_supports_ansi_colors' has 26 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,375,,,Identifier 'parse_options' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,438,,,Identifier 'ignore_multiline_regex' has 25 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,439,,,Identifier 'ignore_multiline_regex' has 25 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,471,,,Identifier 'uri_ignore_words_list' has 25 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,492,,,Identifier 'uri_regex' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,700,,,Identifier 'process_ignore_words' has 23 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,711,,,Identifier 'parse_ignore_words_option' has 28 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,731,,,Identifier 'build_ignore_words' has 22 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,754,,,Identifier 'ask_for_word_fix' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,816,,,Identifier 'print_context' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,827,,,Identifier '_ignore_word_sub' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,836,,,Identifier 'extract_words' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,844,,,Identifier 'extract_words_iter' has 22 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,852,,,Identifier 'apply_uri_ignore_words' has 28 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,873,,,Identifier 'parse_file' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,1087,,,Identifier 'flatten_clean_comma_separated_arguments' has 50 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,1101,,,Identifier '_script_main' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,file_level,Long identifier,1111,,,Identifier '_usage_error' has 21 characters (threshold: 20). Consider shortening.
+dataset,_codespell.py,parse_options,Magic number,555,,,Magic number 64 found in 'parse_options'. Define as QUIET_LEVEL_DEFAULT = 34.
+dataset,_codespell.py,parse_options,Magic number,556,,,Magic number 64 found in 'parse_options'. Define as MAX_QUIET_LEVEL = 64.
+dataset,_codespell.py,parse_options,Magic number,540,,,Magic number 4 found in 'parse_options'. Define as MAX_INTERACTIVE_MODE = 4.
+dataset,_codespell.py,parse_options,Magic number,541,,,Magic number 4 found in 'parse_options'. Define as INTERACTIVE_MODE_RANGE = 4.
+dataset,_codespell.py,parse_options,Magic number,601,,,Magic number 1024 found in 'parse_options'. Define as BUFFER_SIZE = 1024.
+dataset,_codespell.py,parse_options,Magic number,602,,,Magic number 1024 found in 'parse_options'. Define as READ_BUFFER_SIZE = 1024.
+dataset,_codespell.py,parse_options,Magic number,603,,,Magic number 1024 found in 'parse_options'. Define as MAX_BYTES_TO_CHECK = 1024.
+dataset,_codespell.py,parse_options,Magic number,1107,,,Magic number 130 found in 'parse_options'. Define as EXIT_KEYBOARD_INTERRUPT = 130.
+dataset,_codespell.py,file_level,Long lambda function,169,,,Lambda at line 169 has 85 characters (threshold: 80). Convert to named function.
+dataset,_codespell.py,file_level,Long lambda function,201,,,Lambda at line 201 has 84 characters (threshold: 80). Convert to named function.
+dataset,_codespell.py,file_level,Long lambda function,337,,,Lambda at line 337 has 84 characters (threshold: 80). Convert to named function.
+dataset,_codespell.py,file_level,Long lambda function,1097,,,Lambda at line 1097 has 85 characters (threshold: 80). Convert to named function.
+dataset,_codespell.py,GlobMatch.match,Long message chain,169,,,Message chain at line 169 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_codespell.py,ask_for_word_fix,Long message chain,775,,,Message chain at line 775 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_codespell.py,ask_for_word_fix,Long message chain,799,,,Message chain at line 799 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,_codespell.py,parse_file,Long message chain,1025,,,Message chain at line 1025 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,test_dictionary.py,_check_err_rep,Complex method,,137,191,Method '_check_err_rep' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_dictionary.py,test_dictionary_looping,Complex method,,297,364,Method 'test_dictionary_looping' has cyclomatic complexity of 9 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_dictionary.py,_check_err_rep,Long method,,137,191,Method '_check_err_rep' has 55 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,test_dictionary.py,_check_aspell,Complex conditional,116,,,Conditional at line 116 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,test_dictionary.py,test_dictionary_looping,Complex conditional,339,,,Conditional at line 339 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,test_dictionary.py,test_dictionary_looping,Complex conditional,354,,,Conditional at line 354 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,test_dictionary.py,_check_err_rep,Long parameter list,137,,,Method '_check_err_rep' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,test_dictionary.py,test_error_checking_in_aspell,Long parameter list,263,,,Method 'test_error_checking_in_aspell' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,test_dictionary.py,_check_aspell,Long statement,117,,,Line 117 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,test_dictionary.py,file_level,Long lambda function,117,,,Lambda at line 117 has 95 characters (threshold: 80). Convert to named function.
+dataset,test_dictionary.py,_check_aspell,Long message chain,117,,,Message chain at line 117 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,test_basic.py,test_basic,Complex method,,91,170,Method 'test_basic' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_basic,Long method,,91,172,Method 'test_basic' has 82 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,test_basic.py,test_interactivity,Long method,,229,296,Method 'test_interactivity' has 68 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,test_basic.py,test_check_hidden,Long method,,641,712,Method 'test_check_hidden' has 72 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,test_basic.py,test_bad_glob,Complex conditional,201,,,Conditional at line 201 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,test_basic.py,test_bad_glob,Complex conditional,204,,,Conditional at line 204 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,test_basic.py,_helper_test_case_handling_in_fixes,Long parameter list,759,,,Method '_helper_test_case_handling_in_fixes' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,test_basic.py,file_level,Long statement,140,,,Line 140 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,test_basic.py,file_level,Long statement,153,,,Line 153 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,test_basic.py,file_level,Long statement,154,,,Line 154 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,test_basic.py,run_codespell,Long message chain,80,,,Message chain at line 80 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,test_basic.py,run_codespell_stdin,Long message chain,1392,,,Message chain at line 1392 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,settings.py,read_config,Complex method,,227,380,Method 'read_config' has cyclomatic complexity of 15 (threshold: 7). Extract nested conditions into separate methods.
+dataset,settings.py,read_config,Long method,,227,380,Method 'read_config' has 153 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,settings.py,read_config,Complex conditional,281,,,Conditional at line 281 has 6 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,settings.py,read_config,Complex conditional,299,,,Conditional at line 299 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,settings.py,read_config,Complex conditional,331,,,Conditional at line 331 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,settings.py,read_config,Complex conditional,340,,,Conditional at line 340 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,settings.py,read_config,Complex conditional,346,,,Conditional at line 346 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,settings.py,read_config,Complex conditional,378,,,Conditional at line 378 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,settings.py,file_level,Long statement,31,,,Line 31 has 139 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,47,,,Line 47 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,51,,,Line 51 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,68,,,Line 68 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,69,,,Line 69 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,83,,,Line 83 has 143 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,98,,,Line 98 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,101,,,Line 101 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,108,,,Line 108 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,110,,,Line 110 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,113,,,Line 113 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,126,,,Line 126 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,142,,,Line 142 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,184,,,Line 184 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,203,,,Line 203 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,209,,,Line 209 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,215,,,Line 215 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,221,,,Line 221 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,259,,,Line 259 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,281,,,Line 281 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,286,,,Line 286 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,288,,,Line 288 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,290,,,Line 290 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,292,,,Line 292 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,301,,,Line 301 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,355,,,Line 355 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,360,,,Line 360 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,362,,,Line 362 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,file_level,Long statement,364,,,Line 364 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,settings.py,global,Magic number,33,,,Magic number 5 found in 'ROTATING_CHARS' definition. Define as ROTATING_CHARS_COUNT = 5.
+dataset,settings.py,global,Magic number,35,,,Magic number 8 found in 'UNICODE_ENCODING' definition. Define as UTF8_BYTES = 8.
+dataset,settings.py,global,Magic number,43,,,Magic number 3 found in 'CHECK_CONNECTION_MAX_RETRIES' definition. Define as MAX_RETRIES = 3.
+dataset,settings.py,global,Magic number,50,,,Magic number 2000 found in 'SNAP_LEN' definition. Define as MAX_SNAP_LENGTH = 2000.
+dataset,settings.py,global,Magic number,51,,,Magic number 2000 found in 'BLOCK_LENGTH' calculation. Define as MAX_SNAP_LENGTH = 2000.
+dataset,settings.py,global,Magic number,52,,,Magic number 0.00001 found in 'SHORT_SENSOR_SLEEP_TIME' definition. Define as SHORT_SLEEP_INTERVAL = 0.00001.
+dataset,settings.py,global,Magic number,53,,,Magic number 0.001 found in 'REGULAR_SENSOR_SLEEP_TIME' definition. Define as REGULAR_SLEEP_INTERVAL = 0.001.
+dataset,settings.py,global,Magic number,54,,,Magic number 60 found in 'LOAD_TRAILS_RETRY_SLEEP_TIME' definition. Define as RETRY_SLEEP_SECONDS = 60.
+dataset,settings.py,global,Magic number,55,,,Magic number 5 found in 'UNAUTHORIZED_SLEEP_TIME' definition. Define as UNAUTHORIZED_SLEEP_SECONDS = 5.
+dataset,settings.py,global,Magic number,56,,,Magic number 20 found in 'NO_SUCH_NAME_PER_HOUR_THRESHOLD' definition. Define as HOURLY_NAME_THRESHOLD = 20.
+dataset,settings.py,global,Magic number,63,,,Magic number 65000 found in 'MAX_NOFILE' definition. Define as MAX_FILE_DESCRIPTORS = 65000.
+dataset,settings.py,global,Magic number,65,,,Magic number 18 found in 'MAX_HELP_OPTION_LENGTH' definition. Define as MAX_OPTION_LENGTH = 18.
+dataset,settings.py,global,Magic number,124,,,Magic number 16 found in 'SESSION_ID_LENGTH' definition. Define as SESSION_ID_BYTES = 16.
+dataset,settings.py,global,Magic number,125,,,Magic number 24 found in 'SESSION_EXPIRATION_HOURS' definition. Define as SESSION_EXPIRATION_HOURS = 24.
+dataset,settings.py,global,Magic number,127,,,Magic number 9 found in 'DEFLATE_COMPRESS_LEVEL' definition. Define as MAX_COMPRESSION_LEVEL = 9.
+dataset,settings.py,global,Magic number,130,,,Magic number 32 found in 'INFECTION_SCANNING_THRESHOLD' definition. Define as INFECTION_SCAN_THRESHOLD = 32.
+dataset,settings.py,global,Magic number,131,,,Magic number 1000 found in 'MAX_CACHE_ENTRIES' definition. Define as MAX_CACHE_SIZE = 1000.
+dataset,settings.py,global,Magic number,132,,,Magic number 1024 found in 'MMAP_ZFILL_CHUNK_LENGTH' definition. Define as CHUNK_SIZE_KB = 1024.
+dataset,settings.py,global,Magic number,135,,,Magic number 1000 found in 'DNS_EXHAUSTION_THRESHOLD' definition. Define as DNS_QUERY_THRESHOLD = 1000.
+dataset,settings.py,global,Magic number,136,,,Magic number 24 found in 'SUSPICIOUS_DOMAIN_LENGTH_THRESHOLD' definition. Define as MAX_DOMAIN_LENGTH = 24.
+dataset,settings.py,global,Magic number,137,,,Magic number 9 found in 'SUSPICIOUS_DOMAIN_CONSONANT_THRESHOLD' definition. Define as MAX_CONSECUTIVE_CONSONANTS = 9.
+dataset,settings.py,global,Magic number,138,,,Magic number 3.5 found in 'SUSPICIOUS_DOMAIN_ENTROPY_THRESHOLD' definition. Define as ENTROPY_THRESHOLD = 3.5.
+dataset,settings.py,global,Magic number,145,,,Magic number 48 found in 'DLT_OFFSETS' definition. Define as DLT_OFFSET_48 = 48.
+dataset,settings.py,global,Magic number,145,,,Magic number 108 found in 'DLT_OFFSETS' definition. Define as DLT_OFFSET_108 = 108.
+dataset,settings.py,global,Magic number,145,,,Magic number 113 found in 'DLT_OFFSETS' definition. Define as DLT_OFFSET_113 = 113.
+dataset,settings.py,global,Magic number,145,,,Magic number 16 found in 'DLT_OFFSETS' definition. Define as DLT_OFFSET_16 = 16.
+dataset,settings.py,_get_total_physmem,Magic number,184,,,Magic number 1024 found in '_get_total_physmem'. Define as KB_TO_BYTES = 1024.
+dataset,settings.py,read_config,Magic number,355,,,Magic number 1024 found in 'read_config'. Define as KB_TO_BYTES = 1024.
+dataset,settings.py,read_config,Magic number,355,,,Magic number 3 found in 'read_config'. Define as CUBE_BASE = 3.
+dataset,settings.py,read_config,Magic number,366,,,Magic number 2000 found in 'read_config'. Define as MAX_SNAP_LENGTH = 2000.
+dataset,settings.py,file_level,Long lambda function,110,,,Lambda at line 110 has 81 characters (threshold: 80). Convert to named function.
+dataset,addr.py,expand_range,Complex method,,36,65,Method 'expand_range' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,addr.py,make_mask,Magic number,20,,,Magic number 32 found in 'make_mask'. Define as IPV4_BITS = 32.
+dataset,addr.py,inet_ntoa6,Magic number,34,,,Magic number 4 found in 'inet_ntoa6'. Define as IPV6_HEX_GROUP_SIZE = 4.
+dataset,addr.py,expand_range,Magic number,44,,,Magic number 32 found in 'expand_range'. Define as MAX_IPV4_MASK = 32.
+dataset,addr.py,expand_range,Magic number,48,,,Magic number 65536 found in 'expand_range'. Define as MAX_RANGE_SIZE = 65536.
+dataset,addr.py,file_level,Long lambda function,24,,,Lambda at line 24 has 95 characters (threshold: 80). Convert to named function.
+dataset,colorized.py,file_level,Long statement,16,,,Line 16 has 180 characters (threshold: 120). Break into multiple lines.
+dataset,colorized.py,file_level,Long statement,17,,,Line 17 has 130 characters (threshold: 120). Break into multiple lines.
+dataset,colorized.py,file_level,Long statement,18,,,Line 18 has 147 characters (threshold: 120). Break into multiple lines.
+dataset,colorized.py,file_level,Long statement,19,,,Line 19 has 123 characters (threshold: 120). Break into multiple lines.
+dataset,colorized.py,file_level,Long lambda function,27,,,Lambda at line 27 has 95 characters (threshold: 80). Convert to named function.
+dataset,colorized.py,file_level,Long lambda function,28,,,Lambda at line 28 has 90 characters (threshold: 80). Convert to named function.
+dataset,colorized.py,file_level,Long lambda function,34,,,Lambda at line 34 has 95 characters (threshold: 80). Convert to named function.
+dataset,colorized.py,file_level,Long lambda function,36,,,Lambda at line 36 has 95 characters (threshold: 80). Convert to named function.
+dataset,colorized.py,file_level,Long lambda function,37,,,Lambda at line 37 has 125 characters (threshold: 80). Convert to named function.
+dataset,log.py,log_event,Complex method,,134,227,Method 'log_event' has cyclomatic complexity of 15 (threshold: 7). Extract nested conditions into separate methods.
+dataset,log.py,log_event,Long method,,134,223,Method 'log_event' has 90 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,log.py,log_event,Complex conditional,147,,,Conditional at line 147 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,log.py,log_event,Complex conditional,166,,,Conditional at line 166 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,log.py,log_event,Complex conditional,217,,,Conditional at line 217 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,log.py,log_event,Long parameter list,134,,,Method 'log_event' has 5 parameters (threshold: 4). Consider introducing a parameter object.
+dataset,log.py,log_event,Long statement,172,,,Line 172 has 130 characters (threshold: 120). Break into multiple lines.
+dataset,log.py,log_event,Long statement,206,,,Line 206 has 201 characters (threshold: 120). Break into multiple lines.
+dataset,log.py,log_event,Long statement,212,,,Line 212 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,log.py,file_level,Long identifier,26,,,Identifier 'CONDENSE_ON_INFO_KEYWORDS' has 24 characters (threshold: 20). Consider shortening.
+dataset,log.py,file_level,Long identifier,27,,,Identifier 'CONDENSED_EVENTS_FLUSH_PERIOD' has 30 characters (threshold: 20). Consider shortening.
+dataset,log.py,file_level,Long identifier,28,,,Identifier 'DEFAULT_ERROR_LOG_PERMISSIONS' has 30 characters (threshold: 20). Consider shortening.
+dataset,log.py,file_level,Long identifier,29,,,Identifier 'DEFAULT_EVENT_LOG_PERMISSIONS' has 29 characters (threshold: 20). Consider shortening.
+dataset,log.py,file_level,Long identifier,173,,,Identifier 'DISABLE_LOCAL_LOG_STORAGE' has 26 characters (threshold: 20). Consider shortening.
+dataset,log.py,file_level,Long identifier,196,,,Identifier 'REMOTE_SEVERITY_REGEX' has 23 characters (threshold: 20). Consider shortening.
+dataset,log.py,file_level,Long identifier,217,,,Identifier 'DISABLE_LOCAL_LOG_STORAGE' has 26 characters (threshold: 20). Consider shortening.
+dataset,log.py,flush_condensed_events,Magic number,115,,,Magic number 3 found in 'flush_condensed_events'. Define as START_INDEX = 3.
+dataset,log.py,flush_condensed_events,Magic number,115,,,Magic number 7 found in 'flush_condensed_events'. Define as END_INDEX = 7.
+dataset,log.py,log_event,Long message chain,185,,,Message chain at line 185 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,log.py,log_event,Long message chain,278,,,Message chain at line 278 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Complex method,,70,338,Method 'update_trails' has cyclomatic complexity of 22 (threshold: 7). Extract nested conditions into separate methods.
+dataset,update.py,update_trails,Long method,,70,338,Method 'update_trails' has 268 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,update.py,update_trails,Complex conditional,108,,,Conditional at line 108 has 5 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,update.py,update_trails,Complex conditional,164,,,Conditional at line 164 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,update.py,update_trails,Complex conditional,250,,,Conditional at line 250 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,update.py,update_trails,Complex conditional,262,,,Conditional at line 262 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,update.py,update_trails,Complex conditional,309,,,Conditional at line 309 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,update.py,update_trails,Complex conditional,311,,,Conditional at line 311 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,update.py,_fopen,Long parameter list,64,,,Method '_fopen' has 5 parameters (threshold: 4). Consider introducing a FileOpen parameter object.
+dataset,update.py,update_trails,Long statement,108,,,Line 108 has 196 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,update_trails,Long statement,164,,,Line 164 has 204 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,update_trails,Long statement,250,,,Line 250 has 125 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,update_trails,Long statement,303,,,Line 303 has 121 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,update_ipcat,Long statement,349,,,Line 349 has 180 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,main,Long statement,411,,,Line 411 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,main,Long statement,412,,,Line 412 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,update.py,file_level,Long identifier,35,,,Identifier 'FRESH_IPCAT_DELTA_DAYS' has 24 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,36,,,Identifier 'LOW_PRIORITY_INFO_KEYWORDS' has 28 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,37,,,Identifier 'HIGH_PRIORITY_INFO_KEYWORDS' has 29 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,38,,,Identifier 'HIGH_PRIORITY_REFERENCES' has 27 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,40,,,Identifier 'IPCAT_SQLITE_FILE' has 22 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,108,,,Identifier 'DISABLED_TRAILS_INFO_REGEX' has 28 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,152,,,Identifier 'DISABLED_TRAILS_INFO_REGEX' has 28 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,164,,,Identifier 'LOW_PRIORITY_INFO_KEYWORDS' has 28 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,164,,,Identifier 'HIGH_PRIORITY_REFERENCES' has 27 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,164,,,Identifier 'HIGH_PRIORITY_INFO_KEYWORDS' has 29 characters (threshold: 20). Consider shortening.
+dataset,update.py,file_level,Long identifier,233,,,Identifier 'DISABLED_TRAILS_INFO_REGEX' has 28 characters (threshold: 20). Consider shortening.
+dataset,update.py,update_trails,Magic number,149,,,Magic number 20 found in 'update_trails'. Define as PROGRESS_PADDING = 20.
+dataset,update.py,update_trails,Magic number,158,,,Magic number 4 found in 'update_trails'. Define as WWW_PREFIX_LENGTH = 4.
+dataset,update.py,update_trails,Magic number,159,,,Magic number 4 found in 'update_trails'. Define as WWW_PREFIX_LENGTH = 4.
+dataset,update.py,update_trails,Magic number,213,,,Magic number 32 found in 'update_trails'. Define as MAX_IPV4_MASK = 32.
+dataset,update.py,update_trails,Magic number,220,,,Magic number 1024 found in 'update_trails'. Define as MAX_CIDR_RANGE = 1024.
+dataset,update.py,update_trails,Magic number,262,,,Magic number 3 found in 'update_trails'. Define as DEFAULT_IP_MINIMUM_FEEDS = 3.
+dataset,update.py,update_trails,Magic number,266,,,Magic number 255 found in 'update_trails'. Define as MAX_IP_OCTET = 255.
+dataset,update.py,update_trails,Magic number,276,,,Magic number 4 found in 'update_trails'. Define as WWW_PREFIX_LENGTH = 4.
+dataset,update.py,update_trails,Magic number,302,,,Magic number 3 found in 'update_trails'. Define as MAX_OTHER_REFERENCES = 3.
+dataset,update.py,update_trails,Magic number,333,,,Magic number 40 found in 'update_trails'. Define as CLEAR_LINE_LENGTH = 40.
+dataset,update.py,update_ipcat,Magic number,349,,,Magic number 24 found in 'update_ipcat'. Define as HOURS_PER_DAY = 24.
+dataset,update.py,update_ipcat,Magic number,349,,,Magic number 3600 found in 'update_ipcat'. Define as SECONDS_PER_HOUR = 3600.
+dataset,update.py,file_level,Long lambda function,415,,,Lambda at line 415 has 81 characters (threshold: 80). Convert to named function.
+dataset,update.py,update_trails,Long message chain,108,,,Message chain at line 108 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,109,,,Message chain at line 109 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,114,,,Message chain at line 114 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,116,,,Message chain at line 116 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,124,,,Message chain at line 124 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,133,,,Message chain at line 133 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,139,,,Message chain at line 139 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,146,,,Message chain at line 146 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,152,,,Message chain at line 152 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,164,,,Message chain at line 164 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,166,,,Message chain at line 166 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,172,,,Message chain at line 172 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,202,,,Message chain at line 202 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,250,,,Message chain at line 250 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,255,,,Message chain at line 255 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,262,,,Message chain at line 262 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,301,,,Message chain at line 301 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,302,,,Message chain at line 302 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,309,,,Message chain at line 309 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,311,,,Message chain at line 311 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,315,,,Message chain at line 315 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,316,,,Message chain at line 316 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_trails,Long message chain,317,,,Message chain at line 317 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,update_ipcat,Long message chain,349,,,Message chain at line 349 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,main,Long message chain,385,,,Message chain at line 385 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,main,Long message chain,397,,,Message chain at line 397 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,update.py,main,Long message chain,421,,,Message chain at line 421 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,common.py,get_regex,Complex method,,176,221,Method 'get_regex' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,common.py,get_regex,Long method,,176,221,Method 'get_regex' has 46 lines (threshold: 67). Consider breaking it down into smaller methods.
+dataset,common.py,get_regex,Complex conditional,196,,,Conditional at line 196 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,common.py,get_regex,Complex conditional,201,,,Conditional at line 201 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,common.py,retrieve_content,Long statement,50,,,Line 50 has 150 characters (threshold: 120). Break into multiple lines.
+dataset,common.py,get_regex,Long statement,217,,,Line 217 has 156 characters (threshold: 120). Break into multiple lines.
+dataset,common.py,file_level,Long identifier,30,,,Identifier 'MAX_HELP_OPTION_LENGTH' has 23 characters (threshold: 20). Consider shortening.
+dataset,common.py,file_level,Long identifier,31,,,Identifier 'STATIC_IPCAT_LOOKUPS' has 22 characters (threshold: 20). Consider shortening.
+dataset,common.py,get_regex,Magic number,196,,,Magic number 65535 found in 'get_regex'. Define as UNICODE_MAX_VALUE = 65535.
+dataset,common.py,file_level,Long lambda function,50,,,Lambda at line 50 has 95 characters (threshold: 80). Convert to named function.
+dataset,common.py,retrieve_content,Long message chain,50,,,Message chain at line 50 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,common.py,get_regex,Long message chain,217,,,Message chain at line 217 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.
+dataset,badips.py,fetch,Magic number,12,,,Magic number 7 found in '__check__' assignment. Define as DAYS_THRESHOLD = 7.
+dataset,torproject.py,fetch,Magic number,10,,,Magic number 1.1.1.1 found in 'fetch'. Define as TOR_CHECK_IP = '1.1.1.1'.
+dataset,dataplane.py,fetch,Complex method,,14,26,Method 'fetch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,dataplane.py,fetch,Complex conditional,22,,,Conditional at line 22 has 3 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,dataplane.py,fetch,Long statement,16,,,Line 16 has 333 characters (threshold: 120). Break into multiple lines.
+dataset,alienvault.py,fetch,Complex method,,26,35,Method 'fetch' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,alienvault.py,fetch,Complex conditional,31,,,Conditional at line 31 has 5 logical operators (threshold: 2). Extract into named boolean variables.
+dataset,alienvault.py,fetch,Long statement,31,,,Line 31 has 175 characters (threshold: 120). Break into multiple lines.
+dataset,alienvault.py,file_level,Long lambda function,31,,,Lambda at line 31 has 95 characters (threshold: 80). Convert to named function.
+dataset,alienvault.py,fetch,Long message chain,31,,,Message chain at line 31 has 3 chained methods (threshold: 2). Use 'Hide Delegate' pattern.

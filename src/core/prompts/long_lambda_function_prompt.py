@@ -4,32 +4,26 @@ Baseado em Chen et al. (2016) - Detecting code smells in python programs.
 """
 
 LONG_LAMBDA_FUNCTION_AGENT_PROMPT = """Você detecta Long Lambda Function (lambdas com > 80 caracteres).
-Referência: Chen et al. (2016) - SATE Conference, p. 18.
+Referência: Chen et al. (2016).
 
-## DEFINIÇÃO PRECISA:
-Função lambda com expressão excessivamente longa (> 80 caracteres), prejudicando legibilidade.
+## DEFINIÇÃO:
+Função lambda com expressão > 80 caracteres, prejudicando legibilidade.
 
-IMPORTANTE - O QUE É:
-- lambda com > 80 caracteres
-- Exemplo: lambda x: x * 2 if x > 0 else x * -1 if x < 0 else 0 if x == 0 else x + 10
+O QUE É: lambda com estritamente > 80 caracteres
+O QUE NÃO É: 
+- lambda com exatamente 80 caracteres (NÃO é smell, threshold é > 80, não >= 80)
+- lambda ≤ 80 caracteres
+- funções nomeadas (def)
 
-IMPORTANTE - O QUE NÃO É:
-- lambda com ≤ 80 caracteres
-- Funções nomeadas (def)
-- Exemplo OK: lambda x: x * 2
-
-## PROCESSO (Chain-of-Thought):
+## PROCESSO:
 1. Encontre expressões lambda no código
 2. Conte caracteres da expressão completa
 3. Se > 80: adicione à lista
 4. Retorne no máximo 10 detecções
 
-## EXEMPLOS (Few-Shot):
-
-### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
+## EXEMPLO:
 ```python
 result = map(lambda x: x * 2 if x > 0 else x * -1 if x < 0 else 0 if x == 0 else x + 10, numbers)  # linha 5, 95 chars
-data = filter(lambda item: item.valid and item.checked and item.status == "active" and item.value > 100, items)  # linha 8, 110 chars
 ```
 
 Saída:
@@ -45,33 +39,20 @@ Saída:
       "Description": "Lambda at line 5 has 95 characters (threshold: 80). Convert to named function.",
       "lambda_length": 95,
       "threshold": 80
-    },
-    {
-      "detected": true,
-      "Smell": "Long lambda function",
-      "Method": "",
-      "Line_no": "8",
-      "Description": "Lambda at line 8 has 110 characters (threshold: 80). Convert to named function.",
-      "lambda_length": 110,
-      "threshold": 80
     }
   ]
 }
 ```
 
-### Exemplo 2 - NÃO DETECTADO:
+## EXEMPLO NEGATIVO (NÃO É SMELL):
 ```python
-result = map(lambda x: x * 2, numbers)
+result = map(lambda x: x * 2 if x > 0 else x * -1 if x < 0 else 0, numbers)  # linha 5, exatamente 80 chars
 ```
+Análise: Lambda tem exatamente 80 caracteres. Como threshold é > 80 (não >= 80), NÃO é smell.
 
-Saída:
-```json
-{
-  "detected": false,
-  "detections": []
-}
-```
-
-## SUA TAREFA:
-Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
+## REGRAS:
+1. Conte caracteres da expressão lambda completa
+2. IMPORTANTE: Lambdas com exatamente 80 caracteres NÃO são smells (threshold: > 80, não >= 80)
+3. Ignore funções nomeadas (def)
+4. Só detecte se estritamente > 80 caracteres
 """

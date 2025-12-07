@@ -23,7 +23,7 @@ async def analyze(request: AnalyzeRequest) -> AnalyzeResponse:
             parallel=True
         )
 
-        logger.info(f"Análise concluída: {result['total_smells_detected']} smells")
+        logger.info("Análise concluída: %s smells", result["total_smells_detected"])
 
         return AnalyzeResponse(
             total_smells_detected=result["total_smells_detected"],
@@ -33,6 +33,10 @@ async def analyze(request: AnalyzeRequest) -> AnalyzeResponse:
 
     except HTTPException:
         raise
-    except Exception as e:
-        logger.error(f"Erro: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+    except (ValueError, KeyError, AttributeError) as e:
+        logger.error("Erro de validação: %s", e, exc_info=True)
+        raise HTTPException(status_code=400, detail=f"Erro de validação: {str(e)}")
+    except Exception as e:  # pylint: disable=broad-except
+        # Catch-all necessário para erros inesperados do supervisor/LLM
+        logger.error("Erro inesperado: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")

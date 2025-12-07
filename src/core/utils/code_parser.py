@@ -22,7 +22,7 @@ class CodeParser:
             self.tree = ast.parse(code)
             self._extract_metadata()
         except SyntaxError as e:
-            logger.warning(f"SyntaxError parsing {self.file_path}: {e}")
+            logger.warning("SyntaxError parsing %s: %s", self.file_path, e)
 
     def _extract_metadata(self):
         """Extrai funções e classes do código."""
@@ -31,27 +31,33 @@ class CodeParser:
 
         for node in ast.walk(self.tree):
             if isinstance(node, ast.FunctionDef):
-                self.functions.append({
-                    "name": node.name,
-                    "lineno": node.lineno,
-                    "end_lineno": node.end_lineno or node.lineno,
-                })
+                self.functions.append(
+                    {
+                        "name": node.name,
+                        "lineno": node.lineno,
+                        "end_lineno": node.end_lineno or node.lineno,
+                    }
+                )
             elif isinstance(node, ast.ClassDef):
-                self.classes.append({
-                    "name": node.name,
-                    "lineno": node.lineno,
-                    "methods": self._get_class_methods(node),
-                })
+                self.classes.append(
+                    {
+                        "name": node.name,
+                        "lineno": node.lineno,
+                        "methods": self._get_class_methods(node),
+                    }
+                )
 
     def _get_class_methods(self, class_node) -> List[Dict]:
         """Extrai métodos de uma classe."""
         methods = []
         for node in class_node.body:
             if isinstance(node, ast.FunctionDef):
-                methods.append({
-                    "name": node.name,
-                    "lineno": node.lineno,
-                })
+                methods.append(
+                    {
+                        "name": node.name,
+                        "lineno": node.lineno,
+                    }
+                )
         return methods
 
     def find_identifier_line(self, identifier_name: str) -> Optional[int]:

@@ -1,7 +1,7 @@
 """Schemas Pydantic para respostas estruturadas dos agentes."""
 
-from typing import Optional
-from pydantic import BaseModel, Field
+from typing import Optional, Union
+from pydantic import BaseModel, Field, field_validator
 
 
 class CodeSmellDetection(BaseModel):
@@ -11,13 +11,21 @@ class CodeSmellDetection(BaseModel):
     Package: str = Field(default="Code")
     Module: str = Field(default="unknown")
     Class: str = Field(default="")
-    Smell: str
+    Smell: str = Field(default="", alias="code_smell")
     Method: str = Field(default="")
-    Line_no: str = Field(default="")
+    Line_no: Union[str, int] = Field(default="")
     File: str = Field(default="")
-    Description: str = Field(default="")
+    Description: str = Field(default="", alias="description")
 
     detected: bool = Field(default=True)
+
+    @field_validator("Line_no", mode="before")
+    @classmethod
+    def convert_line_no(cls, v):
+        """Converte Line_no para string se for int."""
+        if v is None:
+            return ""
+        return str(v)
 
     class Config:
         populate_by_name = True
@@ -27,12 +35,16 @@ class ComplexMethodDetection(CodeSmellDetection):
     Smell: str = Field(default="Complex method")
     cyclomatic_complexity: Optional[int] = None
     threshold: int = Field(default=7)
+    start_line: Optional[int] = None
+    end_line: Optional[int] = None
 
 
 class LongMethodDetection(CodeSmellDetection):
     Smell: str = Field(default="Long method")
     total_lines: Optional[int] = None
     threshold: int = Field(default=67)
+    start_line: Optional[int] = None
+    end_line: Optional[int] = None
 
 
 class ComplexConditionalDetection(CodeSmellDetection):
@@ -126,4 +138,14 @@ class MultipleLongMessageChainResponse(BaseModel):
 
 class MultipleLongLambdaResponse(BaseModel):
     detections: list[LongLambdaFunctionDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleEmptyCatchBlockResponse(BaseModel):
+    detections: list[EmptyCatchBlockDetection] = Field(default_factory=list)
+    detected: bool = Field(default=False)
+
+
+class MultipleMissingDefaultResponse(BaseModel):
+    detections: list[MissingDefaultDetection] = Field(default_factory=list)
     detected: bool = Field(default=False)

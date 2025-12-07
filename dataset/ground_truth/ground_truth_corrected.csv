@@ -1,0 +1,398 @@
+Source,File,Method,Code_Smell,Line_no,Start_line,End_line,Details
+dataset,_codespell.py,parse_file,Complex Conditional,991.0,,,Conditional at line 991 has 3 logical operators (threshold: 2)
+dataset,_codespell.py,open_with_internal,Complex Method,,263.0,288.0,Method 'open_with_internal' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,_codespell.py,parse_options,Complex Method,,375.0,697.0,Method 'parse_options' has cyclomatic complexity of 17 (threshold: 7)
+dataset,_codespell.py,ask_for_word_fix,Complex Method,,754.0,813.0,Method 'ask_for_word_fix' has cyclomatic complexity of 15 (threshold: 7)
+dataset,_codespell.py,parse_file,Complex Method,,873.0,1084.0,Method 'parse_file' has cyclomatic complexity of 54 (threshold: 7)
+dataset,_codespell.py,main,Complex Method,,1117.0,1351.0,Method 'main' has cyclomatic complexity of 52 (threshold: 7)
+dataset,_codespell.py,,Long Identifier,,,,Identifier 'ENABLE_VIRTUAL_TERMINAL_PROCESSING' has 34 characters (threshold: 20)
+dataset,_codespell.py,parse_ignore_words_option,Long Identifier,,,,Identifier 'comma_separated_words' has 21 characters (threshold: 20)
+dataset,_codespell.py,parse_file,Long Identifier,,,,Identifier 'extra_words_to_ignore' has 21 characters (threshold: 20)
+dataset,_codespell.py,main,Long Identifier,,,,Identifier 'ignore_multiline_regex' has 22 characters (threshold: 20)
+dataset,_codespell.py,file_level,Long Lambda Function,337.0,,,Lambda at line 337 has 81 characters (threshold: 80). Convert to named function.
+dataset,_codespell.py,file_level,Long Lambda Function,1097.0,,,Lambda at line 1097 has 81 characters (threshold: 80). Convert to named function.
+dataset,_codespell.py,_split_lines,Long Message Chain,325.0,,,Message chain at line 325 has 3 chained methods (threshold: 2)
+dataset,_codespell.py,ask_for_word_fix,Long Message Chain,776.0,,,Message chain at line 776 has 3 chained methods (threshold: 2)
+dataset,_codespell.py,ask_for_word_fix,Long Message Chain,791.0,,,Message chain at line 791 has 3 chained methods (threshold: 2)
+dataset,_codespell.py,ask_for_word_fix,Long Message Chain,799.0,,,Message chain at line 799 has 3 chained methods (threshold: 2)
+dataset,_codespell.py,parse_options,Long Method,,375.0,697.0,Method 'parse_options' has 323 lines (threshold: 67)
+dataset,_codespell.py,parse_file,Long Method,,873.0,1084.0,Method 'parse_file' has 212 lines (threshold: 67)
+dataset,_codespell.py,main,Long Method,,1117.0,1351.0,Method 'main' has 235 lines (threshold: 67)
+dataset,_codespell.py,ask_for_word_fix,Long Parameter List,,,,Method 'ask_for_word_fix' has 5 parameters (threshold: 4)
+dataset,_codespell.py,apply_uri_ignore_words,Long Parameter List,,,,Method 'apply_uri_ignore_words' has 6 parameters (threshold: 4)
+dataset,_codespell.py,parse_file,Long Parameter List,,,,Method 'parse_file' has 13 parameters (threshold: 4)
+dataset,_codespell.py,,Long Statement,111.0,,,Line 111 has 124 characters (threshold: 120)
+dataset,_codespell.py,,Magic Number,45.0,,,Magic number 4 found at line 45
+dataset,_codespell.py,,Magic Number,142.0,,,Magic number 64 found at line 142
+dataset,_codespell.py,,Magic Number,143.0,,,Magic number 65 found at line 143
+dataset,_codespell.py,,Magic Number,144.0,,,Magic number 78 found at line 144
+dataset,_codespell.py,,Magic Number,157.0,,,Magic number 2 found at line 157
+dataset,_codespell.py,,Magic Number,158.0,,,Magic number 4 found at line 158
+dataset,_codespell.py,,Magic Number,159.0,,,Magic number 8 found at line 159
+dataset,_codespell.py,,Magic Number,160.0,,,Magic number 16 found at line 160
+dataset,_codespell.py,,Magic Number,161.0,,,Magic number 32 found at line 161
+dataset,_codespell.py,__str__,Magic Number,201.0,,,Magic number 15 found at line 201
+dataset,_codespell.py,ask_for_word_fix,Magic Number,786.0,,,Magic number 2 found at line 786
+dataset,_codespell.py,parse_file,Magic Number,1031.0,,,Magic number 2 found at line 1031
+dataset,addr.py,expand_range,Complex Method,,36.0,65.0,Method 'expand_range' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,addr.py,,Long Statement,31.0,,,Line 31 has 125 characters (threshold: 120)
+dataset,addr.py,addr_to_int,Magic Number,14.0,,,Magic number 24 found at line 14
+dataset,addr.py,int_to_addr,Magic Number,17.0,,,Magic number 255 found at line 17
+dataset,addr.py,make_mask,Magic Number,20.0,,,Magic number 4294967295 found at line 20
+dataset,addr.py,inet_ntoa6,Magic Number,34.0,,,Magic number 4 found at line 34
+dataset,addr.py,expand_range,Magic Number,47.0,,,Magic number 32 found at line 47
+dataset,alienvault.py,fetch,Complex Method,,26.0,35.0,Method 'fetch' has cyclomatic complexity of 8 (threshold: 7)
+dataset,alienvault.py,fetch,Long Lambda Function,31.0,,,Lambda at line 31 has 154 characters (threshold: 80). Convert to named function.
+dataset,alienvault.py,handle_reason,Missing Default,17.0,,,Match-case at line 17 missing default case
+dataset,checkpointing.py,file_level,Long Identifier,,,,Identificador 'unreplicated_learner_state' possui 27 caracteres (> 20).
+dataset,checkpointing.py,restore_params,Long Identifier,,,,Identifier 'restored_learner_state_raw' has 26 characters (threshold: 20)
+dataset,checkpointing.py,file_level,Long Lambda Function,85.0,,,Lambda at line 85 has 81 characters (threshold: 80). Convert to named function.
+dataset,checkpointing.py,__init__,Long Message Chain,103.0,,,Message chain at line 103 has 3 chained methods (threshold: 2)
+dataset,checkpointing.py,__init__,Long Method,,39.0,114.0,Method '__init__' has 76 lines (threshold: 67)
+dataset,checkpointing.py,__init__,Long Parameter List,,,,Method '__init__' has 7 parameters (threshold: 4)
+dataset,colorized.py,write,Complex Method,,21.0,42.0,Method 'write' has cyclomatic complexity of 10 (threshold: 7). Extract nested conditions into separate methods.
+dataset,colorized.py,write,Long Lambda Function,27.0,,,Lambda at line 27 has 144 characters (threshold: 80)
+dataset,colorized.py,write,Long Lambda Function,28.0,,,Lambda at line 28 has 85 characters (threshold: 80)
+dataset,colorized.py,write,Long Lambda Function,34.0,,,Lambda at line 34 has 125 characters (threshold: 80)
+dataset,colorized.py,write,Long Lambda Function,36.0,,,Lambda at line 36 has 108 characters (threshold: 80)
+dataset,colorized.py,write,Long Lambda Function,37.0,,,Lambda at line 37 has 137 characters (threshold: 80)
+dataset,colorized.py,,Long Statement,16.0,,,Line 16 has 231 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,17.0,,,Line 17 has 148 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,18.0,,,Line 18 has 177 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,24.0,,,Line 24 has 146 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,27.0,,,Line 27 has 201 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,28.0,,,Line 28 has 142 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,34.0,,,Line 34 has 186 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,36.0,,,Line 36 has 180 characters (threshold: 120)
+dataset,colorized.py,,Long Statement,37.0,,,Line 37 has 186 characters (threshold: 120)
+dataset,common.py,check_whitelisted,Complex Method,,226.0,239.0,Method 'check_whitelisted' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,common.py,get_ex_message,Complex Method,,284.0,300.0,Method 'get_ex_message' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,common.py,retrieve_content,Complex Method,,44.0,72.0,Method 'retrieve_content' has cyclomatic complexity of 13 (threshold: 7)
+dataset,common.py,ipcat_lookup,Complex Method,,74.0,109.0,Method 'ipcat_lookup' has cyclomatic complexity of 10 (threshold: 7)
+dataset,common.py,get_regex,Complex Method,,176.0,221.0,Method 'get_regex' has cyclomatic complexity of 15 (threshold: 7)
+dataset,common.py,process,Complex Method,,187.0,217.0,Method 'process' has cyclomatic complexity of 12 (threshold: 7)
+dataset,common.py,load_trails,Complex Method,,241.0,268.0,Method 'load_trails' has cyclomatic complexity of 10 (threshold: 7)
+dataset,common.py,worst_asns,Empty Catch Block,120.0,,,Empty catch block at line 120
+dataset,common.py,cdn_ip,Empty Catch Block,134.0,,,Empty catch block at line 134
+dataset,common.py,bogon_ip,Empty Catch Block,148.0,,,Empty catch block at line 148
+dataset,common.py,check_whitelisted,Empty Catch Block,236.0,,,Empty catch block at line 236
+dataset,common.py,load_trails,Empty Catch Block,264.0,,,Empty catch block at line 264
+dataset,common.py,get_text,Empty Catch Block,276.0,,,Empty catch block at line 276
+dataset,common.py,file_level,Long Identifier,30.0,,,Identificador 'MAX_HELP_OPTION_LENGTH' possui 23 caracteres (> 20)
+dataset,common.py,file_level,Long Identifier,317.0,,,Identificador '_format_action_invocation' possui 25 caracteres (> 20)
+dataset,common.py,file_level,Long Identifier,318.0,,,Identificador '__format_action_invocation' possui 26 caracteres (> 20)
+dataset,common.py,file_level,Long Identifier,323.0,,,Identificador '__format_action_invocation' possui 26 caracteres (> 20)
+dataset,common.py,file_level,Long Identifier,324.0,,,Identificador '_format_action_invocation' possui 25 caracteres (> 20)
+dataset,common.py,retrieve_content,Long Lambda Function,50.0,,,Lambda at line 50 has 127 characters (threshold: 80). Convert to named function.
+dataset,common.py,get_regex,Long Lambda Function,217.0,,,Lambda at line 217 has 139 characters (threshold: 80). Convert to named function.
+dataset,common.py,,Long Statement,50.0,,,Line 50 has 214 characters (threshold: 120)
+dataset,common.py,,Long Statement,217.0,,,Line 217 has 196 characters (threshold: 120)
+dataset,dataplane.py,fetch,Complex Conditional,22.0,,,Conditional at line 22 has 3 logical operators (threshold: 2)
+dataset,dataplane.py,fetch,Complex Method,,14.0,26.0,Method 'fetch' has cyclomatic complexity of 8 (threshold: 7)
+dataset,dataplane.py,,Long Statement,16.0,,,Line 16 has 487 characters (threshold: 120)
+dataset,ff_ippo.py,_update_step,Complex Method,,61.0,316.0,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo.py,run_experiment,Complex Method,,451.0,570.0,Method 'run_experiment' has cyclomatic complexity of 8 (threshold: 7)
+dataset,ff_ippo.py,file_level,Long Identifier,543.0,,,"Identificador 'unreplicated_learner_state' possui 27 caracteres, excedendo o limite de 20 caracteres."
+dataset,ff_ippo.py,_env_step,Long Lambda Function,98.0,,,Lambda at line 98 has 83 characters (threshold: 80)
+dataset,ff_ippo.py,file_level,Long Lambda Function,294.0,,,Lambda at line 294 has 81 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo.py,learner_setup,Long Lambda Function,414.0,,,Lambda at line 414 has 115 characters (threshold: 80)
+dataset,ff_ippo.py,file_level,Long Lambda Function,438.0,,,Lambda at line 438 has 82 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo.py,learner_setup,Long Message Chain,363.0,,,Message chain at line 363 has 3 chained methods (threshold: 2)
+dataset,ff_ippo.py,learner_setup,Long Message Chain,367.0,,,Message chain at line 367 has 3 chained methods (threshold: 2)
+dataset,ff_ippo.py,learner_setup,Long Message Chain,442.0,,,Message chain at line 442 has 3 chained methods (threshold: 2)
+dataset,ff_ippo.py,run_experiment,Long Message Chain,462.0,,,Message chain at line 462 has 3 chained methods (threshold: 2)
+dataset,ff_ippo.py,get_learner_fn,Long Method,,50.0,346.0,Method 'get_learner_fn' has 297 lines (threshold: 67)
+dataset,ff_ippo.py,_update_step,Long Method,,61.0,316.0,Method '_update_step' has 256 lines (threshold: 67)
+dataset,ff_ippo.py,_update_epoch,Long Method,,153.0,304.0,Method '_update_epoch' has 152 lines (threshold: 67)
+dataset,ff_ippo.py,_update_minibatch,Long Method,,156.0,282.0,Method '_update_minibatch' has 127 lines (threshold: 67)
+dataset,ff_ippo.py,learner_setup,Long Method,,349.0,448.0,Method 'learner_setup' has 100 lines (threshold: 67)
+dataset,ff_ippo.py,run_experiment,Long Method,,451.0,570.0,Method 'run_experiment' has 120 lines (threshold: 67)
+dataset,ff_ippo.py,_actor_loss_fn,Long Parameter List,,,,Method '_actor_loss_fn' has 5 parameters (threshold: 4)
+dataset,ff_ippo.py,_actor_loss_fn,Magic Number,176.0,,,Magic number 1e-08 found at line 176
+dataset,ff_ippo.py,_critic_loss_fn,Magic Number,210.0,,,Magic number 0.5 found at line 210
+dataset,ff_ippo_store_experience.py,_update_step,Complex Method,,68.0,308.0,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo_store_experience.py,learner_setup,Complex Method,,346.0,448.0,Method 'learner_setup' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_ippo_store_experience.py,run_experiment,Complex Method,,451.0,670.0,Method 'run_experiment' has cyclomatic complexity of 11 (threshold: 7)
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,473.0,,,"Variável 'num_updates_per_eval' tem 21 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,476.0,,,"Variável 'num_updates_per_eval' tem 21 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,502.0,,,"Variável 'dummy_flashbax_transition' tem 27 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,529.0,,,"Variável 'num_updates_per_eval' tem 21 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,535.0,,,"Variável 'dummy_flashbax_transition' tem 27 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,579.0,,,"Variável 'flashbax_transition' tem 21 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,file_level,Long Identifier,653.0,,,"Variável 'abs_metric_evaluator' tem 21 caracteres, excedendo o limite de 20."
+dataset,ff_ippo_store_experience.py,run_experiment,Long Identifier,,,,Identifier 'dummy_flashbax_transition' has 25 characters (threshold: 20)
+dataset,ff_ippo_store_experience.py,_env_step,Long Lambda Function,104.0,,,Lambda at line 104 has 83 characters (threshold: 80)
+dataset,ff_ippo_store_experience.py,file_level,Long Lambda Function,286.0,,,Lambda at line 286 has 81 characters (threshold: 80). Convert to named function.
+dataset,ff_ippo_store_experience.py,learner_setup,Long Lambda Function,413.0,,,Lambda at line 413 has 99 characters (threshold: 80)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Lambda Function,434.0,,,Lambda at line 434 has 93 characters (threshold: 80)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Lambda Function,438.0,,,Lambda at line 438 has 115 characters (threshold: 80)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Message Chain,363.0,,,Message chain at line 363 has 3 chained methods (threshold: 2)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Message Chain,364.0,,,Message chain at line 364 has 3 chained methods (threshold: 2)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Message Chain,365.0,,,Message chain at line 365 has 3 chained methods (threshold: 2)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Message Chain,431.0,,,Message chain at line 431 has 3 chained methods (threshold: 2)
+dataset,ff_ippo_store_experience.py,run_experiment,Long Message Chain,463.0,,,Message chain at line 463 has 3 chained methods (threshold: 2)
+dataset,ff_ippo_store_experience.py,get_learner_fn,Long Method,,57.0,343.0,Method 'get_learner_fn' has 287 lines (threshold: 67)
+dataset,ff_ippo_store_experience.py,_update_step,Long Method,,68.0,308.0,Method '_update_step' has 241 lines (threshold: 67)
+dataset,ff_ippo_store_experience.py,_update_epoch,Long Method,,154.0,296.0,Method '_update_epoch' has 143 lines (threshold: 67)
+dataset,ff_ippo_store_experience.py,_update_minibatch,Long Method,,157.0,274.0,Method '_update_minibatch' has 118 lines (threshold: 67)
+dataset,ff_ippo_store_experience.py,learner_setup,Long Method,,346.0,448.0,Method 'learner_setup' has 103 lines (threshold: 67)
+dataset,ff_ippo_store_experience.py,run_experiment,Long Method,,451.0,670.0,Method 'run_experiment' has 220 lines (threshold: 67)
+dataset,ff_ippo_store_experience.py,,Magic Number,54.0,,,Magic number 5 found at line 54
+dataset,ff_ippo_store_experience.py,_actor_loss_fn,Magic Number,176.0,,,Magic number 1e-08 found at line 176
+dataset,ff_ippo_store_experience.py,_critic_loss_fn,Magic Number,209.0,,,Magic number 0.5 found at line 209
+dataset,ff_isac.py,init,Complex Method,,58.0,208.0,Method 'init' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_isac.py,update_actor_and_alpha,Complex Method,,342.0,384.0,Method 'update_actor_and_alpha' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_isac.py,run_experiment,Complex Method,,491.0,602.0,Method 'run_experiment' has cyclomatic complexity of 8 (threshold: 7)
+dataset,ff_isac.py,file_level,Long Identifier,581.0,,,"Identificador 'unreplicated_learner_state' possui 27 caracteres, excedendo o limite de 20 caracteres."
+dataset,ff_isac.py,file_level,Long Identifier,584.0,,,"Parâmetro 'unreplicated_learner_state' possui 27 caracteres, excedendo o limite de 20 caracteres."
+dataset,ff_isac.py,run_experiment,Long Identifier,,,,Identifier 'unreplicated_learner_state' has 26 characters (threshold: 20)
+dataset,ff_isac.py,replicate,Long Lambda Function,96.0,,,Lambda at line 96 has 81 characters (threshold: 80). Convert to named function.
+dataset,ff_isac.py,train,Long Lambda Function,403.0,,,Lambda at line 403 has 154 characters (threshold: 80)
+dataset,ff_isac.py,init,Long Message Chain,91.0,,,Message chain at line 91 has 3 chained methods (threshold: 2)
+dataset,ff_isac.py,init,Long Message Chain,112.0,,,Message chain at line 112 has 3 chained methods (threshold: 2)
+dataset,ff_isac.py,init,Long Message Chain,120.0,,,Message chain at line 120 has 3 chained methods (threshold: 2)
+dataset,ff_isac.py,init,Long Message Chain,190.0,,,Message chain at line 190 has 3 chained methods (threshold: 2)
+dataset,ff_isac.py,run_experiment,Long Message Chain,568.0,,,Message chain at line 568 has 3 chained methods (threshold: 2)
+dataset,ff_isac.py,run_experiment,Long Message Chain,593.0,,,Message chain at line 593 has 3 chained methods (threshold: 2)
+dataset,ff_isac.py,init,Long Method,,58.0,208.0,Method 'init' has 151 lines (threshold: 67)
+dataset,ff_isac.py,make_update_fns,Long Method,,211.0,488.0,Method 'make_update_fns' has 278 lines (threshold: 67)
+dataset,ff_isac.py,run_experiment,Long Method,,491.0,602.0,Method 'run_experiment' has 112 lines (threshold: 67)
+dataset,ff_isac.py,make_update_fns,Long Parameter List,,,,Method 'make_update_fns' has 6 parameters (threshold: 4)
+dataset,ff_isac.py,actor_loss_fn,Long Parameter List,,,,Method 'actor_loss_fn' has 5 parameters (threshold: 4)
+dataset,ff_mappo.py,_update_step,Complex Method,,56.0,300.0,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,ff_mappo.py,run_experiment,Complex Method,,435.0,553.0,Method 'run_experiment' has cyclomatic complexity of 8 (threshold: 7)
+dataset,ff_mappo.py,_env_step,Long Lambda Function,92.0,,,Lambda at line 92 has 83 characters (threshold: 80)
+dataset,ff_mappo.py,learner_setup,Long Lambda Function,398.0,,,Lambda at line 398 has 115 characters (threshold: 80)
+dataset,ff_mappo.py,file_level,Long Lambda Function,422.0,,,Lambda at line 422 has 81 characters (threshold: 80). Convert to named function.
+dataset,ff_mappo.py,learner_setup,Long Message Chain,347.0,,,Message chain at line 347 has 3 chained methods (threshold: 2)
+dataset,ff_mappo.py,learner_setup,Long Message Chain,351.0,,,Message chain at line 351 has 3 chained methods (threshold: 2)
+dataset,ff_mappo.py,learner_setup,Long Message Chain,426.0,,,Message chain at line 426 has 3 chained methods (threshold: 2)
+dataset,ff_mappo.py,run_experiment,Long Message Chain,446.0,,,Message chain at line 446 has 3 chained methods (threshold: 2)
+dataset,ff_mappo.py,get_learner_fn,Long Method,,45.0,330.0,Method 'get_learner_fn' has 286 lines (threshold: 67)
+dataset,ff_mappo.py,_update_step,Long Method,,56.0,300.0,Method '_update_step' has 245 lines (threshold: 67)
+dataset,ff_mappo.py,_update_epoch,Long Method,,141.0,288.0,Method '_update_epoch' has 148 lines (threshold: 67)
+dataset,ff_mappo.py,_update_minibatch,Long Method,,144.0,266.0,Method '_update_minibatch' has 123 lines (threshold: 67)
+dataset,ff_mappo.py,learner_setup,Long Method,,333.0,432.0,Method 'learner_setup' has 100 lines (threshold: 67)
+dataset,ff_mappo.py,run_experiment,Long Method,,435.0,553.0,Method 'run_experiment' has 119 lines (threshold: 67)
+dataset,ff_mappo.py,_actor_loss_fn,Long Parameter List,,,,Method '_actor_loss_fn' has 5 parameters (threshold: 4)
+dataset,ff_mappo.py,_actor_loss_fn,Magic Number,164.0,,,Magic number 1e-08 found at line 164
+dataset,ff_mappo.py,_critic_loss_fn,Magic Number,198.0,,,Magic number 0.5 found at line 198
+dataset,log.py,get_event_log_handle,Complex Method,,52.0,81.0,Method 'get_event_log_handle' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,log.py,flush_condensed_events,Complex Method,,100.0,132.0,Method 'flush_condensed_events' has cyclomatic complexity of 12 (threshold: 7)
+dataset,log.py,log_event,Complex Method,,134.0,226.0,Method 'log_event' has cyclomatic complexity of 30 (threshold: 7)
+dataset,log.py,start_logd,Complex Method,,242.0,291.0,Method 'start_logd' has cyclomatic complexity of 11 (threshold: 7)
+dataset,log.py,get_event_log_handle,Empty Catch Block,69.0,,,Empty catch block at line 69
+dataset,log.py,file_level,Long Identifier,27.0,,,Constant 'CONDENSED_EVENTS_FLUSH_PERIOD' has 29 characters (> 20)
+dataset,log.py,file_level,Long Identifier,28.0,,,Constant 'DEFAULT_ERROR_LOG_PERMISSIONS' has 30 characters (> 20)
+dataset,log.py,file_level,Long Identifier,29.0,,,Constant 'DEFAULT_EVENT_LOG_PERMISSIONS' has 30 characters (> 20)
+dataset,log.py,file_level,Long Identifier,52.0,,,Function 'get_event_log_handle' has 21 characters (> 20)
+dataset,log.py,file_level,Long Identifier,83.0,,,Function 'get_error_log_handle' has 21 characters (> 20)
+dataset,log.py,file_level,Long Identifier,100.0,,,Function 'flush_condensed_events' has 22 characters (> 20)
+dataset,log.py,file_level,Long Lambda Function,147.0,,,Lambda at line 147 has 103 characters (threshold: 80). Convert to named function.
+dataset,log.py,file_level,Long Lambda Function,172.0,,,Lambda at line 172 has 81 characters (threshold: 80). Convert to named function.
+dataset,log.py,file_level,Long Lambda Function,185.0,,,Lambda at line 185 has 130 characters (threshold: 80). Convert to named function.
+dataset,log.py,file_level,Long Lambda Function,278.0,,,Lambda at line 278 has 130 characters (threshold: 80). Convert to named function.
+dataset,log.py,file_level,Long Lambda Function,280.0,,,Lambda at line 280 has 81 characters (threshold: 80). Convert to named function.
+dataset,log.py,log_event,Long Message Chain,179.0,,,Message chain at line 179 has 3 chained methods (threshold: 2)
+dataset,log.py,handle,Long Message Chain,254.0,,,Message chain at line 254 has 3 chained methods (threshold: 2)
+dataset,log.py,log_event,Long Method,,134.0,226.0,Method 'log_event' has 93 lines (threshold: 67)
+dataset,log.py,,Long Statement,147.0,,,Line 147 has 167 characters (threshold: 120)
+dataset,log.py,,Long Statement,172.0,,,Line 172 has 144 characters (threshold: 120)
+dataset,log.py,,Long Statement,185.0,,,Line 185 has 157 characters (threshold: 120)
+dataset,log.py,,Long Statement,205.0,,,Line 205 has 138 characters (threshold: 120)
+dataset,log.py,,Long Statement,206.0,,,Line 206 has 385 characters (threshold: 120)
+dataset,log.py,,Long Statement,212.0,,,Line 212 has 295 characters (threshold: 120)
+dataset,log.py,,Long Statement,217.0,,,Line 217 has 127 characters (threshold: 120)
+dataset,log.py,,Long Statement,254.0,,,Line 254 has 122 characters (threshold: 120)
+dataset,log.py,,Long Statement,278.0,,,Line 278 has 123 characters (threshold: 120)
+dataset,rec_ippo.py,_update_step,Complex Method,,69.0,407.0,Method '_update_step' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,rec_ippo.py,learner_setup,Complex Method,,442.0,580.0,Method 'learner_setup' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,rec_ippo.py,run_experiment,Complex Method,,583.0,721.0,Method 'run_experiment' has cyclomatic complexity of 9 (threshold: 7)
+dataset,rec_ippo.py,file_level,Long Identifier,170.0,,,Identificador 'batched_last_observation' possui 25 caracteres (> 20).
+dataset,rec_ippo.py,file_level,Long Identifier,689.0,,,Identificador 'unreplicated_learner_state' possui 27 caracteres (> 20).
+dataset,rec_ippo.py,_update_step,Long Identifier,,,,Identifier 'batched_last_observation' has 24 characters (threshold: 20)
+dataset,rec_ippo.py,file_level,Long Lambda Function,108.0,,,Lambda at line 108 has 81 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,_env_step,Long Lambda Function,132.0,,,Lambda at line 132 has 83 characters (threshold: 80)
+dataset,rec_ippo.py,file_level,Long Lambda Function,170.0,,,Lambda at line 170 has 82 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,_update_epoch,Long Lambda Function,348.0,,,Lambda at line 348 has 193 characters (threshold: 80)
+dataset,rec_ippo.py,_update_epoch,Long Lambda Function,360.0,,,Lambda at line 360 has 125 characters (threshold: 80)
+dataset,rec_ippo.py,file_level,Long Lambda Function,492.0,,,Lambda at line 492 has 82 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,learner_setup,Long Lambda Function,546.0,,,Lambda at line 546 has 115 characters (threshold: 80)
+dataset,rec_ippo.py,file_level,Long Lambda Function,563.0,,,Lambda at line 563 has 88 characters (threshold: 80). Convert to named function.
+dataset,rec_ippo.py,learner_setup,Long Message Chain,457.0,,,Message chain at line 457 has 3 chained methods (threshold: 2)
+dataset,rec_ippo.py,learner_setup,Long Message Chain,458.0,,,Message chain at line 458 has 3 chained methods (threshold: 2)
+dataset,rec_ippo.py,learner_setup,Long Message Chain,462.0,,,Message chain at line 462 has 3 chained methods (threshold: 2)
+dataset,rec_ippo.py,learner_setup,Long Message Chain,463.0,,,Message chain at line 463 has 3 chained methods (threshold: 2)
+dataset,rec_ippo.py,learner_setup,Long Message Chain,567.0,,,Message chain at line 567 has 3 chained methods (threshold: 2)
+dataset,rec_ippo.py,run_experiment,Long Message Chain,602.0,,,Message chain at line 602 has 3 chained methods (threshold: 2)
+dataset,rec_ippo.py,get_learner_fn,Long Method,,59.0,439.0,Method 'get_learner_fn' has 381 lines (threshold: 67)
+dataset,rec_ippo.py,_update_step,Long Method,,69.0,407.0,Method '_update_step' has 339 lines (threshold: 67)
+dataset,rec_ippo.py,_update_epoch,Long Method,,205.0,380.0,Method '_update_epoch' has 176 lines (threshold: 67)
+dataset,rec_ippo.py,_update_minibatch,Long Method,,208.0,337.0,Method '_update_minibatch' has 130 lines (threshold: 67)
+dataset,rec_ippo.py,learner_setup,Long Method,,442.0,580.0,Method 'learner_setup' has 139 lines (threshold: 67)
+dataset,rec_ippo.py,run_experiment,Long Method,,583.0,721.0,Method 'run_experiment' has 139 lines (threshold: 67)
+dataset,rec_ippo.py,_actor_loss_fn,Long Parameter List,,,,Method '_actor_loss_fn' has 5 parameters (threshold: 4)
+dataset,rec_ippo.py,_actor_loss_fn,Magic Number,231.0,,,Magic number 1e-08 found at line 231
+dataset,rec_ippo.py,_critic_loss_fn,Magic Number,268.0,,,Magic number 0.5 found at line 268
+dataset,settings.py,_get_total_physmem,Complex Method,,156.0,225.0,Method '_get_total_physmem' has cyclomatic complexity of 15 (threshold: 7)
+dataset,settings.py,read_config,Complex Method,,227.0,379.0,Method 'read_config' has cyclomatic complexity of 56 (threshold: 7)
+dataset,settings.py,read_whitelist,Complex Method,,381.0,414.0,Method 'read_whitelist' has cyclomatic complexity of 14 (threshold: 7)
+dataset,settings.py,read_ua,Complex Method,,438.0,462.0,Method 'read_ua' has cyclomatic complexity of 8 (threshold: 7)
+dataset,settings.py,_get_total_physmem,Empty Catch Block,185.0,,,Empty catch block at line 185
+dataset,settings.py,_get_total_physmem,Empty Catch Block,192.0,,,Empty catch block at line 192
+dataset,settings.py,_get_total_physmem,Empty Catch Block,198.0,,,Empty catch block at line 198
+dataset,settings.py,_get_total_physmem,Empty Catch Block,204.0,,,Empty catch block at line 204
+dataset,settings.py,_get_total_physmem,Empty Catch Block,210.0,,,Empty catch block at line 210
+dataset,settings.py,_get_total_physmem,Empty Catch Block,216.0,,,Empty catch block at line 216
+dataset,settings.py,_get_total_physmem,Empty Catch Block,222.0,,,Empty catch block at line 222
+dataset,settings.py,read_config,Empty Catch Block,296.0,,,Empty catch block at line 296
+dataset,settings.py,,Long Identifier,,,,Identifier 'FRESH_IPCAT_DELTA_DAYS' has 22 characters (threshold: 20)
+dataset,settings.py,file_level,Long Lambda Function,110.0,,,Lambda at line 110 has 81 characters (threshold: 80). Convert to named function.
+dataset,settings.py,file_level,Long Lambda Function,126.0,,,Lambda at line 126 has 95 characters (threshold: 80). Convert to named function.
+dataset,settings.py,read_config,Long Message Chain,277.0,,,Message chain at line 277 has 3 chained methods (threshold: 2)
+dataset,settings.py,read_config,Long Message Chain,290.0,,,Message chain at line 290 has 3 chained methods (threshold: 2)
+dataset,settings.py,read_config,Long Message Chain,310.0,,,Message chain at line 310 has 3 chained methods (threshold: 2)
+dataset,settings.py,_get_total_physmem,Long Method,,156.0,225.0,Method '_get_total_physmem' has 70 lines (threshold: 67)
+dataset,settings.py,read_config,Long Method,,227.0,379.0,Method 'read_config' has 153 lines (threshold: 67)
+dataset,settings.py,,Long Statement,31.0,,,Line 31 has 139 characters (threshold: 120)
+dataset,settings.py,,Long Statement,47.0,,,Line 47 has 136 characters (threshold: 120)
+dataset,settings.py,,Long Statement,51.0,,,Line 51 has 153 characters (threshold: 120)
+dataset,settings.py,,Long Statement,74.0,,,Line 74 has 131 characters (threshold: 120)
+dataset,settings.py,,Long Statement,76.0,,,Line 76 has 149 characters (threshold: 120)
+dataset,settings.py,,Long Statement,83.0,,,Line 83 has 169 characters (threshold: 120)
+dataset,settings.py,,Long Statement,85.0,,,Line 85 has 252 characters (threshold: 120)
+dataset,settings.py,,Long Statement,86.0,,,Line 86 has 167 characters (threshold: 120)
+dataset,settings.py,,Long Statement,89.0,,,Line 89 has 469 characters (threshold: 120)
+dataset,settings.py,,Long Statement,93.0,,,Line 93 has 178 characters (threshold: 120)
+dataset,settings.py,,Long Statement,96.0,,,Line 96 has 221 characters (threshold: 120)
+dataset,settings.py,,Long Statement,98.0,,,Line 98 has 561 characters (threshold: 120)
+dataset,settings.py,,Long Statement,99.0,,,Line 99 has 174 characters (threshold: 120)
+dataset,settings.py,,Long Statement,100.0,,,Line 100 has 337 characters (threshold: 120)
+dataset,settings.py,,Long Statement,101.0,,,Line 101 has 746 characters (threshold: 120)
+dataset,settings.py,,Long Statement,105.0,,,Line 105 has 143 characters (threshold: 120)
+dataset,settings.py,,Long Statement,108.0,,,Line 108 has 266 characters (threshold: 120)
+dataset,settings.py,,Long Statement,112.0,,,Line 112 has 144 characters (threshold: 120)
+dataset,settings.py,,Long Statement,113.0,,,Line 113 has 364 characters (threshold: 120)
+dataset,settings.py,,Long Statement,118.0,,,Line 118 has 154 characters (threshold: 120)
+dataset,settings.py,,Long Statement,119.0,,,Line 119 has 121 characters (threshold: 120)
+dataset,settings.py,,Long Statement,123.0,,,Line 123 has 143 characters (threshold: 120)
+dataset,settings.py,,Long Statement,142.0,,,Line 142 has 1443 characters (threshold: 120)
+dataset,settings.py,,Long Statement,145.0,,,Line 145 has 193 characters (threshold: 120)
+dataset,settings.py,,Long Statement,203.0,,,Line 203 has 155 characters (threshold: 120)
+dataset,settings.py,,Long Statement,209.0,,,Line 209 has 155 characters (threshold: 120)
+dataset,settings.py,,Long Statement,215.0,,,Line 215 has 135 characters (threshold: 120)
+dataset,settings.py,,Long Statement,221.0,,,Line 221 has 160 characters (threshold: 120)
+dataset,settings.py,,Long Statement,307.0,,,Line 307 has 138 characters (threshold: 120)
+dataset,settings.py,,Long Statement,314.0,,,Line 314 has 127 characters (threshold: 120)
+dataset,settings.py,,Long Statement,332.0,,,Line 332 has 185 characters (threshold: 120)
+dataset,settings.py,,Long Statement,341.0,,,Line 341 has 131 characters (threshold: 120)
+dataset,settings.py,,Long Statement,344.0,,,Line 344 has 143 characters (threshold: 120)
+dataset,settings.py,,Long Statement,355.0,,,Line 355 has 125 characters (threshold: 120)
+dataset,settings.py,,Long Statement,362.0,,,Line 362 has 121 characters (threshold: 120)
+dataset,settings.py,,Magic Number,31.0,,,Magic number 8 found at line 31
+dataset,settings.py,,Magic Number,34.0,,,Magic number 30 found at line 34
+dataset,settings.py,,Magic Number,36.0,,,Magic number 10 found at line 36
+dataset,settings.py,,Magic Number,43.0,,,Magic number 3 found at line 43
+dataset,settings.py,,Magic Number,45.0,,,Magic number 8338 found at line 45
+dataset,settings.py,,Magic Number,50.0,,,Magic number 2000 found at line 50
+dataset,settings.py,,Magic Number,51.0,,,Magic number 4 found at line 51
+dataset,settings.py,,Magic Number,52.0,,,Magic number 1e-05 found at line 52
+dataset,settings.py,,Magic Number,53.0,,,Magic number 0.001 found at line 53
+dataset,settings.py,,Magic Number,54.0,,,Magic number 60 found at line 54
+dataset,settings.py,,Magic Number,55.0,,,Magic number 5 found at line 55
+dataset,settings.py,,Magic Number,56.0,,,Magic number 20 found at line 56
+dataset,settings.py,,Magic Number,63.0,,,Magic number 65000 found at line 63
+dataset,settings.py,,Magic Number,64.0,,,Magic number 100 found at line 64
+dataset,settings.py,,Magic Number,65.0,,,Magic number 18 found at line 65
+dataset,settings.py,,Magic Number,75.0,,,Magic number 10 found at line 75
+dataset,settings.py,,Magic Number,124.0,,,Magic number 16 found at line 124
+dataset,settings.py,,Magic Number,125.0,,,Magic number 24 found at line 125
+dataset,settings.py,,Magic Number,127.0,,,Magic number 9 found at line 127
+dataset,settings.py,,Magic Number,128.0,,,Magic number 10 found at line 128
+dataset,settings.py,,Magic Number,129.0,,,Magic number 10 found at line 129
+dataset,settings.py,,Magic Number,130.0,,,Magic number 32 found at line 130
+dataset,settings.py,,Magic Number,131.0,,,Magic number 1000 found at line 131
+dataset,settings.py,,Magic Number,132.0,,,Magic number 1024 found at line 132
+dataset,settings.py,,Magic Number,133.0,,,Magic number 60 found at line 133
+dataset,settings.py,,Magic Number,134.0,,,Magic number 60 found at line 134
+dataset,settings.py,,Magic Number,135.0,,,Magic number 1000 found at line 135
+dataset,settings.py,,Magic Number,136.0,,,Magic number 24 found at line 136
+dataset,settings.py,,Magic Number,137.0,,,Magic number 9 found at line 137
+dataset,settings.py,,Magic Number,138.0,,,Magic number 3.5 found at line 138
+dataset,settings.py,_get_total_physmem,Magic Number,184.0,,,Magic number 1024 found at line 184
+dataset,settings.py,_get_total_physmem,Magic Number,209.0,,,Magic number 1024 found at line 209
+dataset,settings.py,_get_total_physmem,Magic Number,221.0,,,Magic number 1024 found at line 221
+dataset,settings.py,read_config,Magic Number,355.0,,,Magic number 1024 found at line 355
+dataset,settings.py,read_config,Magic Number,360.0,,,Magic number 100 found at line 360
+dataset,test_basic.py,main,Complex Method,,38.0,61.0,Method 'main' has cyclomatic complexity of 11 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_basic,Complex Method,,91.0,154.0,Method 'test_basic' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_bad_glob,Complex Method,,187.0,208.0,Method 'test_bad_glob' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_interactivity,Complex Method,,229.0,292.0,Method 'test_interactivity' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_ignore_dictionary,Complex Method,,326.0,361.0,Method 'test_ignore_dictionary' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,_helper_test_case_handling_in_fixes,Complex Method,,759.0,813.0,Method '_helper_test_case_handling_in_fixes' has cyclomatic complexity of 13 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_encoding,Complex Method,,524.0,569.0,Method 'test_encoding' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_ignore,Complex Method,,582.0,608.0,Method 'test_ignore' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_check_hidden,Complex Method,,641.0,732.0,Method 'test_check_hidden' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_uri_ignore_words_list_option_uri,Complex Method,,1017.0,1079.0,Method 'test_uri_ignore_words_list_option_uri' has cyclomatic complexity of 10 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_basic.py,test_check_hidden,Empty Catch Block,706.0,,,Empty catch block at line 706
+dataset,test_basic.py,test_stdin,Long Identifier,,,,Identifier 'single_line_per_error' has 21 characters (threshold: 20)
+dataset,test_basic.py,test_basic,Long Method,,91.0,168.0,Method 'test_basic' has 78 lines (threshold: 67)
+dataset,test_basic.py,test_check_hidden,Long Method,,641.0,732.0,Method 'test_check_hidden' has 92 lines (threshold: 67)
+dataset,test_basic.py,test_context,Long Method,,824.0,904.0,Method 'test_context' has 81 lines (threshold: 67)
+dataset,test_basic.py,test_uri_regex_def,Long Method,,1136.0,1226.0,Method 'test_uri_regex_def' has 91 lines (threshold: 67)
+dataset,test_basic.py,test_config_toml,Long Method,,1280.0,1362.0,Method 'test_config_toml' has 83 lines (threshold: 67)
+dataset,test_basic.py,,Long Statement,140.0,,,Line 140 has 126 characters (threshold: 120)
+dataset,test_basic.py,test_stdin,Magic Number,1397.0,,,Magic number 4 found at line 1397
+dataset,test_basic.py,test_stdin,Magic Number,1409.0,,,Magic number 2 found at line 1409
+dataset,test_dictionary.py,_check_aspell,Complex Method,,101.0,124.0,Method '_check_aspell' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_dictionary.py,_check_err_rep,Complex Method,,137.0,190.0,Method '_check_err_rep' has cyclomatic complexity of 8 (threshold: 7). Extract nested conditions into separate methods.
+dataset,test_dictionary.py,test_dictionary_looping,Complex Method,,297.0,363.0,Method 'test_dictionary_looping' has cyclomatic complexity of 12 (threshold: 7)
+dataset,test_dictionary.py,file_level,Long Lambda Function,117.0,,,Lambda at line 117 has 81 characters (threshold: 80). Convert to named function.
+dataset,test_dictionary.py,_check_aspell,Long Parameter List,,,,Method '_check_aspell' has 5 parameters (threshold: 4)
+dataset,test_dictionary.py,_check_err_rep,Long Parameter List,,,,Method '_check_err_rep' has 5 parameters (threshold: 4)
+dataset,test_dictionary.py,test_error_checking_in_aspell,Long Parameter List,,,,Method 'test_error_checking_in_aspell' has 5 parameters (threshold: 4)
+dataset,test_dictionary.py,test_ran_all,Magic Number,374.0,,,Magic number 2 found at line 374
+dataset,update.py,update_trails,Complex Conditional,108.0,,,Conditional at line 108 has 5 logical operators (threshold: 2)
+dataset,update.py,update_trails,Complex Conditional,164.0,,,Conditional at line 164 has 5 logical operators (threshold: 2)
+dataset,update.py,update_trails,Complex Conditional,311.0,,,Conditional at line 311 has 3 logical operators (threshold: 2)
+dataset,update.py,update_ipcat,Complex Conditional,349.0,,,Conditional at line 349 has 4 logical operators (threshold: 2)
+dataset,update.py,update_trails,Complex Method,,70.0,338.0,Method 'update_trails' has cyclomatic complexity of 104 (threshold: 7)
+dataset,update.py,update_ipcat,Complex Method,,340.0,381.0,Method 'update_ipcat' has cyclomatic complexity of 14 (threshold: 7)
+dataset,update.py,main,Complex Method,,383.0,423.0,Method 'main' has cyclomatic complexity of 16 (threshold: 7)
+dataset,update.py,,Empty Catch Block,54.0,,,Empty catch block at line 54
+dataset,update.py,update_trails,Empty Catch Block,174.0,,,Empty catch block at line 174
+dataset,update.py,update_trails,Empty Catch Block,247.0,,,Empty catch block at line 247
+dataset,update.py,file_level,Long Identifier,,,,Identificador 'LOW_PRIORITY_INFO_KEYWORDS' possui 27 caracteres (> 20)
+dataset,update.py,file_level,Long Lambda Function,108.0,,,Lambda at line 108 has 103 characters (threshold: 80). Convert to named function.
+dataset,update.py,file_level,Long Lambda Function,415.0,,,Lambda at line 415 has 81 characters (threshold: 80). Convert to named function.
+dataset,update.py,_chown,Long Message Chain,60.0,,,Message chain at line 60 has 3 chained methods (threshold: 2)
+dataset,update.py,update_trails,Long Message Chain,139.0,,,Message chain at line 139 has 3 chained methods (threshold: 2)
+dataset,update.py,update_ipcat,Long Message Chain,354.0,,,Message chain at line 354 has 3 chained methods (threshold: 2)
+dataset,update.py,update_trails,Long Method,,70.0,338.0,Method 'update_trails' has 269 lines (threshold: 67)
+dataset,update.py,,Long Statement,20.0,,,Line 20 has 127 characters (threshold: 120)
+dataset,update.py,,Long Statement,104.0,,,Line 104 has 143 characters (threshold: 120)
+dataset,update.py,,Long Statement,108.0,,,Line 108 has 288 characters (threshold: 120)
+dataset,update.py,,Long Statement,128.0,,,Line 128 has 131 characters (threshold: 120)
+dataset,update.py,,Long Statement,133.0,,,Line 133 has 166 characters (threshold: 120)
+dataset,update.py,,Long Statement,146.0,,,Line 146 has 139 characters (threshold: 120)
+dataset,update.py,,Long Statement,149.0,,,Line 149 has 121 characters (threshold: 120)
+dataset,update.py,,Long Statement,152.0,,,Line 152 has 143 characters (threshold: 120)
+dataset,update.py,,Long Statement,164.0,,,Line 164 has 309 characters (threshold: 120)
+dataset,update.py,,Long Statement,169.0,,,Line 169 has 121 characters (threshold: 120)
+dataset,update.py,,Long Statement,250.0,,,Line 250 has 130 characters (threshold: 120)
+dataset,update.py,,Long Statement,255.0,,,Line 255 has 182 characters (threshold: 120)
+dataset,update.py,,Long Statement,262.0,,,Line 262 has 173 characters (threshold: 120)
+dataset,update.py,,Long Statement,311.0,,,Line 311 has 150 characters (threshold: 120)
+dataset,update.py,,Long Statement,316.0,,,Line 316 has 125 characters (threshold: 120)
+dataset,update.py,,Long Statement,317.0,,,Line 317 has 125 characters (threshold: 120)
+dataset,update.py,,Long Statement,349.0,,,Line 349 has 225 characters (threshold: 120)
+dataset,update.py,,Long Statement,372.0,,,Line 372 has 134 characters (threshold: 120)
+dataset,update.py,,Long Statement,411.0,,,Line 411 has 189 characters (threshold: 120)
+dataset,update.py,,Long Statement,412.0,,,Line 412 has 187 characters (threshold: 120)
+dataset,update.py,update_trails,Magic Number,148.0,,,Magic number 20 found at line 148
+dataset,update.py,update_trails,Magic Number,149.0,,,Magic number 100 found at line 149
+dataset,update.py,update_trails,Magic Number,179.0,,,Magic number 20 found at line 179
+dataset,update.py,update_trails,Magic Number,219.0,,,Magic number 32 found at line 219
+dataset,update.py,update_trails,Magic Number,333.0,,,Magic number 40 found at line 333
+dataset,update.py,update_ipcat,Magic Number,349.0,,,Magic number 3600 found at line 349
+dataset,update.py,main,Magic Number,406.0,,,Magic number 2 found at line 406

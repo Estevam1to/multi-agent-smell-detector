@@ -4,11 +4,13 @@ import asyncio
 import logging
 from typing import Any, Dict, List
 
+from langchain_core.exceptions import LangChainException
 from langchain_openai import ChatOpenAI
 
 from config.settings import settings
-from core.supervisor.agent_config import AGENT_CONFIGS
-from core.supervisor.enricher import enrich_detections
+from core.supervisor.agent_config import get_agent_configs
+from core.utils.code_parser import CodeParser
+from core.utils.token_tracker import TokenUsageCallback
 
 logger = logging.getLogger(__name__)
 
@@ -16,16 +18,19 @@ logger = logging.getLogger(__name__)
 class CodeSmellSupervisor:
     """Coordena 11 agentes especializados para detectar code smells."""
 
-    MAX_FILE_LINES = 500
-    MAX_FILE_SIZE_KB = 50
+    MAX_FILE_LINES = 3000
+    MAX_FILE_SIZE_KB = 500
 
-    def __init__(self, parallel: bool = True):
+    def __init__(self, parallel: bool = True, prompt_type: str = "simple"):
         self.parallel = parallel
+        self.prompt_type = prompt_type
+        self.agent_configs = get_agent_configs(prompt_type)
         self.model = ChatOpenAI(
             model=settings.OPENROUTER_API_MODEL,
             api_key=settings.OPENROUTER_API_KEY,
             base_url=settings.OPENROUTER_BASE_URL,
             temperature=0,
+            max_tokens=4096,  # Limite de tokens de resposta
         )
 
     def _validate_code_size(self, code: str) -> tuple[bool, str]:
@@ -34,74 +39,327 @@ class CodeSmellSupervisor:
         size_kb = len(code.encode("utf-8")) / 1024
 
         if len(lines) > self.MAX_FILE_LINES:
-            return False, f"Arquivo muito grande: {len(lines)} linhas (max: {self.MAX_FILE_LINES})"
+            return (
+                False,
+                f"Arquivo muito grande: {len(lines)} linhas (max: {self.MAX_FILE_LINES})",
+            )
 
         if size_kb > self.MAX_FILE_SIZE_KB:
-            return False, f"Arquivo muito grande: {size_kb:.1f}KB (max: {self.MAX_FILE_SIZE_KB}KB)"
+            return (
+                False,
+                f"Arquivo muito grande: {size_kb:.1f}KB (max: {self.MAX_FILE_SIZE_KB}KB)",
+            )
 
         return True, ""
 
-    async def _call_agent(self, agent_name: str, config: Dict, code: str) -> List[Any]:
-        """Executa um agente individual."""
+    def _format_code_with_line_numbers(self, code: str) -> str:
+        """Formata código com numeração de linhas para facilitar identificação."""
+        lines = code.split("\n")
+        numbered_lines = []
+        for i, line in enumerate(lines, start=1):
+            numbered_lines.append(f"{i:4d} | {line}")
+        return "\n".join(numbered_lines)
+
+    def _build_agent_message(self, prompt: str, code: str) -> str:
+        """Constrói mensagem completa para o agente."""
+        numbered_code = self._format_code_with_line_numbers(code)
+        return (
+            f"{prompt}\n\n"
+            f"## CODE (com numeração de linhas):\n"
+            f"```python\n{numbered_code}\n```\n\n"
+            "IMPORTANTE: Use o número da linha à esquerda (ex: '  7 |') "
+            "para identificar a linha correta no campo Line_no."
+        )
+
+    def _add_metadata(
+        self, detections: List[Any], code: str, file_path: str, project: str
+    ) -> List[Any]:
+        """Adiciona metadados básicos às detecções e filtra falsos positivos."""
+        from ..utils.detection_validator import DetectionValidator
+
+        parser = CodeParser(code, file_path)
+        valid = []
+        validator = DetectionValidator()
+
+        for d in detections:
+            # Verificar se tem Description (campo obrigatório de detecções individuais)
+            if not hasattr(d, "Description"):
+                continue
+            
+            # Verificar se detected está True (default é True)
+            detected = getattr(d, "detected", True)
+            if not detected:
+                continue
+            
+            # Pular detecções sem descrição
+            if not d.Description:
+                continue
+
+            if hasattr(d, "Smell") and d.Smell:
+                d.Smell = d.Smell.strip()
+
+            detection_dict = d.model_dump() if hasattr(d, "model_dump") else d.dict()
+            if not validator.validate_detection(detection_dict):
+                continue
+
+            d.Project = project
+            d.Package = parser.get_package_name()
+            d.Module = parser.get_module_name()
+            d.File = file_path
+            valid.append(d)
+
+        return valid
+
+    def _extract_detections(self, response: Any) -> List[Any]:
+        """Extrai lista de detecções da resposta do agente."""
+        # Se for um Multiple*Response, extrair a lista de detecções
+        if hasattr(response, "detections") and response.detected:
+            return response.detections
+        
+        # Se for uma detecção única (schema antigo) com Description
+        if hasattr(response, "Description") and response.detected:
+            return [response]
+        
+        return []
+
+    def _try_extract_array_response(self, error_msg: str, schema: Any) -> List[Any]:
+        """Tenta extrair detecções de resposta em formato de array.
+        
+        Quando o LLM retorna um array diretamente ao invés de {"detections": [...], "detected": true},
+        tenta converter para o schema esperado.
+        """
+        import json
+        import re
+        
+        # Procurar o array JSON na mensagem de erro
+        match = re.search(r"input_value=(\[.*?\])", error_msg, re.DOTALL)
+        if not match:
+            return []
+        
         try:
-            structured_model = self.model.with_structured_output(config["schema"], method="json_mode")
-            message = f"{config['prompt']}\n\n## CODE:\n```python\n{code}\n```"
-
-            logger.info(f"[{agent_name}] Executando...")
-
-            response = await structured_model.ainvoke([
-                {"role": "system", "content": "Code smell detector. Return valid JSON."},
-                {"role": "user", "content": message}
-            ])
-
-            detections = response.detections if hasattr(response, "detections") and response.detected else []
-            if not detections and response.detected:
-                detections = [response]
-
-            logger.info(f"[{agent_name}] {len(detections)} detecções")
-            return detections
-
-        except Exception as e:
-            logger.error(f"[{agent_name}] Erro: {e}")
+            # Extrair o array do erro é complicado porque está truncado
+            # Tentar encontrar o JSON completo entre "[{" e "}]"
+            json_start = error_msg.find("input_value=[{")
+            if json_start == -1:
+                return []
+            
+            # Buscar o JSON completo antes do truncamento
+            # O formato é: input_value=[{...}, {...}], input_type=list
+            json_part = error_msg[json_start + len("input_value="):]
+            
+            # Encontrar o fim do array
+            bracket_count = 0
+            end_pos = 0
+            for i, char in enumerate(json_part):
+                if char == '[':
+                    bracket_count += 1
+                elif char == ']':
+                    bracket_count -= 1
+                    if bracket_count == 0:
+                        end_pos = i + 1
+                        break
+            
+            if end_pos == 0:
+                return []
+            
+            json_str = json_part[:end_pos]
+            
+            # Tentar parsear o JSON
+            data = json.loads(json_str)
+            
+            if not isinstance(data, list):
+                return []
+            
+            # Criar detecções válidas a partir dos dados
+            # Obter o tipo de detecção individual do schema
+            detection_type = None
+            if hasattr(schema, "__annotations__") and "detections" in schema.__annotations__:
+                field_type = schema.__annotations__["detections"]
+                # Extrair o tipo da lista (ex: list[LongIdentifierDetection])
+                if hasattr(field_type, "__args__") and field_type.__args__:
+                    detection_type = field_type.__args__[0]
+            
+            if detection_type is None:
+                return []
+            
+            valid_detections = []
+            for item in data:
+                try:
+                    # Criar instância da detecção
+                    det = detection_type(**item)
+                    det.detected = True
+                    valid_detections.append(det)
+                except Exception:  # pylint: disable=broad-except
+                    continue
+            
+            return valid_detections
+            
+        except (json.JSONDecodeError, ValueError, TypeError):
             return []
 
-    async def _analyze_parallel(self, code: str, file_path: str, project: str) -> List[Any]:
-        """Executa agentes em paralelo."""
-        tasks = [self._call_agent(name, cfg, code) for name, cfg in AGENT_CONFIGS.items()]
-        
-        logger.info(f"Executando {len(tasks)} agentes em PARALELO...")
+    async def _call_agent(
+        self, agent_name: str, config: Dict, code: str
+    ) -> tuple[List[Any], Dict[str, int]]:
+        """Executa um agente individual. Retorna (detections, token_usage)."""
+        token_usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+
+        try:
+            token_callback = TokenUsageCallback()
+            structured_model = self.model.with_structured_output(
+                config["schema"], method="json_mode"
+            )
+            message = self._build_agent_message(config["prompt"], code)
+
+            logger.info("[%s] Executando...", agent_name)
+
+            response = await structured_model.ainvoke(
+                [
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a code smell detector. "
+                            "ALWAYS respond with valid JSON only. "
+                            "Never respond with explanations or questions. "
+                            "If no smells are found, return {\"detections\": [], \"detected\": false}. "
+                            "If smells are found, return {\"detections\": [...], \"detected\": true}."
+                        ),
+                    },
+                    {"role": "user", "content": message},
+                ],
+                config={"callbacks": [token_callback]},
+            )
+
+            detections = self._extract_detections(response)
+            token_usage = token_callback.token_usage
+
+            logger.info(
+                "[%s] %s detecções | Tokens: %s",
+                agent_name,
+                len(detections),
+                token_usage.get("total_tokens", 0),
+            )
+
+            return detections, token_usage
+
+        except (ValueError, AttributeError, KeyError) as e:
+            error_msg = str(e)
+            # Tentar extrair detecções se o LLM retornou array diretamente
+            if "input_type=list" in error_msg:
+                detections = self._try_extract_array_response(error_msg, config["schema"])
+                if detections:
+                    logger.info("[%s] Recuperado %s detecções de resposta em array", agent_name, len(detections))
+                    return detections, token_usage
+            logger.error("[%s] Erro de validação/atributo: %s", agent_name, e)
+            return [], token_usage
+        except LangChainException as e:
+            error_msg = str(e)
+            # Tentar extrair detecções se o LLM retornou array diretamente
+            if "input_type=list" in error_msg:
+                detections = self._try_extract_array_response(error_msg, config["schema"])
+                if detections:
+                    logger.info("[%s] Recuperado %s detecções de resposta em array", agent_name, len(detections))
+                    return detections, token_usage
+            # Tratar erro de parsing (LLM retornou formato inválido ou detecções inválidas)
+            if "OUTPUT_PARSING_FAILURE" in error_msg or "parsing" in error_msg.lower():
+                logger.warning(
+                    "[%s] Erro de parsing da resposta do LLM. "
+                    "Possível detecção inválida (ex: length <= threshold). Ignorando.",
+                    agent_name,
+                )
+            else:
+                logger.error("[%s] Erro do LangChain: %s", agent_name, e)
+            return [], token_usage
+        except Exception as e:  # pylint: disable=broad-except
+            error_msg = str(e)
+            # Tratar especificamente erro de limite de tokens
+            if "length limit was reached" in error_msg or "LengthFinishReasonError" in error_msg:
+                logger.warning(
+                    "[%s] Limite de tokens de resposta atingido (4096). "
+                    "Arquivo muito grande ou muitas detecções. Retornando detecções parciais.",
+                    agent_name,
+                )
+                # Tentar extrair detecções parciais se possível
+                # Por enquanto, retornar vazio para evitar dados incompletos
+                return [], token_usage
+            logger.error("[%s] Erro inesperado: %s", agent_name, e, exc_info=True)
+            return [], token_usage
+
+    def _create_empty_token_usage(self) -> Dict[str, int]:
+        """Cria dicionário vazio para uso de tokens."""
+        return {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+
+    def _aggregate_token_usage(
+        self, total: Dict[str, int], usage: Dict[str, int]
+    ) -> None:
+        """Agrega uso de tokens ao total."""
+        total["prompt_tokens"] += usage.get("prompt_tokens", 0)
+        total["completion_tokens"] += usage.get("completion_tokens", 0)
+        total["total_tokens"] += usage.get("total_tokens", 0)
+
+    async def _analyze_parallel(
+        self, code: str, file_path: str, project: str
+    ) -> tuple[List[Any], Dict[str, int]]:
+        """Executa agentes em paralelo. Retorna (detections, total_token_usage)."""
+        tasks = [
+            self._call_agent(name, cfg, code)
+            for name, cfg in self.agent_configs.items()
+        ]
+
+        logger.info("Executando %s agentes em PARALELO...", len(tasks))
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         all_detections = []
-        for (name, _), result in zip(AGENT_CONFIGS.items(), results):
+        total_token_usage = self._create_empty_token_usage()
+
+        for (name, _), result in zip(self.agent_configs.items(), results):
             if isinstance(result, Exception):
-                logger.error(f"[{name}] Falhou: {result}")
+                logger.error("[%s] Falhou: %s", name, result)
                 continue
-            all_detections.extend(enrich_detections(result, code, file_path, project, name))
 
-        return all_detections
+            detections, token_usage = result
+            all_detections.extend(
+                self._add_metadata(detections, code, file_path, project)
+            )
+            self._aggregate_token_usage(total_token_usage, token_usage)
 
-    async def _analyze_sequential(self, code: str, file_path: str, project: str) -> List[Any]:
-        """Executa agentes sequencialmente."""
+        return all_detections, total_token_usage
+
+    async def _analyze_sequential(
+        self, code: str, file_path: str, project: str
+    ) -> tuple[List[Any], Dict[str, int]]:
+        """Executa agentes sequencialmente. Retorna (detections, total_token_usage)."""
         all_detections = []
+        total_token_usage = self._create_empty_token_usage()
 
-        for name, config in AGENT_CONFIGS.items():
-            detections = await self._call_agent(name, config, code)
-            all_detections.extend(enrich_detections(detections, code, file_path, project, name))
+        for name, config in self.agent_configs.items():
+            detections, token_usage = await self._call_agent(name, config, code)
+            all_detections.extend(
+                self._add_metadata(detections, code, file_path, project)
+            )
+            self._aggregate_token_usage(total_token_usage, token_usage)
             await asyncio.sleep(0.3)
 
-        return all_detections
+        return all_detections, total_token_usage
 
     async def analyze_code(
-        self, python_code: str, file_path: str = "unknown.py", project_name: str = "Code"
+        self,
+        python_code: str,
+        file_path: str = "unknown.py",
+        project_name: str = "Code",
     ) -> Dict[str, Any]:
         """Analisa código e retorna code smells detectados."""
         valid, error = self._validate_code_size(python_code)
         if not valid:
-            logger.warning(f"Arquivo rejeitado: {error}")
-            return {"total_smells_detected": 0, "code_smells": [], "agents_executed": 0, "error": error}
+            logger.warning("Arquivo rejeitado: %s", error)
+            return {
+                "total_smells_detected": 0,
+                "code_smells": [],
+                "agents_executed": 0,
+                "error": error,
+                "token_usage": self._create_empty_token_usage(),
+            }
 
-        detections = await (
+        detections, token_usage = await (
             self._analyze_parallel(python_code, file_path, project_name)
             if self.parallel
             else self._analyze_sequential(python_code, file_path, project_name)
@@ -116,17 +374,34 @@ class CodeSmellSupervisor:
         return {
             "total_smells_detected": len(results),
             "code_smells": results,
-            "agents_executed": len(AGENT_CONFIGS),
+            "agents_executed": len(self.agent_configs),
+            "token_usage": token_usage,
         }
 
 
-def get_supervisor(parallel: bool = True) -> CodeSmellSupervisor:
+def get_supervisor(
+    parallel: bool = True, prompt_type: str = "simple"
+) -> CodeSmellSupervisor:
     """Factory para criar supervisor."""
-    return CodeSmellSupervisor(parallel=parallel)
+    return CodeSmellSupervisor(parallel=parallel, prompt_type=prompt_type)
 
 
 async def analyze_code(
-    python_code: str, file_path: str = "unknown.py", project_name: str = "Code", parallel: bool = True
+    python_code: str,
+    file_path: str = "unknown.py",
+    project_name: str = "Code",
+    parallel: bool = True,
+    prompt_type: str = "simple",
 ) -> Dict[str, Any]:
-    """Analisa código Python e retorna code smells."""
-    return await get_supervisor(parallel).analyze_code(python_code, file_path, project_name)
+    """Analisa código Python e retorna code smells.
+
+    Args:
+        python_code: Código Python a ser analisado
+        file_path: Caminho do arquivo
+        project_name: Nome do projeto
+        parallel: Se True, executa agentes em paralelo
+        prompt_type: "simple" ou "complete" - tipo de prompt a usar
+    """
+    return await get_supervisor(
+        parallel=parallel, prompt_type=prompt_type
+    ).analyze_code(python_code, file_path, project_name)

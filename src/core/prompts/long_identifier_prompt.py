@@ -4,78 +4,33 @@ Baseado em Martin (2008) - Clean Code: A Handbook of Agile Software Craftsmanshi
 """
 
 LONG_IDENTIFIER_AGENT_PROMPT = """Você detecta Long Identifier (nomes com > 20 caracteres).
-Referência: Martin (2008) - Clean Code, Cap. 2, p. 18-25.
+Referência: Martin (2008).
 
-## DEFINIÇÃO PRECISA:
-Identificador (função, classe, variável, constante) com nome excessivamente longo (> 20 caracteres).
+## DEFINIÇÃO:
+Identificador (função, classe, variável, constante) com nome > 20 caracteres.
 
-IMPORTANTE - O QUE É:
-- Nomes de funções, classes, variáveis, constantes com > 20 caracteres
-- Exemplo: DESKTOP_ENVIRONMENT_CONFIG_NAME (31 chars)
+## PROCESSO:
+1. Encontre nomes de variáveis, funções, classes, constantes DEFINIDOS no código
+2. Conte os caracteres de cada nome
+3. Se > 20 caracteres: adicione à lista
+4. Retorne no máximo 10 detecções
 
-IMPORTANTE - O QUE NÃO É:
-- Nomes com ≤ 20 caracteres
-- Nomes de módulos/arquivos
-- Strings literais
-
-## PROCESSO (Chain-of-Thought):
-2. Conte caracteres de cada nome
-3. Se > 20: adicione à lista de detecções
-4. Retorne no máximo 10 detecções (priorize os mais longos)
-
-## EXEMPLOS (Few-Shot):
-
-### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
+## EXEMPLO POSITIVO (É SMELL):
 ```python
-DESKTOP_ENVIRONMENT_CONFIG_NAME = "config"  # linha 5, 31 chars
-AGGREGATED_PACKAGES_DEBOOTSTRAP = []  # linha 10, 31 chars
-def calculate_price(x):  # 15 chars, OK
-    pass
+DESKTOP_ENVIRONMENT_CONFIG_NAME = "config"  # 31 chars - É SMELL
+very_long_variable_name_here = 42  # 28 chars - É SMELL
+calculate_total_price_with_tax = lambda x: x  # 31 chars - É SMELL
 ```
 
-Saída:
-```json
-{
-  "detected": true,
-  "detections": [
-    {
-      "detected": true,
-      "Smell": "Long identifier",
-      "Method": "",
-      "Line_no": "5",
-      "Description": "Identifier 'DESKTOP_ENVIRONMENT_CONFIG_NAME' has 31 characters (threshold: 20). Rename to 'desktop_config_name'.",
-      "identifier_name": "DESKTOP_ENVIRONMENT_CONFIG_NAME",
-      "length": 31,
-      "threshold": 20
-    },
-    {
-      "detected": true,
-      "Smell": "Long identifier",
-      "Method": "",
-      "Line_no": "10",
-      "Description": "Identifier 'AGGREGATED_PACKAGES_DEBOOTSTRAP' has 31 characters (threshold: 20). Rename to 'packages_debootstrap'.",
-      "identifier_name": "AGGREGATED_PACKAGES_DEBOOTSTRAP",
-      "length": 31,
-      "threshold": 20
-    }
-  ]
-}
-```
-
-### Exemplo 2 - NÃO DETECTADO:
+## EXEMPLO NEGATIVO (NÃO É SMELL):
 ```python
-def calc(x):
-    pass
+user_name = "John"  # 9 chars - NÃO É SMELL
+total_count = 0  # 11 chars - NÃO É SMELL
 ```
 
-Saída:
-```json
-{
-  "detected": false,
-  "detections": []
-}
-```
-
-## SUA TAREFA:
-Analise o código e retorne JSON com TODAS as detecções encontradas.
+## REGRAS:
+1. Conte caracteres do nome (sem espaços)
+2. Threshold: > 20 caracteres
+3. IGNORE: imports, strings literais, dunder methods (__init__)
+4. Máximo 10 detecções
 """

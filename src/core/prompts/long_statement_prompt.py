@@ -4,32 +4,27 @@ Baseado em PEP 8 - Style Guide for Python Code.
 """
 
 LONG_STATEMENT_AGENT_PROMPT = """Você detecta Long Statement (linhas com > 120 caracteres).
-Referência: PEP 8 - Style Guide for Python Code, seção "Maximum Line Length".
+Referência: PEP 8.
 
-## DEFINIÇÃO PRECISA:
-Linha de código que excede o limite recomendado de caracteres (> 120).
+## DEFINIÇÃO:
+Linha de código que excede 120 caracteres (inclui código, comentários, strings).
 
-IMPORTANTE - O QUE É:
-- Qualquer linha com > 120 caracteres
-- Inclui código, comentários, strings
-- Exemplo: result = function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)
+O QUE É: Qualquer linha com estritamente > 120 caracteres
+O QUE NÃO É: 
+- Linhas com exatamente 120 caracteres (NÃO é smell, threshold é > 120, não >= 120)
+- Linhas ≤ 120 caracteres
+- URLs longas em comentários (aceitável, mas ainda conta para o limite)
 
-IMPORTANTE - O QUE NÃO É:
-- Linhas com ≤ 120 caracteres
-- URLs longas em comentários (exceção aceitável)
+## PROCESSO:
+1. Para cada linha, conte caracteres visíveis (letras, números, símbolos, espaços)
+2. NÃO conte \n no final (use len(line.rstrip()))
+3. Se > 120 caracteres: adicione à lista
+4. Retorne no máximo 10 detecções (priorize as mais longas)
 
-## PROCESSO (Chain-of-Thought):
-1. Conte caracteres de cada linha (incluindo espaços)
-2. Se > 120: adicione à lista de detecções
-3. Retorne no máximo 10 detecções (priorize as mais longas)
-
-## EXEMPLOS (Few-Shot):
-
-### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
+## EXEMPLO:
 ```python
-x = 1  # linha 1, 5 chars, OK
-result = some_function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)  # linha 2, 90 chars
-data = {"key1": "value1", "key2": "value2", "key3": "value3", "key4": "value4", "key5": "value5"}  # linha 3, 100 chars
+  1 | x = 1
+  2 | result = some_function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)  # 150 chars
 ```
 
 Saída:
@@ -45,34 +40,27 @@ Saída:
       "Description": "Line 2 has 150 characters (threshold: 120). Break into multiple lines.",
       "line_length": 150,
       "threshold": 120
-    },
-    {
-      "detected": true,
-      "Smell": "Long statement",
-      "Method": "",
-      "Line_no": "3",
-      "Description": "Line 3 has 130 characters (threshold: 120). Break into multiple lines.",
-      "line_length": 130,
-      "threshold": 120
     }
   ]
 }
 ```
 
-### Exemplo 2 - NÃO DETECTADO:
+## FORMATO:
+Código vem com numeração: "  7 | código aqui"
+- Line_no = número à esquerda do "|" (ex: "7")
+- Conte caracteres APENAS do código (à direita do "|"), sem numeração nem "|"
+- line_length = comprimento real do código (sem \n)
+
+## EXEMPLO NEGATIVO (NÃO É SMELL):
 ```python
-x = 1
-y = 2
+  5 | result = some_function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)  # exatamente 120 chars
 ```
+Análise: Linha tem exatamente 120 caracteres. Como threshold é > 120 (não >= 120), NÃO é smell.
 
-Saída:
-```json
-{
-  "detected": false,
-  "detections": []
-}
-```
-
-## SUA TAREFA:
-Analise o código e retorne JSON com TODAS as detecções encontradas.
+## REGRAS:
+1. Use número à esquerda do "|" como Line_no
+2. Conte apenas código (direita do "|")
+3. Não conte numeração, "|" nem \n
+4. IMPORTANTE: Linhas com exatamente 120 caracteres NÃO são smells (threshold: > 120, não >= 120)
+5. Só detecte se estritamente > 120 caracteres
 """

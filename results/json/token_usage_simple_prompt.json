@@ -1,0 +1,22 @@
+{
+  "prompt_type": "simple",
+  "analysis_timestamp": "2025-12-04T18:40:23.175006",
+  "total_files_analyzed": 20,
+  "total_smells_detected": 919,
+  "total_execution_time_seconds": 3508.18,
+  "total_execution_time_minutes": 58.47,
+  "average_execution_time_seconds": 175.41,
+  "average_execution_time_minutes": 2.923,
+  "token_usage": {
+    "prompt_tokens": 1253046,
+    "completion_tokens": 101440,
+    "total_tokens": 1354486
+  },
+  "average_tokens_per_file": 67724.3,
+  "total_cost_usd": 0.3,
+  "average_cost_per_file": 0.01478,
+  "cost_input_usd": 0.26,
+  "cost_output_usd": 0.03,
+  "average_tokens_per_smell": 1473.87,
+  "average_cost_per_smell": 0.000322
+}

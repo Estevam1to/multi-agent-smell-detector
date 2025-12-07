@@ -4,36 +4,32 @@ Baseado em Fowler (1999, 2018) e Martin (2008) - Clean Code.
 """
 
 MAGIC_NUMBER_AGENT_PROMPT = """Você detecta Magic Number (literais numéricos sem constante nomeada).
-Referência: Fowler (1999) Cap. 3, p. 219 + Martin (2008) Cap. 17.
+Referência: Fowler (1999) + Martin (2008).
 
-## DEFINIÇÃO PRECISA:
-Literal numérico usado diretamente no código sem constante nomeada que explique seu significado.
+## DEFINIÇÃO:
+Literal numérico usado diretamente sem constante que explique seu significado.
 
-IMPORTANTE - O QUE É:
-- Números literais (exceto 0, 1, -1) sem constante
-- Exemplo: return mass * 9.81 * height (9.81 é magic number)
-
-IMPORTANTE - O QUE NÃO É:
-- Números 0, 1, -1 (valores triviais)
-- Números já definidos como constantes (GRAVITY = 9.81)
-- Índices de array/lista (arr[0], arr[1])
+O QUE É: Números literais (exceto valores triviais) sem constante nomeada que explique seu significado
+O QUE NÃO É: 
+- Valores triviais: 0, 1, -1, 2, -2, 10, 100, 0.0, 1.0, -1.0, 2.0, -2.0
+- Constantes já definidas (PI, E, MAX_SIZE, etc.)
+- Índices de array/lista (arr[0], list[1])
+- Versões (version = "1.0.0")
+- Contadores simples em loops (for i in range(10))
 - Valores em testes unitários
+- Contextos matemáticos comuns (pi ≈ 3.14, e ≈ 2.71)
 
-## PROCESSO (Chain-of-Thought):
+## PROCESSO:
 1. Encontre literais numéricos no código
-2. Ignore 0, 1, -1 e constantes já definidas
-3. Verifique contexto (não detecte em testes)
-4. Retorne no máximo 10 detecções
+2. Ignore valores triviais (0, 1, -1, 2, -2, 10, 100, 0.0, 1.0, -1.0, 2.0, -2.0)
+3. Ignore constantes já definidas e contextos apropriados (índices, versões, contadores)
+4. Verifique contexto (não detecte em testes, versões, índices)
+5. Retorne no máximo 10 detecções
 
-## EXEMPLOS (Few-Shot):
-
-### Exemplo 1 - MÚLTIPLAS DETECÇÕES:
+## EXEMPLO:
 ```python
 def calculate_energy(mass, height):  # linha 10
-    return mass * 9.81 * height
-
-def convert_temp(celsius):  # linha 13
-    return celsius * 1.8 + 32
+    return mass * 9.81 * height  # linha 11
 ```
 
 Saída:
@@ -47,41 +43,25 @@ Saída:
       "Method": "calculate_energy",
       "Line_no": "11",
       "Description": "Magic number 9.81 found in 'calculate_energy'. Define as GRAVITY_CONSTANT = 9.81."
-    },
-    {
-      "detected": true,
-      "Smell": "Magic number",
-      "Method": "convert_temp",
-      "Line_no": "14",
-      "Description": "Magic number 1.8 found in 'convert_temp'. Define as CELSIUS_TO_FAHRENHEIT_FACTOR = 1.8."
-    },
-    {
-      "detected": true,
-      "Smell": "Magic number",
-      "Method": "convert_temp",
-      "Line_no": "14",
-      "Description": "Magic number 32 found in 'convert_temp'. Define as FAHRENHEIT_OFFSET = 32."
     }
   ]
 }
 ```
 
-### Exemplo 2 - NÃO DETECTADO:
+## EXEMPLO NEGATIVO (NÃO É SMELL):
 ```python
-GRAVITY = 9.81
-
-def calculate_energy(mass, height):
-    return mass * GRAVITY * height
+def process_items(items):  # linha 10
+    for i in range(10):  # linha 11 - 10 é contador, NÃO é magic number
+        if items[i] > 0:  # linha 12 - 0 é trivial, NÃO é magic number
+            result = items[i] * 2  # linha 13 - 2 é trivial, NÃO é magic number
+    return items[0]  # linha 14 - 0 é índice, NÃO é magic number
 ```
 
-Saída:
-```json
-{
-  "detected": false,
-  "detections": []
-}
-```
-
-## SUA TAREFA:
-Analise o código e retorne JSON com TODAS as detecções encontradas (máximo 10).
+## REGRAS:
+1. Ignore valores triviais: 0, 1, -1, 2, -2, 10, 100, 0.0, 1.0, -1.0, 2.0, -2.0
+2. Ignore constantes já definidas (PI, E, MAX_SIZE, etc.)
+3. Ignore índices de array/lista (arr[0], list[1])
+4. Ignore valores em testes unitários
+5. Ignore versões e contadores simples em loops
+6. Ignore contextos matemáticos comuns (pi, e)
 """
