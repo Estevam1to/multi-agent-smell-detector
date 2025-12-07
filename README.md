@@ -10,6 +10,25 @@ Trabalho de Conclusão de Curso (TCC) que implementa um sistema multi-agente par
 
 Desenvolver um sistema baseado em LLM multi-agente capaz de detectar code smells em código Python com alta precisão, combinando análise estática e inteligência artificial.
 
+## 📊 Resultados
+
+### Performance (Claude Sonnet 4.5)
+
+| Métrica | Prompts Elaborados | Prompts Simples | DPy (Estático) |
+|---------|-------------------|-----------------|----------------|
+| **F1-Score** | **70.21%** | 67.08% | 48.59% |
+| Precision | 67.36% | 57.19% | 39.22% |
+| Recall | 73.30% | 81.11% | 63.98% |
+| True Positives | 291 | 322 | 254 |
+
+### Research Questions
+
+- **RQ1:** O sistema atinge F1-Score de 70.21% na detecção de code smells
+- **RQ2:** Prompts elaborados superam simples em +3.1pp (diferença estatisticamente significativa, p < 0.05)
+- **RQ3:** Multi-agentes supera DPy em +21.6pp no F1-Score
+- **RQ4:** 10 de 11 agentes atingem F1 > 50%
+- **RQ5:** Custo total de $5.79 (~$0.02 por True Positive)
+
 ## 🏗️ Arquitetura do Sistema
 
 ### Visão Geral
@@ -63,11 +82,12 @@ Desenvolver um sistema baseado em LLM multi-agente capaz de detectar code smells
 
 ### ⚙️ Configurações
 
-- **Modelo**: DeepSeek Chat V3.1 ou GPT-4o-mini (via OpenRouter)
+- **Modelo**: Claude Sonnet 4.5 / DeepSeek V3.2 / GPT-4o-mini (via OpenRouter)
 - **Temperatura**: 0 (determinístico)
 - **Modo**: Paralelo (11 requests simultâneos) ou Sequencial (delay 0.3s)
 - **Limites**: 500 linhas, 50KB por arquivo
 - **Validação**: Filtra falsos positivos automaticamente
+- **Prompts**: Elaborados (com exemplos e regras) ou Simples (definição básica)
 
 ## 🤖 Code Smells Detectados
 
@@ -200,11 +220,17 @@ Documentação interativa: `http://localhost:8000/docs`
 ## 📊 Análise em Batch
 
 ```bash
-# Analisa todos arquivos .py de uma pasta
-python scripts/batch_analyze.py /caminho/pasta -o results.json -p MeuProjeto
+# Executa análise com prompts elaborados
+python scripts/run_complete_only.py
 
-# Compara com resultados de outra ferramenta
-python scripts/compare_results.py results.json other_tool.json
+# Executa análise com prompts simples
+python scripts/run_simple_only.py
+
+# Converte resultados JSON para CSV
+python scripts/convert_results_to_csv.py
+
+# Gera figuras acadêmicas
+python scripts/generate_academic_figures.py
 ```
 
 ## 📊 Estrutura do Projeto
@@ -225,28 +251,61 @@ multi-agent-smell-detector/
 │   │   │
 │   │   ├── prompts/            # 11 prompts especializados
 │   │   ├── schemas/            # Schemas Pydantic
-│   │   └── utils/              # Parser AST
+│   │   └── utils/              # Parser AST + Validator
 │   │
 │   └── config/                 # Configurações
 │
-├── scripts/                    # Scripts de análise
-│   ├── batch_analyze.py        # Análise em batch
-│   └── compare_results.py
+├── scripts/
+│   ├── run_complete_only.py    # Executa com prompts elaborados
+│   ├── run_simple_only.py      # Executa com prompts simples
+│   ├── convert_results_to_csv.py
+│   └── generate_academic_figures.py  # Gera figuras para TCC
 │
-├── examples/                             # Exemplos de código
-├── results/                              # Resultados de análises
-├── .env                                  # Variáveis de ambiente
-└── pyproject.toml                        # Dependências
+├── notebooks/
+│   └── research_questions_analysis.ipynb  # Análise das RQs
+│
+├── dataset/
+│   └── ground_truth/           # Ground truth para validação
+│
+├── results/
+│   ├── csv/                    # Resultados em CSV
+│   ├── json/                   # Resultados em JSON
+│   ├── dpy/                    # Resultados DPy
+│   └── figures/                # Figuras acadêmicas (PDF/PNG)
+│
+├── .env                        # Variáveis de ambiente
+└── pyproject.toml              # Dependências
 ```
 
 ## 🛠️ Tecnologias
 
 - **FastAPI**: API REST
 - **LangChain**: Integração com LLMs
-- **DeepSeek Chat V3.1 / GPT-4o-mini**: Modelos LLM via OpenRouter
+- **Claude Sonnet 4.5 / DeepSeek V3.2 / GPT-4o-mini**: Modelos LLM via OpenRouter
 - **Pydantic**: Validação e structured output
 - **Python AST**: Parser de código
+- **Matplotlib/Seaborn**: Visualização de dados
+- **Pandas/NumPy/SciPy**: Análise estatística
 - **Python 3.12+**: Linguagem base
+
+## 📈 Figuras Acadêmicas
+
+O projeto gera 7 figuras acadêmicas para o TCC (PDF e PNG):
+
+| Figura | Descrição |
+|--------|-----------|
+| `fig1_comparison_metrics` | Comparação de Precision, Recall, F1 entre abordagens |
+| `fig2_prompt_impact` | Impacto da qualidade dos prompts no F1-Score |
+| `fig3_f1_by_smell` | F1-Score por tipo de code smell |
+| `fig4_smell_distribution` | Distribuição de smells no Ground Truth |
+| `fig5_confusion_matrix` | Matriz de confusão (TP, FP, FN) |
+| `fig6_cost_analysis` | Análise de custos (prompts elaborados vs simples) |
+| `fig7_tp_fp_fn` | Comparação de TP, FP, FN entre abordagens |
+
+Para gerar as figuras:
+```bash
+python scripts/generate_academic_figures.py
+```
 
 ## 📖 Referências Bibliográficas
 
